@@ -1,0 +1,57 @@
+@charset "utf-8";
+*{
+margin:0;
+padding:0;
+}
+
+/** 顶部*/
+.kd-header {
+	background: #f1f1f1;
+	height: 66px;
+	color: #333;
+	line-height:66px;
+}
+
+/**导航开始*/
+.left-menu {
+	margin: 0;
+	height:100%;
+}
+
+.left-menu ul{
+	list-style-type:none;
+}
+
+.left-menu a{
+	display:block;
+	height:30px;
+	line-height:30px;
+	padding-left:12px;
+	text-size:20px;
+	text-decoration:none;
+	color:#333;
+}
+
+.left-menu li a:hover {
+    background-color: #555;
+    color: white;
+}
+.left-menu i{
+	margin-top:9.5px;
+	margin-right:12px;
+	float:right;
+}
+
+.left-submenu{
+	display:none;
+}
+/**导航结束*/
+
+.kd-searchform{
+	margin:0;
+	padding:8px;
+}
+
+.kd-searchform div{
+	
+}
