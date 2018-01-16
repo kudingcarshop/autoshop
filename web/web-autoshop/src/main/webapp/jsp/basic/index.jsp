@@ -7,10 +7,10 @@
 	<title>酷鼎车行</title>
 </head>
 <frameset rows="66,*" cols="*" frameborder="no" border="0" framespacing="0">
-  <frame src="top.jsp" name="topFrame" scrolling="No" noresize="noresize" id="topFrame" title="topFrame" />
+  <frame src="${path}/jsp/basic/top.jsp" name="topFrame" scrolling="No" noresize="noresize" id="topFrame" title="topFrame" />
   <frameset cols="150,*" frameborder="no" border="0" framespacing="0">
-    <frame src="menu.jsp" name="leftFrame" scrolling="No" noresize="noresize" id="leftFrame" title="leftFrame" />
-    <frame src="welcome.jsp" name="rightFrame" id="rightFrame" title="rightFrame" />
+    <frame src="${path}/jsp/basic/menu.jsp" name="leftFrame" scrolling="No" noresize="noresize" id="leftFrame" title="leftFrame" />
+    <frame src="${path}/jsp/basic/welcome.jsp" name="rightFrame" id="rightFrame" title="rightFrame" />
   </frameset>
 </frameset>
 <noframes><body>

@@ -1,17 +1,22 @@
 package com.kuding.system.model;
 
+import java.sql.Timestamp;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name="sys_user")
 public class UserEntity {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
@@ -34,6 +39,11 @@ public class UserEntity {
     @Column(name="last_modify_user")
     private String lastModifiedUser;
     
+    @ManyToMany
+    @JoinTable(name="sys_user_role",
+    		   joinColumns= {@JoinColumn(name="user_id")},
+    		   inverseJoinColumns= {@JoinColumn(name="role_code")})
+    private Set<RoleEntity> roles;
 	
     public Integer getId() {
 		return id;
@@ -59,7 +69,15 @@ public class UserEntity {
         this.password = password;
     }
 
-    public Timestamp getCreateTime() {
+    public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	public Timestamp getCreateTime() {
         return createTime;
     }
 
@@ -82,6 +100,14 @@ public class UserEntity {
     public void setLastModifiedUser(String lastModifiedUser) {
         this.lastModifiedUser = lastModifiedUser;
     }
+
+	public Set<RoleEntity> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<RoleEntity> roles) {
+		this.roles = roles;
+	}
 
 
 }
