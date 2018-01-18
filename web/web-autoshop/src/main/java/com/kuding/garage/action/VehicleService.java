@@ -3,9 +3,9 @@ package com.kuding.garage.action;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kuding.commons.service.BasicService;
-import com.kuding.garage.model.VehicleInfoEntify;
+import com.kuding.garage.model.VehicleEntity;
 
-public class VehicleService extends BasicService<VehicleInfoEntify> {
+public class VehicleService extends BasicService<VehicleEntity> {
 
 	
 	/**
@@ -15,7 +15,7 @@ public class VehicleService extends BasicService<VehicleInfoEntify> {
 	@Transactional(readOnly = true)
 	public int queryGarageAllCars(Integer garageId) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("from VehicleInfoEntity vehicle")
+		sb.append("from VehicleEntity vehicle")
 		   .append("where ");
 		
 		return 0;

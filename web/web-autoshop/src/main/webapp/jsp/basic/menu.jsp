@@ -18,6 +18,18 @@
 		<ul>
 			<li><a href="#">用户管理</a></li>
 			<li><a href="#">系统管理</a></li>
+			
+			<li><a href="#">我的<i class="fa fa-bars"></i></a>
+				<div class="left-submenu">
+					<ul>
+						<li><a href="${path}/garage/showCars" target="rightFrame">我的车辆</a></li>
+						<li><a href="http://www.baidu.com" target="rightFrame">违章查询办理</a></li>
+						<li><a href="http://www.baidu.com" target="rightFrame">待办事项</a></li>
+						<li><a href="http://www.baidu.com" target="rightFrame">个人中心</a></li>
+					</ul>
+				</div>
+			</li>
+			
 			<li><a href="#">业务管理<i class="fa fa-bars"></i></a>
 				<div class="left-submenu">
 					<ul>

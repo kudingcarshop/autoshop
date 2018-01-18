@@ -3,7 +3,6 @@ package com.kuding.customer.model;
 import java.sql.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.kuding.garage.model.VehicleInfoEntify;
+import com.kuding.garage.model.VehicleEntity;
 import com.kuding.system.model.UserEntity;
 
 @Entity
@@ -43,8 +42,8 @@ public class CustomerInfoEntity {
 	@JoinColumn(name = "user_id")
 	private UserEntity userEntity;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "customerInfo")
-	private Set<VehicleInfoEntify> vehicleInfos;
+	@OneToMany(mappedBy = "customerInfo",fetch = FetchType.LAZY)
+	private Set<VehicleEntity> vehicleInfos;
 
 	public Integer getId() {
 		return id;

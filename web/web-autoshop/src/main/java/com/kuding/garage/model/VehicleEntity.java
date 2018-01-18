@@ -2,7 +2,6 @@ package com.kuding.garage.model;
 
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,7 +16,7 @@ import com.kuding.customer.model.CustomerInfoEntity;
 
 @Entity
 @Table(name="vehicle_info")
-public class VehicleInfoEntify {
+public class VehicleEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,7 +28,7 @@ public class VehicleInfoEntify {
 	@Column(name="engine_number")
 	private String engineNumber;
 	
-	@ManyToOne(cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id", insertable = false, updatable = false)
 	private CustomerInfoEntity customerInfo;
 	

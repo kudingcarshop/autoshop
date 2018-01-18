@@ -1,2 +1,2 @@
-include 'web:web-autoshop','commons:commons-utils'
+include 'web:web-autoshop','web:web-db','commons:commons-utils'
 

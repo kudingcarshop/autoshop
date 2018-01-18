@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/garage")
 public class VehicleAction {
 	
-	@RequestMapping("showGarageCars")
+	@RequestMapping("showCars")
 	public ModelAndView showGarageCars() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("garage/vehicle/showGarageCars");

@@ -1,0 +1,15 @@
+apply plugin: 'war'
+apply plugin: 'org.akhikhl.gretty'
+
+
+gretty {
+    httpPort = 8088
+    contextPath ="/${project.name}"
+    servletContainer = 'jetty9'
+}
+
+dependencies{
+	providedCompile "javax.servlet:javax.servlet-api:3.1.0"
+	providedCompile "javax.servlet:jsp-api:2.0"
+	providedCompile "javax.servlet:jstl:1.2"
+}
