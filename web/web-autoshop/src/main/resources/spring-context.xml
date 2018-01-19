@@ -80,7 +80,7 @@
 				<prop key="hibernate.cache.use_query_cache">${hibernate.queryCache}</prop>
 			</props>
 		</property>
-		<property name="packagesToScan" value="com.kuding.system.model" />
+		<property name="packagesToScan" value="com.kuding" />
 	</bean>
 
 	<!-- 事务管理器配置,单数据源事务 ,涉及事物操作需@Transactional -->

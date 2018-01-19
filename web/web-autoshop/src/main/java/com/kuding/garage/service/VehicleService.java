@@ -1,10 +1,12 @@
-package com.kuding.garage.action;
+package com.kuding.garage.service;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kuding.commons.service.BasicService;
 import com.kuding.garage.model.VehicleEntity;
 
+@Service
 public class VehicleService extends BasicService<VehicleEntity> {
 
 	
