@@ -14,98 +14,92 @@
 	margin:0;
 	padding:0;
 }
+
+
 .kd-container {
-	padding:8px;
-	width: 98%;
+	padding:0.08rem;
+	width: 3.2rem;
+	font-size:0.14rem;
 }
 
-.kd-left{
- 	float:left;
+
+/**标题*/
+.kd-title{
+	margin:0;
+	text-align:center;
+}
+
+/**搜索*/
+.kd-search{
+	overflow: hidden;
+	margin-top: 0.1rem;
+}
+
+.kd-input{
+	width:2.2rem;
+	height:0.3rem;
+}
+
+.kd-btn{
+	width:0.8rem;
+	display:block;
+	float:right;
+	height:0.3rem;
+	text-align:center;
+	color:#999;
+	border:1px solid #999;
 }
 
 .kd-right{
 	float:right;
+	text-align: right;
 }
 
-.kd-title{
-	width:100%;
-	line-height:24px;
-	text-align:center;
-	font-size: 24px;
-	Font-family: “宋体”，Arial；
-}
-
-.kd-tab {
-	width:100%;
-	height:24px;
-}
-
-.kd-tab ul{
+/**导航*/
+.kd-nav{
 	list-style-type:none;
+	overflow: hidden;
+	margin-top: 0.1rem;
 }
-
-.kd-tab li {
-	height:24px;
-	line-height: 24px;
-	text-align:center;
+.kd-nav ul{
+	overflow: hidden;
+	margin:0;
 }
-
-.kd-tab-4 li{
-    float: left;
-    width:25%;
-}
-
-.kd-btn{
+.kd-nav li{
+	width:0.76rem;
+	height:0.24rem;
 	display:block;
-	border:1px solid #eee;
-	height:24px;
-	line-height: 24px;
-	text-align: center;
+	text-align:center;	
+	float: left;
 }
 
- /* 未访问链接*/
-.kd-btn a:link {
-	color:#000000;
-}
-
-/* 已访问链接 */
-.kd-btn a:visited {
-	color:#00FF00;
-}  
-
-/* 鼠标移动到链接上 */
-.kd-btn a:hover {
-	border-bottom: 1px solid green;
-	color:#FF00FF;
-} 
-/* 鼠标点击时 */ 
-.kd-btn a:active {
-	color:#0000FF;
-}
-
+/**列表*/
 .kd-list{
-	width:100%;
-}
-
-.kd-list ul{
-	list-style-type:none;
+	padding:0;
+	list-style:none;
 }
 
 .kd-list-item{
-	width:100%;
-	padding:0 8px;
+	margin-top:0.1rem;
+	overflow: hidden;
 }
 
-.kd-list-item ul{
-	float:right;
-	width:90%;
-	padding: 0;
+.kd-list-seq{
+	width:0.24rem;
+	height:0.72rem;
+	float:left;
+	line-height:0.72rem;
+	text-align: center;
+} 
+.kd-list-content{
+	list-style:none;
+	width:2.5rem;
+	float:left;
 }
 
-.kd-list-item li{
-	height:24px;
-	line-height:24px;
-	text-align:left center;
+.kd-list-content div{
+	height:0.24rem;
+	line-height:0.26rem;
 }
 
 </style>
@@ -115,15 +109,15 @@
 	<!-- 标题 -->
 	<div class="kd-title">我的车辆</div>
 	<!-- 搜索 -->
-	<div style="margin-top: 8px;">
+	<div class="kd-search">
 		<form action="/vehicle/qry" method="post">
 			<div>
-				<input name="queryStr" style="width: 76%;height:100%;text-align:left;"/><a class="kd-btn kd-right" style="width: 20%;">添加车辆</a>
+				<input name="queryStr" class="kd-input"/><a class="kd-btn">添加车辆</a>
 			</div>
 		</form>
 	</div>
 	<!-- 功能导航 -->
-	<div class="kd-tab kd-tab-4">
+	<div class="kd-nav">
 		<ul>
 			<li>全部</li>
 			<li>服务中</li>
@@ -132,22 +126,50 @@
 		</ul>
 	</div>
 	<!-- 车辆列表 -->
-	<div class="kd-list">
-		<ul>
+		<div class="kd-list">
 			<!-- 单条记录 -->
-			<li>
-				  <div class="kd-list-item">
-				  	 <div style="padding:0; margin:0;display:inline;width:10%;">1</div>
-					  	 <ul>
-							  <li>粤LQW306(2009年现代悦动)<i class="fa fa-angle-right pull-right fa-2x" style="line-height: 24px;text-align: center;"></i></li>
-							  <li>车主：邱某(1383 3333 5555)</li>
-							  <li>上次到店时间：2017-12-10</li>
-						 </ul>
-				  </div>
-			</li>
-		</ul>
-	</div>
-	
+			<div class="kd-list-item">
+				<div class="kd-list-seq">1</div>
+				<div class="kd-list-content">
+					<div>粤LQW306(2009年现代悦动)</div>
+					<div>车主：邱某(1383 3333 5555)<i class="fa fa-angle-right pull-right fa-2x" style="height: 0.26rem; line-height: 0.26rem;text-align: center;"></i></div>
+					<div>上次到店时间：2017-12-10</div>
+				</div>
+			</div>
+			
+					<!-- 单条记录 -->
+			<div class="kd-list-item">
+				<div class="kd-list-seq">2</div>
+				<div class="kd-list-content">
+					<div>粤LQW306(2009年现代悦动)</div>
+					<div>车主：邱某(1383 3333 5555)<i class="fa fa-angle-right pull-right fa-2x" style="height: 0.26rem; line-height: 0.26rem;text-align: center;"></i></div>
+					<div>上次到店时间：2017-12-10</div>
+				</div>
+			</div>
+			
+		</div>
 </div>
+<script type="text/javascript">
+
+function autoAdjust(){
+	var $doc=$('html');
+	var width = $doc.width();
+	if(width < 320){
+		width = 320;
+	}else if(width > 1080){
+		width = 1080;
+	}
+	var rem = width/3.2;
+	console.log('rem='+rem);
+	$('html').css('font-size',rem+'px');
+}
+
+$(function(){
+	autoAdjust();	
+	$(window).resize(function(){
+		autoAdjust();
+	});
+});
+</script>
 </body>
 </html>
