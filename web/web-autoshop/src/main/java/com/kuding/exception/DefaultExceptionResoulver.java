@@ -27,6 +27,8 @@ import com.kuding.commons.http.Result;
 public class DefaultExceptionResoulver extends ExceptionHandlerExceptionResolver {
 
 	private Logger logger = Logger.getLogger(DefaultExceptionResoulver.class);
+	
+	private static final boolean IS_ERROR_IN_REQUEST_PAGE = false;
 
 	@Override
 	protected ModelAndView doResolveHandlerMethodException(HttpServletRequest req, HttpServletResponse resp,
@@ -44,6 +46,9 @@ public class DefaultExceptionResoulver extends ExceptionHandlerExceptionResolver
 		if (mv == null) {
 			logger.info("the default ModelAndView is null");
 			mv = new ModelAndView();
+			if(!IS_ERROR_IN_REQUEST_PAGE) {
+				mv.setViewName("pub/errors/errors");
+			}
 		}
 		
 		//处理json返回view的异常处理

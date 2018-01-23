@@ -6,7 +6,7 @@ public class Constants {
 	public static final String KEY_LOGIN_USER = "login_user";
 	
 	/**登录页面*/
-	public static final String LOGIN_URL = "/jsp/pub/login.jsp";
+	public static final String LOGIN_URL = "/index.jsp";
 	
 	/**是否需要登录开关*/
 	public static final boolean IS_NEED_LOGIN = true;

@@ -22,9 +22,25 @@ public class LoginInterceptor implements HandlerInterceptor {
 			return true;
 		}else {
 			logger.info("LoginInterceptor->preHandle login fail");
+			request.setAttribute("req_uri", getReqUri(request));
 			request.getRequestDispatcher(Constants.LOGIN_URL).forward(request, response);
 			return false;
 		}
+	}
+	
+	private String getReqUri(HttpServletRequest request) {
+		String reqUri = request.getRequestURI();
+		String contextPath = request.getContextPath();
+		
+		if(!reqUri.equalsIgnoreCase(contextPath+"/")) {
+			int index = reqUri.indexOf(contextPath);
+			if(index >= 0) {
+				reqUri = reqUri.substring(index+contextPath.length());
+			}
+		}else {
+			reqUri = "";
+		}
+		return reqUri;
 	}
 
 	@Override

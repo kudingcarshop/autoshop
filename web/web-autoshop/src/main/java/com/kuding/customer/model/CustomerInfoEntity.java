@@ -20,7 +20,6 @@ import com.kuding.system.model.UserEntity;
 @Entity
 @Table(name="customer_info")
 public class CustomerInfoEntity {
-
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

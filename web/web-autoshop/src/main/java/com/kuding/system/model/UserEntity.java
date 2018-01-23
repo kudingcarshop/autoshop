@@ -3,18 +3,20 @@ package com.kuding.system.model;
 import java.sql.Timestamp;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.kuding.garage.model.GarageInfoEntity;
 import com.kuding.garage.model.VehicleBookInfoEntity;
 
 @Entity
@@ -50,6 +52,10 @@ public class UserEntity {
 
 	@OneToMany(mappedBy = "userEntity")
 	private Set<VehicleBookInfoEntity> books;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="garage_id")
+	private GarageInfoEntity garage;
 
 	public Integer getId() {
 		return id;
@@ -121,6 +127,14 @@ public class UserEntity {
 
 	public void setBooks(Set<VehicleBookInfoEntity> books) {
 		this.books = books;
+	}
+
+	public GarageInfoEntity getGarage() {
+		return garage;
+	}
+
+	public void setGarage(GarageInfoEntity garage) {
+		this.garage = garage;
 	}
 
 }

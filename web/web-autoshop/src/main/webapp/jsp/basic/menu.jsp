@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="../../path.jsp"%>
+<%@include file="../path.jsp"%>
 <html>
 <head>
 	<title>酷鼎车行</title>
@@ -22,7 +22,7 @@
 			<li><a href="#">我的<i class="fa fa-bars"></i></a>
 				<div class="left-submenu">
 					<ul>
-						<li><a href="${path}/garage/showCars" target="rightFrame">我的车辆</a></li>
+						<li><a href="${path}/garage/vehicle/showCars" target="rightFrame">我的车辆</a></li>
 						<li><a href="http://www.baidu.com" target="rightFrame">违章查询办理</a></li>
 						<li><a href="http://www.baidu.com" target="rightFrame">待办事项</a></li>
 						<li><a href="http://www.baidu.com" target="rightFrame">个人中心</a></li>

@@ -2,17 +2,15 @@ package com.kuding.garage.model;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import com.kuding.system.model.UserEntity;
 
 /*
  * CREATE TABLE `garage_info`
@@ -48,7 +46,10 @@ public class GarageInfoEntity {
 	
 	@OneToMany(mappedBy = "garageInfoEntify")
 	private Set<VehicleBookInfoEntity> books;
-
+	
+	@OneToMany(mappedBy="garage")
+	private Set<UserEntity> user;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -96,6 +97,12 @@ public class GarageInfoEntity {
 	public void setBooks(Set<VehicleBookInfoEntity> books) {
 		this.books = books;
 	}
-	
-	
+
+	public Set<UserEntity> getUser() {
+		return user;
+	}
+
+	public void setUser(Set<UserEntity> user) {
+		this.user = user;
+	}
 }
