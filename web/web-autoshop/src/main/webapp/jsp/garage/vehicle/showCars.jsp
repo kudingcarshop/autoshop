@@ -35,18 +35,21 @@
 }
 
 .kd-input{
+	display:block;
+	float:left;
 	width:2.2rem;
-	height:0.3rem;
+	height:0.32rem;
 }
 
 .kd-btn{
-	width:0.8rem;
+	width:0.84rem;
 	display:block;
-	float:right;
+	float:left;
 	height:0.3rem;
+	line-height:0.24rem;
 	text-align:center;
 	color:#999;
-	border:1px solid #999;
+	border:0.01rem solid #999;
 }
 
 .kd-right{
@@ -129,25 +132,17 @@ ${errors}
 	<!-- 车辆列表 -->
 		<div class="kd-list">
 			<!-- 单条记录 -->
+			<c:forEach items="${vehicles}" var="item" varStatus="status">
+			<hr style="height: 1px dotted;">
 			<div class="kd-list-item">
-				<div class="kd-list-seq">1</div>
+				<div class="kd-list-seq">${status.index+1}</div>
 				<div class="kd-list-content">
-					<div>粤LQW306(2009年现代悦动)</div>
-					<div>车主：邱某(1383 3333 5555)<i class="fa fa-angle-right pull-right fa-2x" style="height: 0.26rem; line-height: 0.26rem;text-align: center;"></i></div>
+					<div style="overflow: hidden;">${item.plateNumber}(${item.model})</div>
+					<div>车主：${item.user.name}(${item.user.phoneNumber})<i class="fa fa-angle-right pull-right fa-2x" style="height: 0.26rem; line-height: 0.26rem;text-align: center;"></i></div>
 					<div>上次到店时间：2017-12-10</div>
 				</div>
 			</div>
-			
-					<!-- 单条记录 -->
-			<div class="kd-list-item">
-				<div class="kd-list-seq">2</div>
-				<div class="kd-list-content">
-					<div>粤LQW306(2009年现代悦动)</div>
-					<div>车主：邱某(1383 3333 5555)<i class="fa fa-angle-right pull-right fa-2x" style="height: 0.26rem; line-height: 0.26rem;text-align: center;"></i></div>
-					<div>上次到店时间：2017-12-10</div>
-				</div>
-			</div>
-			
+			</c:forEach>
 		</div>
 </div>
 <script type="text/javascript">

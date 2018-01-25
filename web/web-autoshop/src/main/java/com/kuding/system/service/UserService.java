@@ -39,7 +39,7 @@ public class UserService extends BasicService<UserEntity> {
 		GarageInfoEntity garage = null;
 		if(userId != null) {
 			StringBuffer hql = new StringBuffer("from GarageInfoEntity garage ")
-					.append(" left join fetch garage.user user ")//fetch返回数据以对象形式封装 否则以对象数组的形式
+					.append(" left join fetch garage.users user ")//fetch返回数据以对象形式封装 否则以对象数组的形式
 					.append("where user.id = ? ");
 			Query query = getSession().createQuery(hql.toString());
 			query.setInteger(0, userId);

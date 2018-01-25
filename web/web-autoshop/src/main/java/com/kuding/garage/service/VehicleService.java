@@ -22,12 +22,15 @@ public class VehicleService extends BasicService<VehicleEntity> {
 	public List<VehicleEntity> queryGarageAllCars(Integer garageId) {
 		StringBuilder hql = new StringBuilder();
 		hql.append("from VehicleEntity vehicle ")
-			.append("left join fetch vehicle.customerInfo cust ")
-			.append("left join fetch cust.userEntity user ")
-			.append("left join fetch user.garage garage ")
-			.append("where garage.id = ? ");
+			.append("left join fetch vehicle.user user ")
+			.append("left join fetch user.garage garage ");
+		if(garageId != null && garageId > 0) {
+			hql.append("where garage.id = ? ");
+		}
 		Query query = getSession().createQuery(hql.toString());
-		query.setInteger(0, garageId);
+		if(garageId != null && garageId > 0) {
+			query.setInteger(0, garageId);
+		}
 		return query.list();
 	}
 
@@ -41,9 +44,14 @@ public class VehicleService extends BasicService<VehicleEntity> {
 		StringBuffer hql = new StringBuffer()
 				.append("select distinct maintain.id from VehicleMaintainInfo maintain ")
 				.append("left outer join maintain.garage garage ")
-				.append("where garage.id= ? and (maintain.state = 0 or maintain.state = 1) ");
+				.append("where (maintain.state = 0 or maintain.state = 1) ");
+		if(garageId != null && garageId > 0) {
+			hql.append("and garage.id = ?");
+		}
 		Query query = getSession().createQuery(hql.toString());
-		query.setInteger(0, garageId);
+		if(garageId != null && garageId > 0) {
+			query.setInteger(0, garageId);
+		}
 		return (Integer)query.list().size();
 	}
 	
@@ -53,11 +61,15 @@ public class VehicleService extends BasicService<VehicleEntity> {
 		StringBuffer hql = new StringBuffer()
 				.append(" select distinct maintain.id from VehicleMaintainInfo maintain ")
 				.append("left outer join maintain.garage garage ")
-				.append("where garage.id= ? ")
-				.append("and (maintain.state = 2 or  maintain.state = 3) ")
+				.append("where (maintain.state = 2 or  maintain.state = 3) ")
 				.append("and maintain.isPay = 0 ");
+		if(garageId != null && garageId > 0) {
+			hql.append("and garage.id= ? ");
+		}
 		Query query = getSession().createQuery(hql.toString());
-		query.setInteger(0, garageId);
+		if(garageId != null && garageId > 0) {
+			query.setInteger(0, garageId);
+		}
 		return (Integer)query.list().size();
 	}
 	

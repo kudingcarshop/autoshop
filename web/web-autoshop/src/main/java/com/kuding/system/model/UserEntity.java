@@ -44,6 +44,18 @@ public class UserEntity {
 
 	@Column(name = "last_modify_user")
 	private String lastModifiedUser;
+	
+	@Column(name="name")
+	private String name;
+	
+	@Column(name="gender")
+	private String gender;
+	
+	@Column(name="phone_number")
+	private String phoneNumber;
+	
+	@Column(name="birthday")
+	private String birthday;
 
 	@ManyToMany
 	@JoinTable(name = "sys_user_role", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
@@ -135,6 +147,38 @@ public class UserEntity {
 
 	public void setGarage(GarageInfoEntity garage) {
 		this.garage = garage;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
 	}
 
 }

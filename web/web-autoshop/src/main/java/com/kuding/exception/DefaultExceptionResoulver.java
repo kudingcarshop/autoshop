@@ -43,6 +43,7 @@ public class DefaultExceptionResoulver extends ExceptionHandlerExceptionResolver
 
 		//发生异常时跳转的页面，若未指定则生成默认
 		ModelAndView mv = super.doResolveHandlerMethodException(req, resp, handlerMethod, ex);
+		logger.info("system error:" + ex.getMessage());
 		if (mv == null) {
 			logger.info("the default ModelAndView is null");
 			mv = new ModelAndView();

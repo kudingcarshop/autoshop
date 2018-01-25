@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.kuding.garage.model.GarageInfoEntity;
+import com.kuding.system.model.UserEntity;
 
 @Entity
 @Table(name="vehicle_maintain_info")
@@ -34,8 +35,8 @@ public class VehicleMaintainInfo {
 	private int batteryServiceYear;
 	
 	@ManyToOne
-	@JoinColumn(name="customer_id")
-	private CustomerInfoEntity customer;
+	@JoinColumn(name="user_id")
+	private UserEntity user;
 	
 	@ManyToOne
 	@JoinColumn(name="garage_id")
@@ -102,12 +103,12 @@ public class VehicleMaintainInfo {
 		this.batteryServiceYear = batteryServiceYear;
 	}
 
-	public CustomerInfoEntity getCustomer() {
-		return customer;
+	public UserEntity getUser() {
+		return user;
 	}
 
-	public void setCustomer(CustomerInfoEntity customer) {
-		this.customer = customer;
+	public void setUser(UserEntity user) {
+		this.user = user;
 	}
 
 	public GarageInfoEntity getGarage() {
