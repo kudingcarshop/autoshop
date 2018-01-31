@@ -1,6 +1,9 @@
 package com.kuding.system.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Query;
 import org.springframework.stereotype.Service;
@@ -62,6 +65,35 @@ public class UserService extends BasicService<UserEntity> {
 		Query query = getSession().createQuery(hql.toString());
 		query.setString(0, loginName);
 		return (List<FunctionEntity>) query.list();
+	}
+	
+	/***
+	 * 查询车行用户列表 用于选择用户操作
+	 * @param garageId
+	 * @return
+	 */
+	@Transactional(readOnly = true)
+	public List<Map<String,String>> queryGarageUsers(Integer garageId){
+		if(garageId != null && garageId > 0) {
+			StringBuffer hql = new StringBuffer("select distinct user.id, user.name from UserEntity user  ")
+					.append("left outer join user.garage garage ")
+					.append("where garage.id = :id ");
+			Query query = getSession().createQuery(hql.toString());
+			query.setInteger("id", garageId);
+			List<?> res = query.list();
+			if(res != null && res.size() > 0) {
+				List<Map<String,String>> users = new ArrayList<Map<String,String>>();
+				for(Object obj : res) {
+					Object[] objs = (Object[]) obj;
+					Map<String,String> user = new HashMap<String,String>();
+					user.put("id", objs[0]+"");
+					user.put("name", objs[1]+"");
+					users.add(user);
+				}
+				return users;
+			}
+		}
+		return null;
 	}
 	
 }

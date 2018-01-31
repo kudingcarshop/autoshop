@@ -3,6 +3,7 @@ package com.kuding.system.model;
 import java.sql.Timestamp;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,6 +19,7 @@ import javax.persistence.Table;
 
 import com.kuding.garage.model.GarageInfoEntity;
 import com.kuding.garage.model.VehicleBookInfoEntity;
+import com.kuding.garage.model.VehicleEntity;
 
 @Entity
 @Table(name="sys_user")
@@ -57,7 +59,7 @@ public class UserEntity {
 	@Column(name="birthday")
 	private String birthday;
 
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.MERGE)
 	@JoinTable(name = "sys_user_role", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "role_code") })
 	private Set<RoleEntity> roles;
@@ -68,6 +70,9 @@ public class UserEntity {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="garage_id")
 	private GarageInfoEntity garage;
+	
+	@OneToMany(mappedBy="user")
+	private Set<VehicleEntity> vehicles;
 
 	public Integer getId() {
 		return id;
@@ -179,6 +184,14 @@ public class UserEntity {
 
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
+	}
+
+	public Set<VehicleEntity> getVehicles() {
+		return vehicles;
+	}
+
+	public void setVehicles(Set<VehicleEntity> vehicles) {
+		this.vehicles = vehicles;
 	}
 
 }

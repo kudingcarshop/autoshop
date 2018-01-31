@@ -116,7 +116,7 @@ ${errors}
 	<div class="kd-search">
 		<form action="/vehicle/qry" method="post">
 			<div>
-				<input name="queryStr" class="kd-input"/><a class="kd-btn">添加车辆</a>
+				<input name="queryStr" class="kd-input"/><a href="${path}/garage/vehicle/addCarOptions" class="kd-btn">添加车辆</a>
 			</div>
 		</form>
 	</div>

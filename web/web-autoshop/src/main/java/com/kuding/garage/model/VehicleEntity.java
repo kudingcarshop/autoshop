@@ -2,6 +2,7 @@ package com.kuding.garage.model;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -52,8 +53,8 @@ public class VehicleEntity {
 	@Column(name = "last_beauty_date")
 	private Date lastBeautyDate;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", insertable = false, updatable = false)
+	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.MERGE)
+	@JoinColumn(name = "user_id")
 	private UserEntity user;
 	
 	@Column(name="plate_number")
