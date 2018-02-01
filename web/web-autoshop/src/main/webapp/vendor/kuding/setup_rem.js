@@ -12,7 +12,7 @@ function autoAdjust(){
 		width = 750;
 	}
 	
-	var rem = width/32;
+	var rem = width/3.2;
 	$('html').css('font-size',rem+'px');
 }
 

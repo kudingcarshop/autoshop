@@ -1,0 +1,79 @@
+@charset "utf-8";
+
+li{
+	list-style: none;
+}
+.kd-page{
+	font-size: 0.14rem;
+	color:#101010;
+	width:3.1rem;
+	margin: 0 auto;
+}
+
+.kd-unp-item{
+	overflow: hidden;
+}
+
+.kd-unp-hd{
+	display: block;
+	height: 0.3rem;
+	border-bottom: 1px solid #bbbbbb;
+}
+
+.kd-unp-hd p{
+	line-height: 0.3rem;
+	width: 2rem;
+}
+
+.kd-unp-hd i{
+	display:inline-block;
+	margin: 0 0.04rem;
+}
+
+.kd-unp-chk{
+	display: block;
+	height: 0.15rem;
+	width:0.15rem;
+	margin-top: 0.07rem;
+	margin-right: 0.1rem;
+}
+
+.kd-unp-bd{
+	overflow: hidden;
+	padding-left: 0.25rem;
+}
+
+.kd-unp-bd li{
+	width: 2.8rem;
+	overflow: hidden;
+	border-bottom: 1px solid #bbbbbb;
+}
+
+.kd-unp-bd p{
+	width: 1.5rem;
+	height: 0.3rem;
+	line-height: 0.3rem;
+}
+
+.kd-unp-opr{
+	width:0.9rem;
+	overflow: hidden;
+}
+
+.kd-unp-bd span{
+	display:block;
+	float:right;
+	height: 0.3rem;
+	line-height: 0.3rem;
+}
+
+.kd-unp-bd a{
+	display:block;
+	float:right;
+	height: 0.23rem;
+	width:0.8rem;
+	line-height: 0.23rem;
+	text-align:center;
+	border: 1px solid #bbbbbb;
+	border-radius: 0.04rem;
+}
