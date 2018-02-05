@@ -1,0 +1,53 @@
+@charset "utf-8";
+
+.kd-page{
+	font-size: 0.14rem;
+	color:#101010;
+	width:3.2rem;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.backlog{
+	display:block;
+	height:0.5rem;
+	width:3.1rem;
+	margin:0.05rem auto 0 auto;
+	vertical-align: middle;
+	border:1px solid #bbbbbb;
+	border-radius: 0.04rem;
+}
+
+#goods{
+	margin-bottom: 0.1rem;
+}
+
+.backlog .icon{
+	height: 0.5rem;
+	width: 0.45rem;
+	line-height: 0.48rem;
+	text-align: center;
+	border-radius: 0.04rem;
+}
+
+.backlog .content{
+	height: 0.5rem;
+	width:2rem;
+}
+
+.backlog p{
+	height: 0.25rem;
+	line-height: 0.25rem;
+	text-overflow: ellipsis;
+}
+
+.backlog .icon-right{
+	height: 0.5rem;
+	line-height:0.5rem;
+	text-align:center;
+}
+
+.icon-right li{
+	height:0.3rem;
+	margin-top: 0.1rem;
+}

@@ -5,7 +5,10 @@ margin:0;
 padding:0;
 }
 
-a{text-decoration: none;}
+a{
+	color:#101010;
+	text-decoration: none;
+}
 
 .kd-left{
 	float:left;
@@ -13,4 +16,18 @@ a{text-decoration: none;}
 
 .kd-right{
 	float:right;
+}
+
+.kd-page{
+	font-size: 0.14rem;
+	color:#101010;
+	width:3.2rem;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.kd-line{
+	font-size: 0.14rem;
+	color:#101010;
+	line-height: 0.23rem;
 }

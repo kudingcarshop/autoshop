@@ -1,11 +1,7 @@
-/**320x480 1rem=10px*/
+/**320x480 1rem=100px chrome 允许的最小字体大小未12px*/
 function autoAdjust(){
 	var $doc=$(window);
 	var width = $doc.width();
-	var height = $doc.height();
-
-	width = Math.min(width,height);
-	
 	if(width < 320){
 		width = 320;
 	}else if(width >750){
