@@ -45,20 +45,23 @@ public class VehicleBookInfoEntity {
 
 	@Column(name = "type")
 	private String type;
+	
+	@Column(name = "type_name")
+	private String typeName;
 
 	@Column(name = "state")
 	private Integer state;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", updatable = false, insertable = false)
+    @JoinColumn(name = "user_id", updatable = false, insertable = true)
 	private UserEntity userEntity;
 
 	@Column(name = "book_time")
 	private Timestamp bookTime;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "garage_id", updatable = false, insertable = false)
-	private GarageInfoEntity garageInfoEntify;
+    @JoinColumn(name = "garage_id", updatable = false, insertable = true)
+	private GarageInfoEntity garageInfoEntity;
 
 	@Column(name = "create_time")
 	private Timestamp createTime;
@@ -80,6 +83,14 @@ public class VehicleBookInfoEntity {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
 	}
 
 	public Integer getState() {
@@ -106,12 +117,12 @@ public class VehicleBookInfoEntity {
 		this.bookTime = bookTime;
 	}
 
-	public GarageInfoEntity getGarageInfoEntify() {
-		return garageInfoEntify;
+	public GarageInfoEntity getGarageInfoEntity() {
+		return garageInfoEntity;
 	}
 
-	public void setGarageInfoEntify(GarageInfoEntity garageInfoEntify) {
-		this.garageInfoEntify = garageInfoEntify;
+	public void setGarageInfoEntity(GarageInfoEntity garageInfoEntity) {
+		this.garageInfoEntity = garageInfoEntity;
 	}
 
 	public Timestamp getCreateTime() {

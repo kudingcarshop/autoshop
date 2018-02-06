@@ -48,7 +48,7 @@ public class GarageInfoEntity {
 	@Column(name="desc")
 	private String desc;
 	
-	@OneToMany(mappedBy = "garageInfoEntify")
+	@OneToMany(mappedBy = "garageInfoEntity")
 	private Set<VehicleBookInfoEntity> books;
 	
 	@OneToMany(mappedBy="garage")

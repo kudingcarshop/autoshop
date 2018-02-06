@@ -99,6 +99,7 @@ CREATE TABLE `garage_biz_book`
 (
 	`id` INTEGER NOT NULL AUTO_INCREMENT ,
 	`type` VARCHAR(50) COMMENT '预约业务类别',
+	`type_name` TEXT COMMENT '备注说明',
 	`state` INTEGER COMMENT '预约状态：0:预约 2:已接待 3:取消',
 	`user_id` INTEGER COMMENT '预约用户',
 	`book_time` TIMESTAMP COMMENT '预约时间',
@@ -360,6 +361,10 @@ INSERT INTO `sys_user_role` VALUES ('4','4','CUST');
 INSERT INTO `VEHICLE_INFO` VALUES ('1','2017-12-25','0','25000','0','25000','2017-11-18','2017-12-25','12000','2.5','2.5','2018-1-10','3','粤L88888','轿车','李土豪','广东省惠州市回城区金山湖','家庭自用汽车','2016款 AMG S 63 L 4MATIC+','VIN0234233333','EN238740830344','2017-1-1','2017-1-1',null,'5',null,null,null,null,null,null,null);
 INSERT INTO `VEHICLE_INFO` VALUES ('2','2017-12-25','0','25000','0','25000','2017-11-18','2017-12-25','12000','2.5','2.5','2018-1-10','4','粤L66666','轿车','王大炮','广东省惠州市回城区长湖苑','家庭自用汽车','2016款 AMG S 63 L 4MATIC+','VIN0234255555','EN238740830123','2017-1-1','2017-1-1',null,'5',null,null,null,null,null,null,null);
 
+INSERT INTO `sys_dict` VALUES ('1', 'biz', '10001', '美容', '汽车美容');
+INSERT INTO `sys_dict` VALUES ('2', 'biz', '10002', '保养', '汽车保养');
+INSERT INTO `sys_dict` VALUES ('3', 'biz', '10003', '维修', '汽车维修');
+INSERT INTO `sys_dict` VALUES ('4', 'biz', '10004', '其他', '汽车服务');
 
 /* Create Primary Keys, Indexes, Uniques, Checks */
 
