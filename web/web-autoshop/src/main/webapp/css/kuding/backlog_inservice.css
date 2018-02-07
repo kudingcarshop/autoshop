@@ -65,9 +65,9 @@
 
 .kd-bd select{
 	display:block;
+	float:right;
 	width:0.7rem;
 	height:0.23rem;
-	float:right;
 	font-size:0.14rem;
 	margin-top: 0.23rem;
 }

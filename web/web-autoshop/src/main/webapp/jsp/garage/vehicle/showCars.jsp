@@ -14,6 +14,10 @@
 	padding:0;
 }
 
+a{
+	text-decoration: none;
+	color: #101010;
+}
 
 .kd-container {
 	padding:0.08rem;
@@ -82,6 +86,7 @@
 }
 
 .kd-list-item{
+	display:block;
 	margin-top:0.1rem;
 	overflow: hidden;
 }
@@ -134,38 +139,17 @@ ${errors}
 			<!-- 单条记录 -->
 			<c:forEach items="${vehicles}" var="item" varStatus="status">
 			<hr style="height: 1px dotted;">
-			<div class="kd-list-item">
+			<a href="${path}/garage/vehicle/showVehicleDetail?vehicleId=${item.id}" class="kd-list-item">
 				<div class="kd-list-seq">${status.index+1}</div>
 				<div class="kd-list-content">
 					<div style="overflow: hidden;">${item.plateNumber}(${item.model})</div>
 					<div>车主：${item.user.name}(${item.user.phoneNumber})<i class="fa fa-angle-right pull-right fa-2x" style="height: 0.26rem; line-height: 0.26rem;text-align: center;"></i></div>
 					<div>上次到店时间：2017-12-10</div>
 				</div>
-			</div>
+			</a>
 			</c:forEach>
 		</div>
 </div>
-<script type="text/javascript">
-
-function autoAdjust(){
-	var $doc=$('html');
-	var width = $doc.width();
-	if(width < 320){
-		width = 320;
-	}else if(width > 640){
-		width = 640;
-	}
-	var rem = width/3.2;
-	console.log('rem='+rem);
-	$('html').css('font-size',rem+'px');
-}
-
-$(function(){
-	autoAdjust();	
-	$(window).resize(function(){
-		autoAdjust();
-	});
-});
-</script>
+<script src="${path}/vendor/kuding/setup_rem.js"></script>
 </body>
 </html>

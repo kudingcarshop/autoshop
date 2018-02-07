@@ -1,6 +1,7 @@
 package com.kuding.system.action;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kuding.commons.BusinessException;
+import com.kuding.commons.Constants;
 import com.kuding.commons.EncryptUtils;
-import com.kuding.commons.login.Constants;
 import com.kuding.commons.login.UserInfo;
 import com.kuding.garage.action.BasicAction;
 import com.kuding.garage.model.GarageInfoEntity;
@@ -39,9 +40,9 @@ public class AuthAction extends BasicAction{
 		}
 		request.getSession().setAttribute(Constants.KEY_LOGIN_USER, prepareUserInfo(user));
 		if(reqUri != null && reqUri.trim().length() > 0) {
-			mv.setViewName("forward:" + reqUri);
+			mv.setViewName("redirect:" + reqUri);
 		}else {
-			mv.setViewName("forward:/jsp/basic/index.jsp");
+			mv.setViewName("forward:/jsp/basic/index_mobile.jsp");
 		}
 		return mv;
 	}
@@ -53,6 +54,7 @@ public class AuthAction extends BasicAction{
 			userInfo.setUserId(user.getId());
 			userInfo.setState(user.getState());
 			userInfo.setUserName(user.getLoginName());
+			userInfo.setType(user.getType());
 			GarageInfoEntity garage = userService.queryGarageInfo(user.getId());
 			if(garage != null) {
 				userInfo.setGarageId(garage.getId());

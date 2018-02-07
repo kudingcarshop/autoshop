@@ -4,7 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.kuding.commons.login.Constants;
+import com.kuding.commons.Constants;
 import com.kuding.commons.login.UserInfo;
 
 public class BasicAction {

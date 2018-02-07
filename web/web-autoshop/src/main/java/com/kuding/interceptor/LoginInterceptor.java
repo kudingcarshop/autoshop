@@ -3,26 +3,28 @@ package com.kuding.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kuding.commons.login.Constants;
+import com.kuding.commons.Constants;
+import com.kuding.commons.KdLogger;
 
 public class LoginInterceptor implements HandlerInterceptor {
 	
-	private Logger logger = Logger.getLogger(LoginInterceptor.class);
+	private KdLogger logger = KdLogger.getLogger(LoginInterceptor.class);
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		if(!Constants.IS_NEED_LOGIN || request.getSession()
 				.getAttribute(Constants.KEY_LOGIN_USER) != null) {
-			logger.info("LoginInterceptor->preHandle login successfully");
+			logger.i("LoginInterceptor->preHandle login successfully");
 			return true;
 		}else {
-			logger.info("LoginInterceptor->preHandle login fail");
-			request.setAttribute("req_uri", getReqUri(request));
+			logger.i("LoginInterceptor->preHandle login fail");
+			if(Constants.IS_DEBUG) {
+				request.setAttribute("req_uri", getReqUri(request));
+			}
 			request.getRequestDispatcher(Constants.LOGIN_URL).forward(request, response);
 			return false;
 		}

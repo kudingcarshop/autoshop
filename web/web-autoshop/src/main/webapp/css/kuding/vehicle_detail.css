@@ -31,6 +31,10 @@
 	height:0.65rem;
 	line-height: 0.23rem;
 }
+.kd-hd-desc p{
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
 
 .kd-hd-desc a{
 	color:#101010;

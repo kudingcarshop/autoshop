@@ -16,7 +16,7 @@
 	<c:if test="${not empty errors }">
 		<div id="error" class="alert alert-danger">${errors}</div>
 	</c:if>
-	<div style="margin:0 auto;padding:12px;width:400px;height:300px;">
+	<div style="margin:0 auto;padding:0.12rem;width:3.2rem;height:3rem;">
 		<form id="loginForm" method="post" action="${path}/pub/login">
 		<input type="hidden" name="reqUri" value="${req_uri}">
 			<div class="form-group">
@@ -30,5 +30,7 @@
 			<input type="submit" class="btn btn-primary" style="width:100%" value="登录"/>
 		</form>
 	</div>
+	<script src="${path}/vendor/jquery/jquery.min.js"></script>
+	<script src="${path}/vendor/kuding/setup_rem.js"></script>
 </body>
 </html>

@@ -44,6 +44,9 @@ public class VehicleEntity {
 	@Column(name = "last_maintain_date")
 	private Date lastMaintainDate;
 	
+	@Column(name = "last_maintain_mileage")
+	private Integer lastMaintainMileage;
+	
 	@Column(name = "tire_service_year")
 	private Integer tireServiceYear;
 	
@@ -172,6 +175,14 @@ public class VehicleEntity {
 
 	public Date getLastMaintainDate() {
 		return lastMaintainDate;
+	}
+
+	public Integer getLastMaintainMileage() {
+		return lastMaintainMileage;
+	}
+
+	public void setLastMaintainMileage(Integer lastMaintainMileage) {
+		this.lastMaintainMileage = lastMaintainMileage;
 	}
 
 	public void setLastMaintainDate(Date lastMaintainDate) {

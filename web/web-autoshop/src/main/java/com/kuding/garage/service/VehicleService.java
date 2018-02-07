@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kuding.commons.BusinessException;
 import com.kuding.commons.ErrorCode;
 import com.kuding.commons.service.BasicService;
+import com.kuding.customer.model.TrafficViolationEntity;
 import com.kuding.garage.model.VehicleEntity;
 import com.kuding.system.model.UserEntity;
 
@@ -99,10 +100,10 @@ public class VehicleService extends BasicService<VehicleEntity> {
 	 * @param plateNumber
 	 * @return
 	 */
-	@Transactional(readOnly=false)
+	@Transactional(readOnly=true)
 	public boolean isPlateNumberExist(String plateNumber) {
 		if(StringUtils.isAllEmpty("plateNumber")) {
-			throw new BusinessException("plate number is null ", ErrorCode.BIZ_PLATENO_NULL);
+			throw new BusinessException("plate number is null ", ErrorCode.BIZ_VEH_PLATENO_NULL);
 		}
 		StringBuffer hql = new StringBuffer("from VehicleEntity vehicle where vehicle.plateNumber=:plateNumber ");
 		Query query = getSession().createQuery(hql.toString());
@@ -117,10 +118,10 @@ public class VehicleService extends BasicService<VehicleEntity> {
 	 * @param engineNumber
 	 * @return
 	 */
-	@Transactional(readOnly=false)
+	@Transactional(readOnly=true)
 	public boolean isVehicleExist(String vin, String engineNumber) {
 		if(StringUtils.isAllEmpty("vin") || StringUtils.isAllEmpty(engineNumber)) {
-			throw new BusinessException("vin or engine number is null ", ErrorCode.BIZ_VIN_ENGNO_NULL);
+			throw new BusinessException("vin or engine number is null ", ErrorCode.BIZ_VEH_VIN_ENGNO_NULL);
 		}
 		StringBuffer hql = new StringBuffer("from VehicleEntity vehicle ")
 				.append("where vehicle.vin=:vin ")
@@ -130,5 +131,38 @@ public class VehicleService extends BasicService<VehicleEntity> {
 		query.setString("engineNumber", engineNumber);
 		List<?> list = query.list();
 		return list != null && list.size() > 0 ;
+	}
+	
+	/**
+	 * 获取车辆详情信息
+	 * @param vehicleId
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public VehicleEntity queryVehicleDetail(Integer vehicleId) {
+		if(vehicleId != null ) {
+			Query query = getSession().createQuery("from VehicleEntity veh left join fetch veh.user where veh.id = :id ");
+			query.setInteger("id", vehicleId);
+			query.setMaxResults(1);
+			return (VehicleEntity) query.uniqueResult();
+		}
+		return null;
+	}
+	
+	@Transactional(readOnly=true)
+	public Integer queryTrafficViolationCount(Integer vehicleId) {
+		if(vehicleId != null ) {
+			StringBuffer hql = new StringBuffer()
+					.append("select count(vio.id) from TrafficViolationEntity vio ")
+					.append("left join vio.vehicle veh ")
+					.append("where veh.id=:id ")
+					.append("and vio.state = :state ");
+			Query query = getSession().createQuery(hql.toString());
+			query.setInteger("id", vehicleId);
+			query.setString("state", TrafficViolationEntity.STATE_UNHANDLE);
+			query.setMaxResults(1);
+			return ((Long) query.uniqueResult()).intValue();
+		}
+		return null;
 	}
 }

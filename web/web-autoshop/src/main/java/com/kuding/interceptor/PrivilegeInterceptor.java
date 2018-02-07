@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kuding.commons.login.Constants;
+import com.kuding.commons.Constants;
 import com.kuding.commons.login.UserInfo;
 
 public class PrivilegeInterceptor implements HandlerInterceptor {

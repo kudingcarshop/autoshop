@@ -24,6 +24,15 @@ import com.kuding.garage.model.VehicleEntity;
 @Entity
 @Table(name="sys_user")
 public class UserEntity {
+	
+	/**用户类型: 平台用户*/
+	public static final int USER_TYPE_SYS= 0;
+	
+	/**用户类型: 车行用户*/
+	public static final int USER_TYYPE_GAR = 1;
+	
+	/**用户类型: 车主*/
+	public static final int USER_YTPE_CUST= 2;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,6 +43,9 @@ public class UserEntity {
 
 	@Column(name = "password")
 	private String password;
+	
+	@Column(name="type")
+	private Integer type;
 
 	@Column(name = "state")
 	private Integer state;
@@ -96,6 +108,14 @@ public class UserEntity {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
 	}
 
 	public Integer getState() {

@@ -103,7 +103,7 @@ public class VehicleAction extends BasicAction{
 		//车辆不能重复录入
 		if(vehicleService.isPlateNumberExist(view.getPlateNumber())
 				|| vehicleService.isVehicleExist(view.getVin(), view.getEngineNumber())) {
-			throw new BusinessException("The vehicle is already exist",ErrorCode.BIZ_VEHICLE_EXIST);
+			throw new BusinessException("The vehicle is already exist",ErrorCode.BIZ_VEH_EXIST);
 		}
 		vehicleService.saveOrUpdateVehicle(prepareVehicleEntity(view));
 		mv.setViewName("redirect:/garage/vehicle/showCars");
@@ -132,6 +132,28 @@ public class VehicleAction extends BasicAction{
 		}
 		return vehicle;
 		
+	}
+	
+	@RequestMapping("vehicle/showVehicleDetail")
+	public ModelAndView showVehicleDetail(Integer vehicleId) {
+		if(vehicleId == null || vehicleId <= 0) {
+			throw new BusinessException(ErrorCode.BIZ_VEH_INVALID_ID);
+		}
+		VehicleEntity veh = vehicleService.queryVehicleDetail(vehicleId);
+		ModelAndView mv = new ModelAndView();
+		if(veh == null) {
+			throw new BusinessException(ErrorCode.BIZ_VEH_NOT_EXIST);
+		}
+		mv.getModel().put("veh", veh);
+		
+		Integer vioNum = vehicleService.queryTrafficViolationCount(vehicleId);
+		if(vioNum != null ) {
+			mv.getModel().put("vioNum", vioNum);
+		}else {
+			mv.getModel().put("vioNum", 0);
+		}
+		mv.setViewName("garage/vehicle/vehicle_detail");
+		return mv;
 	}
 
 }

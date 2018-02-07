@@ -9,6 +9,8 @@ public class UserInfo {
 	
 	private String userName;
 	
+	private Integer type;
+	
 	private Integer state;
 	
 	private Integer garageId;
@@ -33,6 +35,14 @@ public class UserInfo {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
 	}
 
 	public Integer getState() {

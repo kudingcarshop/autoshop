@@ -17,6 +17,24 @@ import com.kuding.system.model.UserEntity;
 @Entity
 @Table(name="vehicle_maintain_info")
 public class VehicleMaintainInfo {
+	
+	/**排队中*/
+	public static final String STATE_QUEUE  = "0";
+	
+	/**服务中*/
+	public static final String STATE_SERVING  = "1";
+	
+	/**服务已完成*/
+	public static final String STATE_SERVED  = "2";
+	
+	/**已交车*/
+	public static final String STATE_HANDOVER  = "3";
+	
+	/**付款状态：已付款*/
+	public static final String PAY_YES = "1";
+	
+	/**付款状态：未付款*/
+	public static final String PAY_NO = "0";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
