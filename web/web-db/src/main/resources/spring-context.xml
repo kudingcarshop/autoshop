@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/tx 
 	    http://www.springframework.org/schema/tx/spring-tx-4.3.xsd 
 	    http://www.springframework.org/schema/jdbc 
-	    http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+	    http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
 		http://www.springframework.org/schema/aop 
 		http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
         http://www.springframework.org/schema/context
@@ -44,7 +44,7 @@
 	</bean>
 	<!-- 初始化数据表结构 -->
  	 <jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
-		<jdbc:script location="classpath:autoshop.sql" />
+		<jdbc:script location="classpath:autoshop.sql" encoding="UTF-8"/>
 	</jdbc:initialize-database> 
 
 	<!-- 数据源配置(主库使用InnerDB模式),使用应用中的DBCP数据库连接池 -->
