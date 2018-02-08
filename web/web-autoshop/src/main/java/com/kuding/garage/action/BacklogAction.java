@@ -1,5 +1,8 @@
 package com.kuding.garage.action;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +39,24 @@ public class BacklogAction extends BasicAction {
 	}
 
 	@RequestMapping("backlog/unpay")
-	public ModelAndView showUnpay() {
+	public ModelAndView showUnpay(HttpServletRequest req) {
+		UserInfo user = getUserInfo(req.getSession());
+		if(user == null || user.getGarageId() == null) {
+			throw new BusinessException(ErrorCode.SYS_ERROR);
+		}
 		ModelAndView mv = new ModelAndView();
+		Integer garageId = user.getGarageId();
+		List<Map<String,Object>> list = backlogService.queryUnpayDetails(garageId);
+		mv.getModel().put("unpays", prepareUnpayData(list));
 		mv.setViewName("garage/backlog/backlog_unpay");
 		return mv;
+	}
+	
+	private List<Map<String,Object>> prepareUnpayData(List<Map<String,Object>> list){
+		if(list != null && list.size() > 0) {
+			//TODO 重新拼装数据用于页面展示
+		}
+		return null;
 	}
 	
 	@RequestMapping("backlog/booking")

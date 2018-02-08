@@ -1,6 +1,7 @@
 package com.kuding.garage.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Query;
@@ -152,6 +153,28 @@ public class BacklogService extends BasicService<Object> {
 			query.setInteger("garageId", garageId);
 			query.setMaxResults(1);
 			return (Long) query.uniqueResult();
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
+	public List<Map<String,Object>> queryUnpayDetails(Integer garageId) {
+		if(garageId != null) {
+			StringBuffer hql = new StringBuffer()
+					.append("select new map(maintain.id as id,maintain.category as category,maintain.payPrice as payPrice,veh.plateNumber as plateNumber,maintain.receiveTime as receiveTime) ")
+					.append("from VehicleMaintainInfo maintain ")
+					.append("left join maintain.vehicle veh ")
+					.append("left join maintain.garage garage ")
+					.append("where maintain.state in ( :states ) ")
+					.append("and garage.id = :garageId ")
+					.append("and maintain.isPay = :isPay ")
+					.append("order by maintain.receiveTime desc ");
+			Query query = getSession().createQuery(hql.toString());
+			query.setParameterList("states", new String[] {VehicleMaintainInfo.STATE_SERVED,VehicleMaintainInfo.STATE_HANDOVER});
+			query.setInteger("garageId", garageId);
+			query.setString("isPay", VehicleMaintainInfo.PAY_NO);
+			return query.list();
 		}
 		return null;
 	}
