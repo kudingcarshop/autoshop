@@ -35,6 +35,22 @@ CREATE TABLE `garage_biz_book`
 @Entity
 @Table(name = "garage_biz_book")
 public class VehicleBookInfoEntity {
+	
+	/**预约状态：预约*/
+	public static final int STATE_BOOKING = 0;
+	/**预约状态：已接待*/
+	public static final int STATE_SERVED = 1;
+	/**预约状态：取消*/
+	public static final int STATE_CANCLE = 2;
+	
+	/**预约业务类型:美容*/
+	public static final String TYPE_BEAUTY = "biz_10001";
+	/**预约业务类型:保养*/
+	public static final String TYPE_MAINTAIN = "biz_10002";
+	/**预约业务类型:维修*/
+	public static final String TYPE_REPAIR = "biz_10003";
+	/**预约业务类型:其它*/
+	public static final String TYPE_OTHER = "biz_10004";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -59,8 +75,8 @@ public class VehicleBookInfoEntity {
 	@Column(name = "book_time")
 	private Timestamp bookTime;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "garage_id", updatable = false, insertable = true)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "garage_id")
 	private GarageInfoEntity garageInfoEntity;
 
 	@Column(name = "create_time")

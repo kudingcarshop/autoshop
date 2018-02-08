@@ -8,6 +8,9 @@ package com.kuding.commons;
  */
 public class ErrorCode {
 	
+	/**系统错误*/
+	public static int SYS_ERROR = 1001;
+	
 	/**业务错误码:车行ID为空*/
 	public static int BIZ_GAR_ID_NULL = 2001;
 	

@@ -101,6 +101,10 @@
 				</li>
 			</ul>
 		</div>
+		<p class="kd-total">
+			<input type="checkbox" class="kd-unp-chk kd-left"  name="checkAll"/> <span>全选</span>
+			<span>总计:&nbsp;&nbsp;&yen;10,000,000</span>
+		</p>
 	</div>
 	<script src="${path}/vendor/jquery/jquery.min.js"></script>
 	<script src="${path}/vendor/kuding/setup_rem.js"></script>

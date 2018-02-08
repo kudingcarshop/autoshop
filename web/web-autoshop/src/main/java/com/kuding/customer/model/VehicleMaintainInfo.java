@@ -2,6 +2,7 @@ package com.kuding.customer.model;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.kuding.garage.model.GarageInfoEntity;
+import com.kuding.garage.model.VehicleEntity;
 import com.kuding.system.model.UserEntity;
 
 @Entity
@@ -45,6 +47,10 @@ public class VehicleMaintainInfo {
 	
 	@Column(name="category")
 	private String category;
+	
+	@ManyToOne(cascade=CascadeType.MERGE)
+	@JoinColumn(name="vehicle_id")
+	private VehicleEntity vehicle;
 	
 	@Column(name="mileage")
 	private int mileage;
@@ -103,6 +109,14 @@ public class VehicleMaintainInfo {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public VehicleEntity getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(VehicleEntity vehicle) {
+		this.vehicle = vehicle;
 	}
 
 	public int getMileage() {

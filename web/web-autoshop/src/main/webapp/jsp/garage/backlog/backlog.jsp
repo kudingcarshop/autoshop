@@ -14,8 +14,8 @@
 		<a href="${path}/garage/backlog/unpay" class="backlog">
 			<i class="fa fa-cc-diners-club fa-2x icon kd-left"></i>
 			<div class="content kd-left">
-				<p>待付款车辆（20）</p>
-				<p>共赊账&yen;23000.00（元）</p>
+				<p>待付款车辆（${unpVehs}）</p>
+				<p>共赊账&yen;<fmt:formatNumber value="${unpSum}" pattern="###,###.###"/>（元）</p>
 			</div>
 			<div class="icon-right kd-right">
 				<li class="fa fa-angle-right fa-2x"></li>
@@ -25,8 +25,8 @@
 		<a href="${path}/garage/backlog/booking" class="backlog">
 			<i class="fa fa-calendar fa-2x icon kd-left"></i>
 			<div class="content kd-left">
-				<p>已预约车辆（20）</p>
-				<p>保养2部、汽修3部、洗车5部</p>
+				<p>已预约车辆（${booking.total}）</p>
+				<p>保养${booking.maintainSum}部、汽修${booking.repaireSum}部、洗车${booking.beautySum}部</p>
 			</div>
 			<div class="icon-right kd-right">
 				<li class="fa fa-angle-right fa-2x"></li>
@@ -36,7 +36,7 @@
 		<a href="${path}/garage/backlog/serving" class="backlog">
 			<i class="fa fa-truck fa-2x icon kd-left"></i>
 			<div class="content kd-left">
-				<p>服务中车辆（20）</p>
+				<p>服务中车辆（${serving}）</p>
 				<p>请及时更新状态</p>
 			</div>
 			<div class="icon-right kd-right">

@@ -14,6 +14,10 @@ li{
 	overflow: hidden;
 }
 
+.kd-unp-item:last-of-type{
+	margin-bottom: 0.45rem;
+}
+
 .kd-unp-hd{
 	display: block;
 	height: 0.3rem;
@@ -76,4 +80,36 @@ li{
 	text-align:center;
 	border: 1px solid #bbbbbb;
 	border-radius: 0.04rem;
+}
+
+.kd-total{
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	height: 0.45rem;
+	background: #f8f8f8;
+	width: 3.2rem;
+}
+
+.kd-total input {
+	display: inline-block;
+	height: 0.3rem;
+	width: 0.3rem;
+}
+
+.kd-total span{
+	display: inline-block;
+	height: 0.23rem;
+	line-height: 0.23rem;
+	margin-top: 0.11rem;
+}
+
+.kd-total span:nth-of-type(1){
+	float: left;
+}
+
+.kd-total span:nth-of-type(2){
+	float: right;
+	margin-right:0.05rem;
+	max-width: 2rem;
 }

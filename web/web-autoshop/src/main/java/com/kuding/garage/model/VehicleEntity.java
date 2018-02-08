@@ -1,6 +1,7 @@
 package com.kuding.garage.model;
 
 import java.sql.Date;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,8 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.kuding.customer.model.VehicleMaintainInfo;
 import com.kuding.system.model.UserEntity;
 
 @Entity
@@ -116,6 +119,9 @@ public class VehicleEntity {
 	
 	@Column(name="inspection_record")
 	private String inspectionRecord;
+	
+	@OneToMany(mappedBy="vehicle",fetch=FetchType.LAZY)
+	private Set<VehicleMaintainInfo> maintains;
 
 	public Integer getId() {
 		return id;
