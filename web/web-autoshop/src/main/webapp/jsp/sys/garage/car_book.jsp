@@ -11,6 +11,7 @@
     <link href="${path}/css/kuding/plate_number_common.css" rel="stylesheet" media="screen">
     <link href="${path}/css/kuding/plate_number.css" rel="stylesheet" media="screen">
     <link href="${path}/vendor/bootstrapvalidator/css/bootstrapValidator.css" rel="stylesheet" media="screen">
+    <link href="${path}/vendor/jquery-weui/1.2.0/css/jquery-weui.css" rel="stylesheet" media="screen">
     <script type="text/javascript" src="${path}/vendor/jquery/jquery-3.2.1.js" charset="UTF-8"></script>
     <script type="text/javascript" src="${path}/vendor/jquery/jquery.form.js" charset="UTF-8"></script>
     <script type="text/javascript" src="${path}/lib/layer/layer.js" charset="utf-8"></script>
@@ -21,9 +22,41 @@
     <script type="text/javascript" src="${path}/vendor/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="${path}/vendor/bootstrapvalidator/js/bootstrapValidator.js"></script>
     <title>预约</title>
+    <style type="text/css">
+    .toolbar {
+        position: fixed;
+        z-index: 1;
+        width: 100%;
+        font-size: .85rem;
+        line-height: 1.5;
+        color: #d6d6d6;
+        background: #2e2e2e;
+    }
+
+    .toolbar .back-button {
+        position: absolute;
+        left: 0;
+        box-sizing: border-box;
+        height: 2.2rem;
+        line-height: 2.2rem;
+        color: #d6d6d6;
+        z-index: 1;
+        padding: 0 .5rem;
+    }
+
+    .container {
+        padding-top: 3.5em;
+    }
+    </style>    
 </head>
 
 <body>
+    <div class="toolbar">
+        <div class="toolbar-inner">
+            <a href="/web-autoshop/garage/vehicle/serviceCenter" class="back-button">
+                < 返回 </a>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
@@ -219,6 +252,10 @@
         maxView: 1,
         forceParse: 0
     });
+    //override
+    function onKeyBoardBoxHide() {
+        
+    }
     </script>
 </body>
 

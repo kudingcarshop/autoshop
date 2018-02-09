@@ -1,7 +1,10 @@
 package com.kuding.garage.action;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.JsonSerializer;
 import com.kuding.commons.http.Result;
 import com.kuding.garage.model.VehicleBookInfoEntity;
 import com.kuding.garage.service.VehicleBookService;
@@ -42,7 +48,17 @@ public class VehicleBookAction {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("sys/garage/car_book_list");
 		List<VehicleBookInfoEntity> bookList = vehicleBookService.getBookList(1/*garageId*/);
-		mv.addObject("book_list", bookList);
+		List<VehicleBookInfoEntity> resultList = new ArrayList<>();
+		for (VehicleBookInfoEntity book : bookList) {
+			VehicleBookInfoEntity add = new VehicleBookInfoEntity();
+			add.setId(book.getId());
+			add.setPlateNumber(book.getPlateNumber());
+			add.setTypeName(book.getTypeName());
+			add.setState(book.getState());
+			add.setBookTime(book.getBookTime());
+			resultList.add(add);
+		}
+		mv.addObject("book_list", JSON.toJSONString(resultList));
 		mv.addObject("isUser", false);
 		return mv;
 	}
@@ -52,7 +68,17 @@ public class VehicleBookAction {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("sys/garage/car_book_list");
 		List<VehicleBookInfoEntity> bookList = vehicleBookService.getBookList(1, 1);
-		mv.addObject("book_list", bookList);
+		List<VehicleBookInfoEntity> resultList = new ArrayList<>();
+		for (VehicleBookInfoEntity book : bookList) {
+			VehicleBookInfoEntity add = new VehicleBookInfoEntity();
+			add.setId(book.getId());
+			add.setPlateNumber(book.getPlateNumber());
+			add.setTypeName(book.getTypeName());
+			add.setState(book.getState());
+			add.setBookTime(book.getBookTime());
+			resultList.add(add);
+		}
+		mv.addObject("book_list", JSON.toJSONString(resultList));
 		mv.addObject("isUser", true);
 		return mv;
 	}

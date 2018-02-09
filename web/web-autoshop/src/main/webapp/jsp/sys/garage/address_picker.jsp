@@ -121,7 +121,7 @@
         //     str.push('精度：' + data.accuracy + ' 米');
         // } //如为IP精确定位结果则没有精度信息
         // str.push('是否经过偏移：' + (data.isConverted ? '是' : '否'));
-        $('#address-input').html(data.formattedAddress);
+        //$('#address-input').html(data.formattedAddress);
         $loc = data.position.getLng() + ',' + data.position.getLat();
         document.getElementById('loc_map').src = 'https://m.amap.com/picker/?center=' + $loc + '&key=ab94b5326624fb29059bfce2b970b3f8';
         showMap();

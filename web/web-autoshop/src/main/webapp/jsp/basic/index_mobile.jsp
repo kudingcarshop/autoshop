@@ -14,8 +14,7 @@
     <title>首页</title>
     <style>
     body,
-    html,
-    iframe {
+    html {
         height: 100%;
         -webkit-tap-highlight-color: transparent;
     }
@@ -25,7 +24,9 @@
     }
 
     iframe {
+        height: 100%;
         width: 100%;
+        margin-bottom: 50px;
     }
 
     .user_title_panle {
@@ -56,9 +57,9 @@
     .weui-grid-for-four {
         width: 25%;
     }
-
-    body {
-        height: 100%;
+    .block {
+        height: 50px;
+        width: 100%;
     }
     </style>
 </head>
@@ -67,7 +68,7 @@
     <div class="weui-tab">
         <div class="weui-tab__bd">
             <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
-                <h1>Service</h1>
+                <iframe id="personal_frame" runat="server" frameborder="no" border="0" scrolling="auto" allowtransparency="yes" src="/web-autoshop/garage/vehicle/serviceCenter"></iframe>
             </div>
             <div id="tab2" class="weui-tab__bd-item">
                 <h1>Mall</h1>
@@ -76,10 +77,11 @@
                 <iframe id="personal_frame" runat="server" frameborder="no" border="0" scrolling="auto" allowtransparency="yes" src="${path}/jsp/sys/user/user_center.html"></iframe>
             </div>
         </div>
+        <div class="block"></div>
         <div class="weui-tabbar">
             <a href="#tab1" class="weui-tabbar__item weui-bar__item--on">
                 <div class="weui-tabbar__icon">
-                    <img src=".${path}/img/icon_nav_button.png" alt="">
+                    <img src="${path}/img/icon_nav_button.png" alt="">
                 </div>
                 <p class="weui-tabbar__label">我的服务</p>
             </a>

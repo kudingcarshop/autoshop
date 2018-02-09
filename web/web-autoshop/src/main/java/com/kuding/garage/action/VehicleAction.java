@@ -155,5 +155,12 @@ public class VehicleAction extends BasicAction{
 		mv.setViewName("garage/vehicle/vehicle_detail");
 		return mv;
 	}
+	
+	@RequestMapping("vehicle/serviceCenter")
+	public ModelAndView showServiceCenter() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("sys/garage/service_center");
+		return mv;
+	}
 
 }
