@@ -10,12 +10,12 @@
 	<div class="kd-page">
 		<div class="kd-unp-item">
 			<div class="kd-unp-hd">
-				<input type="checkbox" class="kd-unp-chk kd-left" />
+				<input type="checkbox" id="todaySum" class="kd-unp-chk kd-left" />
 				<p class="kd-left">今天（2017-12-28）</p>
 				<i class="fa fa-angle-up fa-2x kd-right"></i>
 			</div>
 			<ul class="kd-unp-bd">
-				<li><input type="checkbox" class="kd-unp-chk kd-left" />
+				<li><input type="checkbox"  kd-type="1" kd-data="600" class="kd-unp-chk kd-left" />
 					<div class="kd-left">
 						<p>粤L QW306</p>
 						<p>汽修</p>
@@ -25,7 +25,7 @@
 					</div>
 				</li>
 				
-				<li><input type="checkbox" class="kd-unp-chk kd-left" />
+				<li><input type="checkbox" kd-type="1" kd-data="600" class="kd-unp-chk kd-left" />
 					<div class="kd-left">
 						<p>粤L QW306</p>
 						<p>汽修</p>
@@ -39,12 +39,12 @@
 		
 		<div class="kd-unp-item">
 			<div class="kd-unp-hd">
-				<input type="checkbox" class="kd-unp-chk kd-left" />
+				<input type="checkbox" id="monthSum" class="kd-unp-chk kd-left" />
 				<p class="kd-left">一个月内</p>
 				<i class="fa fa-angle-up fa-2x kd-right"></i>
 			</div>
 			<ul class="kd-unp-bd">
-				<li><input type="checkbox" class="kd-unp-chk kd-left" />
+				<li><input type="checkbox" kd-type="2" kd-data="600" class="kd-unp-chk kd-left" />
 					<div class="kd-left">
 						<p>粤L QW306</p>
 						<p>汽修</p>
@@ -55,7 +55,7 @@
 					</div>
 				</li>
 				
-				<li><input type="checkbox" class="kd-unp-chk kd-left" />
+				<li><input type="checkbox" kd-type="2" kd-data="600" class="kd-unp-chk kd-left" />
 					<div class="kd-left">
 						<p>粤L QW306</p>
 						<p>汽修</p>
@@ -71,12 +71,12 @@
 			
 		<div class="kd-unp-item">
 			<div class="kd-unp-hd">
-				<input type="checkbox" class="kd-unp-chk kd-left" />
+				<input type="checkbox" id="overSum"  class="kd-unp-chk kd-left" />
 				<p class="kd-left">超过一个月</p>
 				<i class="fa fa-angle-up fa-2x kd-right"></i>
 			</div>
 			<ul class="kd-unp-bd">
-				<li><input type="checkbox" class="kd-unp-chk kd-left" />
+				<li><input type="checkbox" kd-type="3" kd-data="600" class="kd-unp-chk kd-left" />
 					<div class="kd-left">
 						<p>粤L QW306</p>
 						<p>汽修</p>
@@ -87,7 +87,7 @@
 					</div>
 				</li>
 				
-				<li><input type="checkbox" class="kd-unp-chk kd-left" />
+				<li><input type="checkbox" kd-type="3" kd-data="600" class="kd-unp-chk kd-left" />
 					<div class="kd-left">
 						<p>粤L QW306</p>
 						<p>汽修</p>
@@ -106,5 +106,79 @@
 	</div>
 	<script src="../../../vendor/jquery/jquery.min.js"></script>
 	<script src="../../../vendor/kuding/setup_rem.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		var total = 0;
+		
+		//分类checkbox选择响应函数
+		function titleChange(titleObj,itemSelector){
+			var $inpt = titleObj;
+			var stat = $inpt.is(':checked');
+			$(itemSelector).each(function(){
+				var $item = $(this);
+				$item.prop("checked",stat);
+				if($item.attr('kd-data')){
+					if(stat){
+						total += Number($item.attr('kd-data'));
+					}else{
+						total -= Number($item.attr('kd-data'));
+					}
+				}
+			});	
+			console.log("total="+total);
+		}
+		
+		//具体行数据选择响应函数
+		function itemChange(itemObj,titelSelector,itemSelector){
+			var $inpt =itemObj;
+			var stat = $inpt.is(':checked');
+			if($inpt.attr('kd-data')){
+				if(stat){
+					total += Number($inpt.attr('kd-data'));
+				}else{
+					total -= Number($inpt.attr('kd-data'));
+				}
+			}
+			var inpCheckedSize = 0;
+			$(itemSelector).each(function(){
+				var $item =$(this);
+				if($item.is(":checked")){
+					inpCheckedSize ++;
+				}
+			});
+			var inpSize = $(itemSelector).length;
+			$(titelSelector).prop("checked",(inpCheckedSize== inpSize));
+			console.log("total="+total);
+		}
+		
+		//今天
+		$('#todaySum').change(function(){
+			titleChange($(this),'input[kd-type="1"]');
+		});
+		
+		$('input[kd-type="1"]').change(function(){
+			itemChange($(this),'#todaySum','input[kd-type="1"]');
+		});
+		
+		//月内
+		$('#monthSum').change(function(){
+			titleChange($(this),'input[kd-type="2"]');
+		});
+		
+		$('input[kd-type="2"]').change(function(){
+			itemChange($(this),'#monthSum','input[kd-type="2"]');
+		});
+		
+		//超过一个月
+		$('#overSum').change(function(){
+			titleChange($(this),'input[kd-type="3"]');
+		});
+		
+		$('input[kd-type="3"]').change(function(){
+			itemChange($(this),'#overSum','input[kd-type="3"]');
+		});
+		
+	});
+	</script>
 </body>
 </html>
