@@ -179,4 +179,31 @@ public class BacklogService extends BasicService<Object> {
 		return null;
 	}
 	
+	/**
+	 * 查询预约待处理列表
+	 * @param garageId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
+	public List<Map<String,Object>> queryBookingList(Integer garageId) {
+		if(garageId != null) {
+			StringBuffer hql = new StringBuffer()
+					.append("select new map(booking.id as id, booking.plateNumber as plateNumber, ")
+					.append("booking.bookTime as bookTime,booking.type as type, booking.typeName as typeName, ")
+					.append("user.id as userId, user.phoneNumber as phoneNumber ) ")
+					.append("from VehicleBookInfoEntity booking ")
+					.append("left join booking.userEntity user ")
+					.append("left join booking.garageInfoEntity garage ")
+					.append("where booking.state = :state ")
+					.append("and garage.id = :garageId ")
+					.append("order by booking.bookTime asc ");
+			Query query = getSession().createQuery(hql.toString());
+			query.setInteger("state", VehicleBookInfoEntity.STATE_BOOKING);
+			query.setInteger("garageId", garageId);
+			return query.list();
+		}
+		return null;
+	}
+	
 }

@@ -10,68 +10,34 @@
 </head>
 <body>
 	<div class="kd-page">
-		<div class="kd-hd">
-			<div class="kd-hd-icon">
-			<i class="fa fa-calendar fa-2x"></i>
-			</div>
-			<p class="kd-hd-text">今天(2)</p>
-			<div class="kd-hd-opr">
-			<a class="fa fa-angle-up fa-2x"></a>
-			</div>
-		</div>
-		<div class="kd-bd">
-			<p class="kd-bd-seq">1</p>
-			<div class="kd-bd-content">
-				<p>
-					<span class="kd-left">粤LW306</span> <span class="kd-right">2017-12-28 10:00:00</span>
-				</p>
-				<p>
-					<span class="kd-left">汽修</span> <a class="kd-right">联系车主</a>
-				</p>
-			</div>
-		</div>
-		<div class="kd-bd">
-			<p class="kd-bd-seq">2</p>
-			<div class="kd-bd-content">
-				<p>
-					<span class="kd-left">粤LW306</span> <span class="kd-right">2017-12-28 10:00:00</span>
-				</p>
-				<p>
-					<span class="kd-left">保养</span> <a class="kd-right">联系车主</a>
-				</p>
-			</div>
-		</div>
-		<div class="kd-hd">
-			<div class="kd-hd-icon">
-			<i class="fa fa-calendar fa-2x"></i>
-			</div>
-			<p class="kd-hd-text">2017-12-29(2)</p>
-			<div class="kd-hd-opr">
-			<a class="fa fa-angle-up fa-2x"></a>
-			</div>
-		</div>
-		<div class="kd-bd">
-			<p class="kd-bd-seq">1</p>
-			<div class="kd-bd-content">
-				<p>
-					<span class="kd-left">粤LW306</span> <span class="kd-right">2017-12-29 10:00:00</span>
-				</p>
-				<p>
-					<span class="kd-left">汽修</span> <a class="kd-right">联系车主</a>
-				</p>
-			</div>
-		</div>
-		<div class="kd-bd">
-			<p class="kd-bd-seq">2</p>
-			<div class="kd-bd-content">
-				<p>
-					<span class="kd-left">粤LW306</span> <span class="kd-right">2017-12-29 11:00:00</span>
-				</p>
-				<p>
-					<span class="kd-left">保养</span> <a class="kd-right">联系车主</a>
-				</p>
-			</div>
-		</div>
+	<c:forEach items="${booking}" var="item" varStatus="status">
+		<c:choose>
+			<c:when test="${item.titleTime != null }">
+				<div class="kd-hd">
+					<div class="kd-hd-icon">
+					<i class="fa fa-calendar fa-2x"></i>
+					</div>
+					<p class="kd-hd-text"><fmt:formatDate value="${item.titleTime}" pattern="yyyy-MM-dd"/></p>
+					<div class="kd-hd-opr">
+					<a class="fa fa-angle-up fa-2x"></a>
+					</div>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="kd-bd">
+					<p class="kd-bd-seq">${item.seq}</p>
+					<div class="kd-bd-content">
+						<p>
+							<span class="kd-left">${item.plateNumber }</span> <span class="kd-right"><fmt:formatDate value="${item.bookTime}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+						</p>
+						<p>
+							<span class="kd-left">汽修</span> <a class="kd-right">联系车主</a>
+						</p>
+					</div>
+				</div>
+			</c:otherwise>
+		</c:choose>
+	</c:forEach>
 	</div>
 	<script src="${path}/vendor/jquery/jquery.min.js"></script>
 	<script src="${path}/vendor/kuding/setup_rem.js"></script>

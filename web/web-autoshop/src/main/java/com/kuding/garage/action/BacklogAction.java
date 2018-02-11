@@ -29,11 +29,10 @@ public class BacklogAction extends BasicAction {
 	
 	@RequestMapping("backlog")
 	public ModelAndView showBacklog(HttpServletRequest req) {
-		UserInfo user = getUserInfo(req.getSession());
-		if(user == null || user.getGarageId() == null) {
+		Integer garageId = getGarageId(req);
+		if(garageId == null) {
 			throw new BusinessException(ErrorCode.SYS_ERROR);
 		}
-		Integer garageId = user.getGarageId();
 		ModelAndView mv = new ModelAndView();
 		mv.getModel().put("unpVehs", backlogService.queryUnpayVehicles(garageId));
 		mv.getModel().put("unpSum", backlogService.queryUnpaySum(garageId));
@@ -45,16 +44,25 @@ public class BacklogAction extends BasicAction {
 
 	@RequestMapping("backlog/unpay")
 	public ModelAndView showUnpay(HttpServletRequest req) {
-		UserInfo user = getUserInfo(req.getSession());
-		if(user == null || user.getGarageId() == null) {
+		Integer garageId = getGarageId(req);
+		if(garageId == null) {
 			throw new BusinessException(ErrorCode.SYS_ERROR);
 		}
 		ModelAndView mv = new ModelAndView();
-		Integer garageId = user.getGarageId();
 		List<Map<String,Object>> list = backlogService.queryUnpayDetails(garageId);
 		mv.getModel().put("unpays", prepareUnpayData(list));
 		mv.setViewName("garage/backlog/backlog_unpay");
 		return mv;
+	}
+	
+	private Integer getGarageId(HttpServletRequest req) {
+		if(req != null) {
+			UserInfo user = getUserInfo(req.getSession());
+			if(user != null && user.getGarageId() != null) {
+				return user.getGarageId();
+			}
+		}
+		return null;
 	}
 	
 	/**
@@ -158,10 +166,47 @@ public class BacklogAction extends BasicAction {
 	}
 	
 	@RequestMapping("backlog/booking")
-	public ModelAndView showBooking() {
+	public ModelAndView showBooking(HttpServletRequest req) {
+		Integer garageId = getGarageId(req);
+		if(garageId == null) {
+			throw new BusinessException(ErrorCode.SYS_ERROR);
+		}
 		ModelAndView mv = new ModelAndView();
+		mv.getModel().put("booking", categoryDataforBooking(backlogService.queryBookingList(garageId)));
 		mv.setViewName("garage/backlog/backlog_booking");
 		return mv;
+	}
+	
+	/**
+	 * 预约列表展示重新处理
+	 * @param list
+	 * @return
+	 */
+	private List<Map<String,Object>> categoryDataforBooking(List<Map<String,Object>> list){
+		if(list != null && list.size() > 0) {
+			List<Map<String,Object>> res = new ArrayList<>();
+			Timestamp preTime = null;
+			int seq = 0;
+			for(Map<String,Object> map : list) {
+				Timestamp time = (Timestamp) map.get("bookTime");
+				if(time == null) {
+					getLogger().info("error: booking list got an invalid record that bookTime is null: id = " + map.get("id"));
+					continue;
+				}
+				if(preTime == null || (preTime != null && !CalendarUtils.isSameDate(preTime, time))) {
+					Map<String,Object> titleMap = new HashMap<>();
+					titleMap.put("titleTime", time);
+					seq = 0;
+					res.add(titleMap);
+				}
+				preTime = time;
+				seq++;
+				map.put("seq", seq);
+				res.add(map);
+			}
+			return res;
+		}
+		return null;
 	}
 	
 	@RequestMapping("backlog/serving")
