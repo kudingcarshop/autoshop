@@ -162,7 +162,7 @@ public class BacklogService extends BasicService<Object> {
 	public List<Map<String,Object>> queryUnpayDetails(Integer garageId) {
 		if(garageId != null) {
 			StringBuffer hql = new StringBuffer()
-					.append("select new map(maintain.id as id,maintain.category as category,maintain.payPrice as payPrice,veh.plateNumber as plateNumber,maintain.receiveTime as receiveTime) ")
+					.append("select new map(maintain.id as id,maintain.category as category,maintain.categoryName as categoryName,maintain.payPrice as payPrice,veh.plateNumber as plateNumber,maintain.receiveTime as receiveTime) ")
 					.append("from VehicleMaintainInfo maintain ")
 					.append("left join maintain.vehicle veh ")
 					.append("left join maintain.garage garage ")

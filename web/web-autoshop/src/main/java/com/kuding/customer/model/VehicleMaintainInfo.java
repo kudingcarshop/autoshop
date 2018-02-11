@@ -37,6 +37,9 @@ public class VehicleMaintainInfo {
 	
 	/**付款状态：未付款*/
 	public static final String PAY_NO = "0";
+	
+	/**服务类型:category的系统字典中的分类标识*/
+	public static final String CATEGORY_CODE = "biz";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -47,6 +50,9 @@ public class VehicleMaintainInfo {
 	
 	@Column(name="category")
 	private String category;
+	
+	@Column(name="category_name")
+	private String categoryName;
 	
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="vehicle_id")
@@ -109,6 +115,14 @@ public class VehicleMaintainInfo {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public VehicleEntity getVehicle() {
