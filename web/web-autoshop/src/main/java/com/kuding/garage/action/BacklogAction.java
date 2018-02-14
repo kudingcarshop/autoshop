@@ -208,12 +208,5 @@ public class BacklogAction extends BasicAction {
 		}
 		return null;
 	}
-	
-	@RequestMapping("backlog/serving")
-	public ModelAndView showServing() {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("garage/backlog/backlog_inservice");
-		return mv;
-	}
 
 }

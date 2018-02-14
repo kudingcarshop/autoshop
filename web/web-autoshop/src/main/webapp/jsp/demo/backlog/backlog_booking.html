@@ -14,10 +14,10 @@
 			</div>
 			<p class="kd-hd-text">今天(2)</p>
 			<div class="kd-hd-opr">
-			<a class="fa fa-angle-up fa-2x"></a>
+			<a kd-flag="1" class="fa fa-angle-up fa-2x"></a>
 			</div>
 		</div>
-		<div class="kd-bd">
+		<div class="kd-bd" kd-flag="1">
 			<p class="kd-bd-seq">1</p>
 			<div class="kd-bd-content">
 				<p>
@@ -28,7 +28,7 @@
 				</p>
 			</div>
 		</div>
-		<div class="kd-bd">
+		<div class="kd-bd" kd-flag="1" >
 			<p class="kd-bd-seq">2</p>
 			<div class="kd-bd-content">
 				<p>
@@ -45,10 +45,10 @@
 			</div>
 			<p class="kd-hd-text">2017-12-29(2)</p>
 			<div class="kd-hd-opr">
-			<a class="fa fa-angle-up fa-2x"></a>
+			<a kd-flag="2"  class="fa fa-angle-up fa-2x"></a>
 			</div>
 		</div>
-		<div class="kd-bd">
+		<div class="kd-bd" kd-flag="2">
 			<p class="kd-bd-seq">1</p>
 			<div class="kd-bd-content">
 				<p>
@@ -59,7 +59,7 @@
 				</p>
 			</div>
 		</div>
-		<div class="kd-bd">
+		<div class="kd-bd" kd-flag="2">
 			<p class="kd-bd-seq">2</p>
 			<div class="kd-bd-content">
 				<p>
@@ -73,5 +73,18 @@
 	</div>
 	<script src="../../../vendor/jquery/jquery.min.js"></script>
 	<script src="../../../vendor/kuding/setup_rem.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('a.fa').click(function(){
+				var $btn = $(this);
+				$btn.parent().parent().siblings().each(function(){
+					var $bd = $(this);
+					if($bd.hasClass('kd-bd') && $bd.attr('kd-flag')== $btn.attr('kd-flag')){
+						$bd.toggle();
+					}
+				});
+			});
+		});
+	</script>
 </body>
 </html>

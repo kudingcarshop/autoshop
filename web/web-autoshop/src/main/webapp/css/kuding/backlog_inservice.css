@@ -20,7 +20,7 @@
 	display:block;
 	float: left;
 	height:0.23rem;
-	width:0.77rem;
+	width:1rem;
 	line-height:0.23rem;
 	list-style: none;
 }
@@ -70,4 +70,22 @@
 	height:0.23rem;
 	font-size:0.14rem;
 	margin-top: 0.23rem;
+}
+
+.kd-danger{
+	width:3.2rem;
+	height:0.23rem;
+	line-height:0.23rem;
+	padding:0.05rem;
+	background: rgb(242, 222, 222);
+	color:rgb(169, 68, 66);
+}
+
+.kd-success{
+	width:3.2rem;
+	height:0.23rem;
+	line-height:0.23rem;
+	padding:0.05rem;
+	background: rgb(223, 240, 216);
+	color:rgb(60, 118, 61);
 }

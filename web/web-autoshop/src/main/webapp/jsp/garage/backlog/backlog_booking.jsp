@@ -13,18 +13,19 @@
 	<c:forEach items="${booking}" var="item" varStatus="status">
 		<c:choose>
 			<c:when test="${item.titleTime != null }">
+				
 				<div class="kd-hd">
 					<div class="kd-hd-icon">
 					<i class="fa fa-calendar fa-2x"></i>
 					</div>
 					<p class="kd-hd-text"><fmt:formatDate value="${item.titleTime}" pattern="yyyy-MM-dd"/></p>
 					<div class="kd-hd-opr">
-					<a class="fa fa-angle-up fa-2x"></a>
+					<a kd-flag='<fmt:formatDate value="${item.titleTime}" pattern="yyyy-MM-dd"/>' class="fa fa-angle-up fa-2x"></a>
 					</div>
 				</div>
 			</c:when>
 			<c:otherwise>
-				<div class="kd-bd">
+				<div class="kd-bd" kd-flag='<fmt:formatDate value="${item.bookTime}" pattern="yyyy-MM-dd"/>'>
 					<p class="kd-bd-seq">${item.seq}</p>
 					<div class="kd-bd-content">
 						<p>
@@ -41,5 +42,25 @@
 	</div>
 	<script src="${path}/vendor/jquery/jquery.min.js"></script>
 	<script src="${path}/vendor/kuding/setup_rem.js"></script>
+		<script type="text/javascript">
+		$(function(){
+			$('a.fa').click(function(){
+				var $btn = $(this);
+				$btn.parent().parent().siblings().each(function(){
+					var $bd = $(this);
+					if($bd.hasClass('kd-bd') && $bd.attr('kd-flag')== $btn.attr('kd-flag')){
+						$bd.toggle();
+						if($btn.hasClass('fa-angle-up')){
+							$btn.removeClass('fa-angle-up');
+							$btn.addClass('fa-angle-down');
+						}else{
+							$btn.removeClass('fa-angle-down');
+							$btn.addClass('fa-angle-up');
+						}
+					}
+				});
+			});
+		});
+	</script>
 </body>
 </html>

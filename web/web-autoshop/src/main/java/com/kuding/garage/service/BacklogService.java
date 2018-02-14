@@ -8,6 +8,8 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kuding.commons.BusinessException;
+import com.kuding.commons.ErrorCode;
 import com.kuding.commons.service.BasicService;
 import com.kuding.customer.model.VehicleMaintainInfo;
 import com.kuding.garage.model.VehicleBookInfoEntity;
@@ -206,4 +208,77 @@ public class BacklogService extends BasicService<Object> {
 		return null;
 	}
 	
+	@Transactional(readOnly=true)
+	public Integer queryVehicleSumWithState(Integer garageId,String[] states) {
+		StringBuffer hql = new StringBuffer()
+				.append("select count( distinct vehicle.id) from VehicleEntity vehicle ")
+				.append("left join vehicle.maintains maintain ")
+				.append("left join maintain.garage garage ")
+				.append("where 1=1 ");
+		if(garageId != null) {
+			hql.append("and garage.id = :garageId ");
+		}
+		
+		if(states != null && states.length > 0) {
+			hql.append("and maintain.state in ( :states ) ");
+		}
+
+		Query query = getSession().createQuery(hql.toString());
+		if(garageId != null) {
+			query.setInteger("garageId", garageId);
+		}
+		if(states != null && states.length > 0) {
+			query.setParameterList("states", states);
+		}
+		query.setMaxResults(1);
+		Long unpayCars = (Long) query.uniqueResult();
+		
+		return unpayCars != null ? unpayCars.intValue() : 0;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
+	public List<Map<String,Object>> queryVehicleListWithState(Integer garageId,String[] states) {
+		StringBuffer hql = new StringBuffer()
+				.append("select new map( vehicle.id as id, vehicle.plateNumber as plateNumber, ")
+				.append("maintain.id as maintainId,maintain.state as state, maintain.category as category, ")
+				.append("maintain.categoryName as categoryName,maintain.receiveTime as receiveTime) ")
+				.append("from VehicleEntity vehicle ")
+				.append("left join vehicle.maintains maintain ")
+				.append("left join maintain.garage garage ")
+				.append("where 1=1 ");
+		if(garageId != null) {
+			hql.append("and garage.id = :garageId ");
+		}
+		
+		if(states != null && states.length > 0) {
+			hql.append("and maintain.state in ( :states ) ");
+		}
+		hql.append("group by vehicle.id ")
+		   .append("order by maintain.receiveTime asc ");
+		
+		Query query = getSession().createQuery(hql.toString());
+		if(garageId != null) {
+			query.setInteger("garageId", garageId);
+		}
+		if(states != null && states.length > 0) {
+			query.setParameterList("states", states);
+		}
+		return query.list();
+	}
+	
+	/**
+	 * 更新车辆服务状态
+	 * @param maintainId
+	 * @param state
+	 */
+	@Transactional(readOnly=false, rollbackFor = { Exception.class, RuntimeException.class })
+	public void updateMaintainState(Integer maintainId,String state) {
+		if(maintainId == null || state == null) {
+			throw new BusinessException(ErrorCode.SYS_ERROR);
+		}
+		VehicleMaintainInfo maintain = (VehicleMaintainInfo) getSession().load(VehicleMaintainInfo.class, maintainId);
+		maintain.setState(state);
+		getSession().saveOrUpdate(maintain);
+	}
 }
