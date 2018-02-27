@@ -44,6 +44,7 @@
     var $loc = '116.3972,39.9696';
     var $pick_loc = [];
     var $pick_name;
+    var $pick_address;
     $(document).ready(function() {
         getLocation();
 
@@ -82,6 +83,7 @@
         window.addEventListener("message", function(e) {
             $pick_loc = e.data.location.split(',');
             $pick_name = e.data.name;
+            $pick_address = e.data.address;
             getFormattedAddress();
             // window.location.href = "/web-autoshop/garage/vehicle/showSos?address=" + e.data.address + "&" + "name=" + e.data.name;
             // alert('您选择了:' + e.data.name + ',' + e.data.location)
@@ -147,7 +149,7 @@
     }
 
     function geocoder_CallBack(data) {
-        var address = data.regeocode.formattedAddress; //返回地址描述
+        var address = data.regeocode.addressComponet.province + data.regeocode.addressComponet.city + $pick_address; //返回地址描述
         console.log('callback'+address);
         window.location.href = "/web-autoshop/garage/vehicle/showSos?address=" +address + "&" + "name=" + $pick_name + "&" + "loc=" + $pick_loc;
         // document.getElementById("result").innerHTML = address;
