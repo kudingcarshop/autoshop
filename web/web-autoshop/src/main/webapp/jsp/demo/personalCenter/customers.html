@@ -1,0 +1,130 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="../../../vendor/font-awesome/4.7.0/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="../../../css/kuding/commons.css"/>
+	<link rel="stylesheet" href="../../../css/kuding/gra_pc_customers.css"/>
+</head>
+<body>
+	<div class="kd-page">
+		<!--搜索  -->
+		<div class="kd-search">
+			<input type="text" name="search" class="kd-srh-input" placeholder="搜素"/>
+			<a class="kd-srh-btn">搜索</a>
+		</div>
+		<!-- 总计 -->
+		<p class="kd-sum">共100位客户</p>
+		<!-- 列表 -->
+		<div id="list">
+			<div class="kd-list-item">
+				<span class="kd-seq">1</span>
+				<div class="kd-content">
+					<p><span>李嘉诚先生</span><span>个人</span><i class="fa fa-phone-square fa-lg"></i></p>
+					<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	
+				</div>
+				<i class="fa fa-angle-right fa-2x kd-right"></i>
+			</div>
+		
+			<div class="kd-list-item">
+				<span class="kd-seq">2</span>
+				<div class="kd-content">
+					<p><span>马云先生</span><span>公司</span><i class="fa fa-phone-square fa-lg"></i></p>
+					<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	
+					<p>阿里巴巴集团</p>
+				</div>
+				<i class="fa fa-angle-right fa-2x kd-right"></i>
+			</div>
+			
+			<div class="kd-list-item">
+				<span class="kd-seq">3</span>
+				<div class="kd-content">
+					<p><span>欧阳司马女士</span><span>个人</span><i class="fa fa-phone-square fa-lg"></i></p>
+					<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	
+				</div>
+				<i class="fa fa-angle-right fa-2x kd-right"></i>
+			</div>
+		</div>
+		<div class="caseud" now="1" num="2">
+		    <a href="javascript:loadMore();">加载更多</a>    
+		</div>
+	</div>
+	<script src="../../../vendor/jquery/jquery.min.js"></script>
+	<script src="../../../vendor/kuding/setup_rem.js"></script>
+	<script type="text/javascript">
+	
+	function loadMore(){
+		var seq = $('#list').find('.kd-list-item').length + 1;
+		var html ='<div class="kd-list-item">'
+				 	 +'<span class="kd-seq">'
+				 	 	+ seq
+				 	 +'</span>'
+				 	 +'<div class="kd-content">'
+				 		+'<p>'
+					 		+'<span>'
+					 			+'欧阳'+seq+'女士'
+					 		+'</span>'
+					 		+'<span>'
+					 			+'个人'
+					 		+'</span>'
+					 		+'<i class="fa fa-phone-square fa-lg"></i>'
+					 	+'</p>'
+					 	+'<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	'
+					 +'</div>'
+					 +'<i class="fa fa-angle-right fa-2x kd-right"></i>'
+				 +'</div>';
+		$('#list').append($(html));
+		seq ++;
+		var html ='<div class="kd-list-item">'
+		 	 +'<span class="kd-seq">'
+		 	 	+ seq
+		 	 +'</span>'
+		 	 +'<div class="kd-content">'
+		 		+'<p>'
+			 		+'<span>'
+			 			+'欧阳'+seq+'女士'
+			 		+'</span>'
+			 		+'<span>'
+			 			+'个人'
+			 		+'</span>'
+			 		+'<i class="fa fa-phone-square fa-lg"></i>'
+			 	+'</p>'
+			 	+'<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	'
+			 +'</div>'
+			 +'<i class="fa fa-angle-right fa-2x kd-right"></i>'
+		 +'</div>';
+		$('#list').append($(html));
+	}
+	
+	//记录状态
+	var state = true;
+	var lastTop = 0;
+	//滚动条滚动的时候
+	$(window).scroll(function(){
+	     //获取当前加载更多按钮距离顶部的距离
+	    var bottomsubmit = $('.caseud').offset().top;
+	    //获取当前页面底部距离顶部的高度距离
+	    var nowtop = $(document).scrollTop()+ document.body.clientHeight;
+	    //获取当前页数，默认第一页
+	    var now = $('.caseud').attr('now');
+	    //获取总页数
+	    var num = $('.caseud').attr('num');
+	    //当当前页面的高度大于按钮的高度的时候开始触发加载更多数据
+	    if(nowtop>bottomsubmit && nowtop > lastTop){
+	            //如果为真继续执行，这个是用于防止滚动获取过多的数据情况
+	        if(state==true){
+	            //执行一次获取数据并停止再进来获取数据
+	            state=false;
+	            //当前页数++
+	            now++;
+	            //记录当前页
+	            $('.caseud').attr('now',now);
+	            loadMore();
+	            state=true;
+		    lastTop = nowtop;
+	        }
+	    }
+	});
+	</script>
+</body>
+</html>

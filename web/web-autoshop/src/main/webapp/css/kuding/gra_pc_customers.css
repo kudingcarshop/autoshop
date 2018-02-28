@@ -1,0 +1,110 @@
+@charset "utf-8";
+
+.kd-search{
+	width: 3.2rem;
+	height: 0.3rem;
+	overflow: hidden;
+	margin-top: 0.04rem;
+}
+
+.kd-srh-input{
+	display: inline-block;
+	float:left;
+	width:2rem;
+	height: 0.3rem;
+	margin-left:0.04rem;
+	line-height: 0.3rem;
+	padding-left:0.04rem;
+	border:1px solid #bbbbbb;
+	border-radius: 0.04rem;
+}
+
+.kd-srh-btn{
+	display:inline-block;
+	float:right;
+	width:1rem;
+	height: 0.28rem;
+	margin-right:0.04rem;
+	line-height: 0.3rem;
+	text-align: center;
+	border:1px solid #bbbbbb;
+	border-radius: 0.04rem;
+}
+
+.kd-sum{
+	width:3.08rem;
+	height: 0.3rem;
+	line-height: 0.3rem;
+	padding-left: 0.04rem;
+	margin:0.04rem;
+	background: #bfbbbf;
+	border:1px solid #bbbbbb;
+	border-radius: 0.04rem;
+}
+
+#wrapper{
+	height: 4rem;
+	overflow: hidden;
+}
+
+.kd-list-item{
+	overflow:hidden;
+	margin:0 0.04rem 0.04rem 0.04rem;
+	border-bottom: 1px solid #bbbbbb;
+}
+
+.kd-seq{
+	display:inline-block;
+	float: left;
+	width:0.23rem;
+	height: 0.23rem;
+	line-height: 0.23rem;
+	text-align:center;
+	border: 1px solid #bbbbbb;
+	border-radius: 0.23rem;
+	margin: 0.1rem 0.04rem;
+}
+.kd-content{
+	float:left;
+}
+
+
+.kd-content p{
+	height: 0.23rem;
+	line-height: 0.23rem;
+}
+
+.kd-content p:nth-of-type(1) {
+	height: 0.26rem;
+	line-height: 0.26rem;
+	overflow: hidden;
+}
+
+.kd-content p:nth-of-type(1) span{
+	display: block;
+	float:left;
+}
+
+
+.kd-content p:nth-of-type(1) span:nth-of-type(1) {
+	width:1.14rem;
+	font-weight: bold;
+	font-size: 0.18rem;
+}
+
+.kd-content p:nth-of-type(1) span:nth-of-type(2) {
+	height:0.12rem;
+	line-height:0.12rem;
+	margin-left: 0.2rem;
+	margin-top:0.1rem;
+	font-size:0.12rem;
+	background: #8bc34a;
+}
+
+.kd-content p:nth-of-type(1) i{
+	margin-left: 0.2rem;
+}
+
+.kd-list-item i{
+	margin: 0.1rem 0.04rem;
+}

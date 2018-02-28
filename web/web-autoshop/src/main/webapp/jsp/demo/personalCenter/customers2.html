@@ -1,0 +1,206 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="../../../vendor/font-awesome/4.7.0/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="../../../css/kuding/commons.css"/>
+	<link rel="stylesheet" href="../../../css/kuding/gra_pc_customers.css"/>
+</head>
+<body>
+	<div class="kd-page">
+		<!--搜索  -->
+		<div class="kd-search">
+			<input type="text" name="search" class="kd-srh-input" placeholder="搜素"/>
+			<a class="kd-srh-btn">搜索</a>
+		</div>
+		<!-- 总计 -->
+		<p class="kd-sum">共100位客户</p>
+		<!-- 列表 -->
+		<div id="wrapper">
+			<div id="scroller">
+					<div class="kd-list-item">
+						<span class="kd-seq">1</span>
+						<div class="kd-content">
+							<p><span>李嘉诚先生</span><span>个人</span><i class="fa fa-phone-square fa-lg"></i></p>
+							<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	
+						</div>
+						<i class="fa fa-angle-right fa-2x kd-right"></i>
+					</div>
+				
+					<div class="kd-list-item">
+						<span class="kd-seq">2</span>
+						<div class="kd-content">
+							<p><span>马云先生</span><span>公司</span><i class="fa fa-phone-square fa-lg"></i></p>
+							<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	
+							<p>阿里巴巴集团</p>
+						</div>
+						<i class="fa fa-angle-right fa-2x kd-right"></i>
+					</div>
+					
+					<div class="kd-list-item">
+						<span class="kd-seq">3</span>
+						<div class="kd-content">
+							<p><span>欧阳司马女士</span><span>个人</span><i class="fa fa-phone-square fa-lg"></i></p>
+							<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	
+						</div>
+						<i class="fa fa-angle-right fa-2x kd-right" ></i>
+					</div>
+					
+					<div class="kd-list-item">
+						<span class="kd-seq">3</span>
+						<div class="kd-content">
+							<p><span>欧阳司马女士</span><span>个人</span><i class="fa fa-phone-square fa-lg"></i></p>
+							<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	
+						</div>
+						<i class="fa fa-angle-right fa-2x kd-right" ></i>
+					</div>
+					
+					<div class="kd-list-item">
+						<span class="kd-seq">3</span>
+						<div class="kd-content">
+							<p><span>欧阳司马女士</span><span>个人</span><i class="fa fa-phone-square fa-lg"></i></p>
+							<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	
+						</div>
+						<i class="fa fa-angle-right fa-2x kd-right" ></i>
+					</div>
+					
+					<div class="kd-list-item">
+						<span class="kd-seq">3</span>
+						<div class="kd-content">
+							<p><span>欧阳司马女士</span><span>个人</span><i class="fa fa-phone-square fa-lg"></i></p>
+							<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	
+						</div>
+						<i class="fa fa-angle-right fa-2x kd-right" ></i>
+					</div>
+					
+					<div class="kd-list-item">
+						<span class="kd-seq">3</span>
+						<div class="kd-content">
+							<p><span>欧阳司马女士</span><span>个人</span><i class="fa fa-phone-square fa-lg"></i></p>
+							<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	
+						</div>
+						<i class="fa fa-angle-right fa-2x kd-right" ></i>
+					</div>
+					
+					<div class="kd-list-item">
+						<span class="kd-seq">3</span>
+						<div class="kd-content">
+							<p><span>欧阳司马女士</span><span>个人</span><i class="fa fa-phone-square fa-lg"></i></p>
+							<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	
+						</div>
+						<i class="fa fa-angle-right fa-2x kd-right" ></i>
+					</div>
+					
+					<div class="kd-list-item">
+						<span class="kd-seq">3</span>
+						<div class="kd-content">
+							<p><span>欧阳司马女士</span><span>个人</span><i class="fa fa-phone-square fa-lg"></i></p>
+							<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	
+						</div>
+						<i class="fa fa-angle-right fa-2x kd-right" ></i>
+					</div>
+					
+					<div id="more" now="1" num="2" >
+						<a href="javascript:loadMore();"> <i></i>加载更多</a>
+					</div>
+			</div>
+		</div>
+	</div>
+	<script src="../../../vendor/iscroll/iscroll-probe.js"></script>
+	<script src="../../../vendor/jquery/jquery.min.js"></script>
+	<script src="../../../vendor/kuding/setup_rem.js"></script>
+	<script type="text/javascript">
+	function isPassive() {
+	    var supportsPassiveOption = false;
+	    try {
+	        addEventListener("test", null, Object.defineProperty({}, 'passive', {
+	            get: function () {
+	                supportsPassiveOption = true;
+	            }
+	        }));
+	    } catch(e) {}
+	    return supportsPassiveOption;
+	}
+	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, isPassive() ? {
+		capture: false,
+		passive: false
+	} : false); 
+	
+	var pullOffSet = 16;
+	var maxOffSet = 0;
+	
+	
+	
+	var myscroll = new IScroll("#wrapper",{
+		probeType: 2, 
+		mouseWheel: true		
+	});
+	
+	function loadMore(){
+		var seq = $('#scroller').find('.kd-list-item').length + 1;
+		var html ='<div class="kd-list-item">'
+				 	 +'<span class="kd-seq">'
+				 	 	+ seq
+				 	 +'</span>'
+				 	 +'<div class="kd-content">'
+				 		+'<p>'
+					 		+'<span>'
+					 			+'欧阳'+seq+'女士'
+					 		+'</span>'
+					 		+'<span>'
+					 			+'个人'
+					 		+'</span>'
+					 		+'<i class="fa fa-phone-square fa-lg"></i>'
+					 	+'</p>'
+					 	+'<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	'
+					 +'</div>'
+					 +'<i class="fa fa-angle-right fa-2x kd-right"></i>'
+				 +'</div>';
+		$('#more').before($(html));
+		seq ++;
+		html ='<div class="kd-list-item">'
+		 	 +'<span class="kd-seq">'
+		 	 	+ seq
+		 	 +'</span>'
+		 	 +'<div class="kd-content">'
+		 		+'<p>'
+			 		+'<span>'
+			 			+'欧阳'+seq+'女士'
+			 		+'</span>'
+			 		+'<span>'
+			 			+'个人'
+			 		+'</span>'
+			 		+'<i class="fa fa-phone-square fa-lg"></i>'
+			 	+'</p>'
+			 	+'<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	'
+			 +'</div>'
+			 +'<i class="fa fa-angle-right fa-2x kd-right"></i>'
+		 +'</div>';
+		$('#more').before($(html));
+		myscroll.refresh();
+	}
+	
+	myscroll.on('refrresh',function(){
+		//maxOffSet = this.maxScrollY=this.maxScrollY + pullOffSet;
+	});
+	myscroll.on('scroll',function(){
+		if(this.y < 5 && this.y<=(this.maxScrollY-pullOffSet)){
+			$('#more a').text('上拉加载更多');
+			$('#more a').attr('state','1');//0-初始值 1-等待拖动完成 2-加载数据中
+		}
+		console.log('scroll y='+ this.y);
+		console.log('scroll');
+	});
+	myscroll.on('scrollStart',function(){
+		console.log('scroll start');
+		console.log('scroll start y='+ this.y);
+	});
+	myscroll.on('scrollEnd',function(){
+		if($('#more a').attr('state')=='1'){
+			$('#more a').html('<i class="fa fa-circle-o-notch fa-spin"></i>加载中');
+			$('#more a').attr('state','2');
+		}
+	});
+	</script>
+</body>
+</html>
