@@ -118,7 +118,7 @@
                     预约维修
                 </p>
             </a>
-            <a href="/web-autoshop/garage/vehicle/showSos" class="weui-grid js_grid">
+            <a id="sos_grid" class="weui-grid js_grid">
                 <div class="weui-grid__icon" style="position: relative;">
                     <img src="${path}/img/icon_nav_new.png" alt="">
                 </div>
@@ -139,6 +139,9 @@
     <script type="text/javascript">
     $(document).ready(function() {
         $("#myCarousel").carousel('cycle');
+    });
+    $('#sos_grid').click(function() {
+        window.parent.location.href = "/web-autoshop/garage/vehicle/showSos";
     });
     </script>
 </body>

@@ -47,7 +47,7 @@
 <body ontouchstart>
     <div class="toolbar">
         <div class="toolbar-inner">
-            <a href="/web-autoshop/garage/vehicle/serviceCenter" class="back-button">
+            <a href="${path}/jsp/basic/index_mobile.jsp" class="back-button">
                 < 返回 </a>
         </div>
     </div>

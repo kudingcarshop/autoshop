@@ -149,7 +149,7 @@
     }
 
     function geocoder_CallBack(data) {
-        var address = data.regeocode.addressComponet.province + data.regeocode.addressComponet.city + $pick_address; //返回地址描述
+        var address = data.regeocode.addressComponent.province + data.regeocode.addressComponent.city + $pick_address; //返回地址描述
         console.log('callback'+address);
         window.location.href = "/web-autoshop/garage/vehicle/showSos?address=" +address + "&" + "name=" + $pick_name + "&" + "loc=" + $pick_loc;
         // document.getElementById("result").innerHTML = address;

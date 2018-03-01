@@ -2,9 +2,7 @@ package com.kuding.garage.action;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,8 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JsonSerializer;
 import com.kuding.commons.http.Result;
 import com.kuding.garage.model.VehicleBookInfoEntity;
 import com.kuding.garage.service.VehicleBookService;
