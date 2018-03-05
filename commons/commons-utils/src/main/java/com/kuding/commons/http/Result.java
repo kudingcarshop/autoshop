@@ -1,6 +1,7 @@
 package com.kuding.commons.http;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Result {
@@ -13,7 +14,9 @@ public class Result {
 	
 	private String message;
 	
-	private Map<String,Object> data= new HashMap<String,Object>();
+	private Map<String,Object> extraData= new HashMap<String,Object>();
+	
+	private List<?> rows;
 
 
 	public int getFlag() {
@@ -32,12 +35,20 @@ public class Result {
 		this.message = message;
 	}
 
-	public Map<String, Object> getData() {
-		return data;
+	public Map<String, Object> getExtraData() {
+		return extraData;
 	}
 
-	public void setData(Map<String, Object> data) {
-		this.data = data;
+	public void setExtraData(Map<String, Object> extraData) {
+		this.extraData = extraData;
+	}
+
+	public List<?> getRows() {
+		return rows;
+	}
+
+	public void setRows(List<?> rows) {
+		this.rows = rows;
 	}
 
 }

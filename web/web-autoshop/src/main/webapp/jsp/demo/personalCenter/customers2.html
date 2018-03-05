@@ -30,9 +30,8 @@
 					<div class="kd-list-item">
 						<span class="kd-seq">2</span>
 						<div class="kd-content">
-							<p><span>马云先生</span><span>公司</span><i class="fa fa-phone-square fa-lg"></i></p>
+							<p><span>马云先生</span><span>阿里巴巴集</span><i class="fa fa-phone-square fa-lg"></i></p>
 							<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	
-							<p>阿里巴巴集团</p>
 						</div>
 						<i class="fa fa-angle-right fa-2x kd-right"></i>
 					</div>
@@ -46,62 +45,8 @@
 						<i class="fa fa-angle-right fa-2x kd-right" ></i>
 					</div>
 					
-					<div class="kd-list-item">
-						<span class="kd-seq">3</span>
-						<div class="kd-content">
-							<p><span>欧阳司马女士</span><span>个人</span><i class="fa fa-phone-square fa-lg"></i></p>
-							<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	
-						</div>
-						<i class="fa fa-angle-right fa-2x kd-right" ></i>
-					</div>
-					
-					<div class="kd-list-item">
-						<span class="kd-seq">3</span>
-						<div class="kd-content">
-							<p><span>欧阳司马女士</span><span>个人</span><i class="fa fa-phone-square fa-lg"></i></p>
-							<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	
-						</div>
-						<i class="fa fa-angle-right fa-2x kd-right" ></i>
-					</div>
-					
-					<div class="kd-list-item">
-						<span class="kd-seq">3</span>
-						<div class="kd-content">
-							<p><span>欧阳司马女士</span><span>个人</span><i class="fa fa-phone-square fa-lg"></i></p>
-							<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	
-						</div>
-						<i class="fa fa-angle-right fa-2x kd-right" ></i>
-					</div>
-					
-					<div class="kd-list-item">
-						<span class="kd-seq">3</span>
-						<div class="kd-content">
-							<p><span>欧阳司马女士</span><span>个人</span><i class="fa fa-phone-square fa-lg"></i></p>
-							<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	
-						</div>
-						<i class="fa fa-angle-right fa-2x kd-right" ></i>
-					</div>
-					
-					<div class="kd-list-item">
-						<span class="kd-seq">3</span>
-						<div class="kd-content">
-							<p><span>欧阳司马女士</span><span>个人</span><i class="fa fa-phone-square fa-lg"></i></p>
-							<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	
-						</div>
-						<i class="fa fa-angle-right fa-2x kd-right" ></i>
-					</div>
-					
-					<div class="kd-list-item">
-						<span class="kd-seq">3</span>
-						<div class="kd-content">
-							<p><span>欧阳司马女士</span><span>个人</span><i class="fa fa-phone-square fa-lg"></i></p>
-							<p>车辆<font color="orange">2部</font>上次到店<font color="orange">2018-02-26</font></p>	
-						</div>
-						<i class="fa fa-angle-right fa-2x kd-right" ></i>
-					</div>
-					
-					<div id="more" now="1" num="2" >
-						<a href="javascript:loadMore();"> <i></i>加载更多</a>
+					<div id="more" class=kd-more now="1" num="2" >
+						<a href="javascript:loadMore();" state="0"><i class="fa fa-angle-double-up"></i><span>上拉加载更多</span></a>
 					</div>
 			</div>
 		</div>
@@ -127,13 +72,41 @@
 	} : false); 
 	
 	var pullOffSet = 16;
-	var maxOffSet = 0;
-	
-	
 	
 	var myscroll = new IScroll("#wrapper",{
 		probeType: 2, 
+		mouseWheel:true,
+		click:true,
+		snap:'div',
 		mouseWheel: true		
+	});
+	myscroll.hasVerticalScroll = true;
+	
+	myscroll.on('scroll',function(){
+		//this.y指的是拖动时垂直方向的位置,此时可以超过最大移动值,当垂直移动到加载提示按钮时修改状态准备加载
+		if(this.y<this.maxScrollY){
+			$('#more a i').removeClass();
+			$('#more a i').addClass('fa fa-angle-double-down');
+			$('#more a span').text('释放加载');
+			$('#more a').attr('state','1');//0-初始值 1-等待拖动完成 2-加载数据中
+		}else{
+			$('#more a i').removeClass();
+			$('#more a i').addClass('fa fa-angle-double-up');
+			$('#more a span').text('上拉加载更多');
+			$('#more a').attr('state','0');//0-初始值 1-等待拖动完成 2-加载数据中
+		}
+		var height = document.body.clientHeight-$('.kd-search').height()-$('.kd-sum').height();
+		if($('#wrapper').height()>height){
+			$('#wrapper').css('height',height);
+		}
+	});
+	
+	myscroll.on('refresh',function(){
+		$('#more a i').removeClass();
+		$('#more a i').addClass('fa fa-angle-double-up');
+		$('#more a span').text('上拉加载更多');
+		$('#more a').attr('state','0');
+		this.hasVerticalScroll = true;
 	});
 	
 	function loadMore(){
@@ -180,25 +153,17 @@
 		myscroll.refresh();
 	}
 	
-	myscroll.on('refrresh',function(){
-		//maxOffSet = this.maxScrollY=this.maxScrollY + pullOffSet;
-	});
-	myscroll.on('scroll',function(){
-		if(this.y < 5 && this.y<=(this.maxScrollY-pullOffSet)){
-			$('#more a').text('上拉加载更多');
-			$('#more a').attr('state','1');//0-初始值 1-等待拖动完成 2-加载数据中
-		}
-		console.log('scroll y='+ this.y);
-		console.log('scroll');
-	});
-	myscroll.on('scrollStart',function(){
-		console.log('scroll start');
-		console.log('scroll start y='+ this.y);
-	});
 	myscroll.on('scrollEnd',function(){
+		//停止滚动,若之前已经滚动到底部则开始加载数据
 		if($('#more a').attr('state')=='1'){
-			$('#more a').html('<i class="fa fa-circle-o-notch fa-spin"></i>加载中');
-			$('#more a').attr('state','2');
+			$('#more a i').removeClass();
+			$('#more a i').addClass('fa fa-circle-o-notch fa-spin');
+			$('#more a span').text('加载中');
+			//$('#more a').html('<i class="fa fa-circle-o-notch fa-spin"></i>加载中');
+			setTimeout(function(){
+				loadMore();
+				$('#more a').attr('state','2');
+			},1500);
 		}
 	});
 	</script>

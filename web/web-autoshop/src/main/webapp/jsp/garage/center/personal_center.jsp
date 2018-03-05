@@ -11,11 +11,11 @@
 <body>
 	<div class="kd-page">
 		<!-- 我的客户 -->
-		<a href="#" class="backlog">
+		<a href="${path}/garage/center/customers" class="backlog">
 			<i class="fa fa-users fa-2x icon kd-left"></i>
 			<div class="content kd-left">
 				<p>我的客户</p>
-				<p>共有200个客户</p>
+				<p>共有<fmt:formatNumber value="${userSum}" pattern="###,###.###"/>个客户</p>
 			</div>
 			<div class="icon-right kd-right">
 				<li class="fa fa-angle-right fa-2x"></li>

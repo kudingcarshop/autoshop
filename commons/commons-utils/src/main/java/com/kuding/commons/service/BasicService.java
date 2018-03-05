@@ -2,13 +2,14 @@ package com.kuding.commons.service;
 
 import java.io.Serializable;
 import java.util.List;
-
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
-
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,6 @@ import com.kuding.commons.pagination.PaginationResult;
 
 
 @Service
-@Transactional(readOnly = true)
 public class BasicService<T>{
 
 	public Logger logger = Logger.getLogger(getClass());
@@ -61,6 +61,7 @@ public class BasicService<T>{
 	}
 	
 	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
 	public PaginationResult<T> queryByPagination(PaginationQuery pageQuery,String hql){
 		PaginationResult<T> result = new PaginationResult<T>();
 		
@@ -68,12 +69,24 @@ public class BasicService<T>{
 		if(index > -1){
 			String countHql = "select count(*) " + hql.substring(index);
 			Query countQuery = getSession().createQuery(countHql);
-			pushParams(countQuery,pageQuery.params);
+			if(pageQuery.params != null && pageQuery.params.size() > 0) {
+				pushParams(countQuery,pageQuery.params);
+			}
+			
+			if(pageQuery.mapParams != null && pageQuery.mapParams.size() > 0) {
+				pushParams(countQuery,pageQuery.mapParams);
+			}
 			result.setTotal(((Long)countQuery.uniqueResult()).intValue());
 		}
 		
 		Query query = getSession().createQuery(hql);
-		pushParams(query,pageQuery.params);
+		if(pageQuery.params != null && pageQuery.params.size() > 0) {
+			pushParams(query,pageQuery.params);
+		}
+		
+		if(pageQuery.mapParams != null && pageQuery.mapParams.size() > 0) {
+			pushParams(query,pageQuery.mapParams);
+		}
 		query.setFirstResult((pageQuery.page-1) * pageQuery.rows);
 		query.setMaxResults(pageQuery.rows);
 		result.setRows(query.list());
@@ -82,13 +95,58 @@ public class BasicService<T>{
 		return result;
 	}
 	
-	private void pushParams(Query query, List<Object> params){
+	public void pushParams(Query query, List<Object> params){
 		if(query != null
 				&& params!= null && params.size() > 0){
 			for(int i =0 ; i < params.size(); i++){
 				if(params.get(i) != null){
 					query.setParameter(i, params.get(i));
 				}
+			}
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
+	public PaginationResult<Map<String,Object>> queryBySqlPagination(PaginationQuery pageQuery,String sql){
+		PaginationResult<Map<String,Object>> result = new PaginationResult<>();
+		
+		String countSql = "select count(*) from ( " + sql +" )";
+		SQLQuery countQuery = getSession().createSQLQuery(countSql);
+		if(pageQuery != null) {
+			if(pageQuery.mapParams!= null && pageQuery.mapParams.size() > 0) {
+				pushParams(countQuery, pageQuery.mapParams);
+			}
+			
+			if(pageQuery.params!= null && pageQuery.params.size() > 0) {
+				pushParams(countQuery, pageQuery.params);
+			}
+		}
+		result.setTotal(((Long)countQuery.uniqueResult()).intValue());
+		
+		SQLQuery query = getSession().createSQLQuery(sql.toString());
+		if(pageQuery != null) {
+			if(pageQuery.mapParams!= null && pageQuery.mapParams.size() > 0) {
+				pushParams(query, pageQuery.mapParams);
+			}
+			
+			if(pageQuery.params!= null && pageQuery.params.size() > 0) {
+				pushParams(query, pageQuery.params);
+			}
+		}
+		query.setFirstResult((pageQuery.page-1) * pageQuery.rows);
+		query.setMaxResults(pageQuery.rows);
+		query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+		result.setRows(query.list());
+		
+		return result;
+	}
+	
+	public void pushParams(Query query,Map<String,Object> params){
+		if(query != null
+				&& params!= null && params.size() > 0){
+			for(String key : params.keySet()){
+				query.setParameter(key, params.get(key));
 			}
 		}
 	}

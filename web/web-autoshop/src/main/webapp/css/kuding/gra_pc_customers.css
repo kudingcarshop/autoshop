@@ -43,8 +43,12 @@
 }
 
 #wrapper{
-	height: 4rem;
+	background:#ccc;
 	overflow: hidden;
+}
+
+#scroller{
+	background-color: #fff;
 }
 
 .kd-list-item{
@@ -72,6 +76,7 @@
 .kd-content p{
 	height: 0.23rem;
 	line-height: 0.23rem;
+	width: 2.6rem;
 }
 
 .kd-content p:nth-of-type(1) {
@@ -95,16 +100,24 @@
 .kd-content p:nth-of-type(1) span:nth-of-type(2) {
 	height:0.12rem;
 	line-height:0.12rem;
-	margin-left: 0.2rem;
 	margin-top:0.1rem;
 	font-size:0.12rem;
 	background: #8bc34a;
+	text-overflow: ellipsis;
 }
 
 .kd-content p:nth-of-type(1) i{
-	margin-left: 0.2rem;
+	display:block;
+	float:right;
 }
 
 .kd-list-item i{
 	margin: 0.1rem 0.04rem;
+}
+
+.kd-more{
+	width:3.2rem;
+	height: 0.2rem;
+	line-height: 0.2rem;
+	text-align: center;
 }
