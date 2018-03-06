@@ -29,6 +29,11 @@
         margin-bottom: 50px;
     }
 
+    .iframe_container {
+        margin-bottom: 60px;
+        margin-top: 0;
+    }
+
     .user_title_panle {
         margin-top: 0.5em;
         margin-left: 0.5em;
@@ -57,9 +62,12 @@
     .weui-grid-for-four {
         width: 25%;
     }
-    .block {
-        height: 50px;
+    .footer-menu {
+        position: fixed!important;
+        z-index: 9;
+        bottom: 0;
         width: 100%;
+        height: 50px;
     }
     </style>
 </head>
@@ -68,7 +76,7 @@
     <div class="weui-tab">
         <div class="weui-tab__bd">
             <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
-                <iframe id="personal_frame" runat="server" frameborder="no" border="0" scrolling="auto" allowtransparency="yes" src="/web-autoshop/garage/vehicle/serviceCenter"></iframe>
+                <iframe id="service_frame" runat="server" frameborder="no" border="0" scrolling="auto" allowtransparency="yes" src="/web-autoshop/garage/vehicle/serviceCenter"></iframe>
             </div>
             <div id="tab2" class="weui-tab__bd-item">
                 <h1>Mall</h1>
@@ -77,8 +85,7 @@
                 <iframe id="personal_frame" runat="server" frameborder="no" border="0" scrolling="auto" allowtransparency="yes" src="${path}/jsp/sys/user/user_center.html"></iframe>
             </div>
         </div>
-        <div class="block"></div>
-        <div class="weui-tabbar">
+        <div class="weui-tabbar footer-menu">
             <a href="#tab1" class="weui-tabbar__item weui-bar__item--on">
                 <div class="weui-tabbar__icon">
                     <img src="${path}/img/icon_nav_button.png" alt="">

@@ -4,27 +4,27 @@
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link href="${path}/vendor/jquery-weui/1.2.0/lib/weui.min.css" rel="stylesheet">
     <link href="${path}/vendor/jquery-weui/1.2.0/css/jquery-weui.css" rel="stylesheet">
-    <link href="${path}/vendor/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <script src="${path}/vendor/jquery-weui/1.2.0/lib/jquery-2.1.4.js"></script>
     <script src="${path}/vendor/jquery-weui/1.2.0/lib/fastclick.js"></script>
     <script src="${path}/vendor/jquery-weui/1.2.0/js/jquery-weui.js"></script>
     <script src="${path}/vendor/jquery-weui/1.2.0/js/swiper.min.js"></script>
-    <script type="text/javascript" src="${path}/vendor/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>服务中心</title>
     <style>
     .swiper-container {
-        height: 20%;
+        width: 100%;
+        height: 10rem;
     }
 
     .swiper-container img {
         display: block;
-        height: 20%;
+        width: 100%;
     }
+
     .service-block {
         background-color: #fff;
         border: none;
@@ -32,6 +32,7 @@
         -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
         box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
     }
+
     .block-header {
         width: 100%;
         color: #3d4145;
@@ -50,7 +51,7 @@
     }
 
     .block-header-end {
-        position: fixed;
+        position: absolute;
         display: inline;
         right: 0;
         height: 4rem;
@@ -61,32 +62,17 @@
     </style>
 </head>
 
-<body>
-    <div id="myCarousel" class="carousel slide">
-        <!-- 轮播（Carousel）指标 -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-        <!-- 轮播（Carousel）项目 -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <img src="${path}/img/swiper-1.jpg" alt="First slide" style="margin: 0 auto;">
-                <div class="carousel-caption">广告１</div>
-            </div>
-            <div class="item">
-                <img src="${path}/img/swiper-2.jpg" alt="Second slide" style="margin: 0 auto;">
-                <div class="carousel-caption">广告２</div>
-            </div>
-            <div class="item">
-                <img src="${path}/img/swiper-3.jpg" alt="Third slide" style="margin: 0 auto;">
-                <div class="carousel-caption">广告３</div>
-            </div>
+<body ontouchstart>
+    <div class="swiper-container">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide"><img src="${path}/img/swiper-1.jpg" /></div>
+            <div class="swiper-slide"><img src="${path}/img/swiper-2.jpg" /></div>
+            <div class="swiper-slide"><img src="${path}/img/swiper-3.jpg" /></div>
         </div>
-        <!-- 轮播（Carousel）导航 -->
-        <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-        <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+        <!-- If we need pagination -->
+        <div class="swiper-pagination"></div>
     </div>
     <div class="service-block">
         <div class="block-header">
@@ -137,8 +123,12 @@
         </div>
     </div>
     <script type="text/javascript">
-    $(document).ready(function() {
-        $("#myCarousel").carousel('cycle');
+    $(function() {
+        FastClick.attach(document.body);
+    });
+    $(".swiper-container").swiper({
+        loop: true,
+        autoplay: 3000
     });
     $('#sos_grid').click(function() {
         window.parent.location.href = "/web-autoshop/garage/vehicle/showSos";
