@@ -21,7 +21,7 @@
 		<div id="wrapper">
 			<div id="scroller">
 				<c:forEach items="${result.rows}" var="item" varStatus="status">
-					<div class="kd-list-item">
+					<div class="kd-list-item" onclick="showDetail(${item.ID});">
 						<span class="kd-seq">${status.index+1}</span>
 						<div class="kd-content">
 							<p>
@@ -33,7 +33,7 @@
 								车辆<font color="orange">${item.VEH_NUM}部</font>上次到店<font color="orange"><fmt:formatDate value="${item.LAST_GARAGE_DATE }" pattern="yyyy-MM-dd" /></font>
 							</p>
 						</div>
-						</a><i class="fa fa-angle-right fa-2x kd-right"></i>
+						<i class="fa fa-angle-right fa-2x kd-right"></i>
 					</div>
 
 				</c:forEach>
@@ -184,6 +184,12 @@
 	$('#search-btn').on('click',function(){
 		loadMore(true);
 	});
+	
+	function showDetail(userId){
+		if(userId){
+			$(window).attr('location','${path}/garage/center/customers/detail/' + userId);
+		}
+	}
 	
 	myscroll.on('scrollEnd',function(){
 		//停止滚动,若之前已经滚动到底部则开始加载数据

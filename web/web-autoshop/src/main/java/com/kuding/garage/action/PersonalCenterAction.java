@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -76,6 +77,17 @@ public class PersonalCenterAction extends BasicAction {
 			res.setFlag(Result.FLAG_SUCCESS);
 		}
 		return res;
+	}
+	
+	
+	@RequestMapping("center/customers/detail/{userId}")
+	public ModelAndView customerDetail(@PathVariable("userId") Integer userId) {
+		if(userId == null) {
+			throw new BusinessException(ErrorCode.SYS_ERROR);
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("garage/center/customer_detail");
+		return mv;
 	}
 
 }
