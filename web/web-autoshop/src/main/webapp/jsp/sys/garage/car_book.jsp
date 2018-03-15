@@ -91,9 +91,51 @@
         margin-bottom: 0.2rem;
     }
 
+    .number_selector {
+        display: inline-block;
+        flex-direction: row;
+        width: 1.3rem;
+        height: 1.3rem;
+        border: solid;
+        border-width: 1px;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 0.8rem;
+        margin-top: 0.2rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .deleteBtn {
+        display: inline-block;
+        flex-direction: row;
+        width: 1.9rem;
+        height: 1.3rem;
+        border: solid;
+        border-width: 1px;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 0.8rem;
+        margin-top: 0.2rem;
+        margin-bottom: 0.2rem;
+        background-color: red;
+    }
+
+    .active {
+        background-color: #000;
+    }
+
     .number_input {
         text-transform: uppercase;
-        ime-mode:inactive;
+        /*Chrome Safari*/
+        -webkit-ime-mode: inactive;
+        /*Mozilla Firefox*/
+        -moz-ime-mode: inactive;
+        /*Opera*/
+        -o-ime-mode: inactive;
+        /*Internet Explorer*/
+        -ms-ime-mode: inactive;
+        /*CSS3 Standard*/
+        ime-mode: inactive;
     }
 
     .container {
@@ -131,7 +173,9 @@
                     <a href="javascript:;" class="city open-popup" id="city_input" data-target="#city_popup">A</a>
                 </div>
                 <div class="weui-cell__bd" style="margin-left: 1.1rem;">
-                    <input class="weui-input number_input" id="number_input" placeholder="请输入车牌" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" onkeyup="value=value.replace(/[\W]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                    <div href="javascript:;" class="open-popup number_input" id="number_input" data-target="#number_popup">请输入车牌</div>
+                    <!-- <a href="javascript:;" class="open-popup number_input" id="number_input" data-target="#number_popup">请输入车牌</a> -->
+                    <!-- <input href="javascript:;" class="weui-input open-popup number_input" id="number_input" placeholder="请输入车牌" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" onkeyup="value=value.replace(/[\W]/g,'') " onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" data-target="#number_popup" readonly="readonly"> -->
                 </div>
             </div>
             <div class="weui-cell weui-cell_select weui-cell_select-after">
@@ -165,44 +209,44 @@
             <div class="toolbar">
                 <div class="toolbar-inner">
                     <a href="javascript:;" class="picker-button close-popup">关闭</a>
-                    <h1 class="title">标题</h1>
+                    <h1 class="title">省份</h1>
                 </div>
             </div>
             <div class="modal-content" id="province_list">
-                <a class="province_selector">京</a>
-                <a class="province_selector">津</a>
-                <a class="province_selector">冀</a>
-                <a class="province_selector">晋</a>
-                <a class="province_selector">蒙</a>
-                <a class="province_selector">辽</a>
-                <a class="province_selector">吉</a>
-                <a class="province_selector">黑</a>
-                <a class="province_selector">沪</a>
-                <a class="province_selector">苏</a>
-                <a class="province_selector">浙</a>
-                <a class="province_selector">皖</a>
-                <a class="province_selector">闽</a>
-                <a class="province_selector">赣</a>
-                <a class="province_selector">鲁</a>
-                <a class="province_selector">豫</a>
-                <a class="province_selector">鄂</a>
-                <a class="province_selector">湘</a>
-                <a class="province_selector">粤</a>
-                <a class="province_selector">桂</a>
-                <a class="province_selector">琼</a>
-                <a class="province_selector">渝</a>
-                <a class="province_selector">川</a>
-                <a class="province_selector">贵</a>
-                <a class="province_selector">黔</a>
-                <a class="province_selector">云</a>
-                <a class="province_selector">滇</a>
-                <a class="province_selector">藏</a>
-                <a class="province_selector">陕</a>
-                <a class="province_selector">甘</a>
-                <a class="province_selector">青</a>
-                <a class="province_selector">宁</a>
-                <a class="province_selector">新</a>
-                <a class="province_selector" style="width: 2rem;">其他</a>
+                <li class="province_selector">京</li>
+                <li class="province_selector">津</li>
+                <li class="province_selector">冀</li>
+                <li class="province_selector">晋</li>
+                <li class="province_selector">蒙</li>
+                <li class="province_selector">辽</li>
+                <li class="province_selector">吉</li>
+                <li class="province_selector">黑</li>
+                <li class="province_selector">沪</li>
+                <li class="province_selector">苏</li>
+                <li class="province_selector">浙</li>
+                <li class="province_selector">皖</li>
+                <li class="province_selector">闽</li>
+                <li class="province_selector">赣</li>
+                <li class="province_selector">鲁</li>
+                <li class="province_selector">豫</li>
+                <li class="province_selector">鄂</li>
+                <li class="province_selector">湘</li>
+                <li class="province_selector">粤</li>
+                <li class="province_selector">桂</li>
+                <li class="province_selector">琼</li>
+                <li class="province_selector">渝</li>
+                <li class="province_selector">川</li>
+                <li class="province_selector">贵</li>
+                <li class="province_selector">黔</li>
+                <li class="province_selector">云</li>
+                <li class="province_selector">滇</li>
+                <li class="province_selector">藏</li>
+                <li class="province_selector">陕</li>
+                <li class="province_selector">甘</li>
+                <li class="province_selector">青</li>
+                <li class="province_selector">宁</li>
+                <li class="province_selector">新</li>
+                <li class="province_selector" style="width: 2rem;">其他</a>
             </div>
         </div>
     </div>
@@ -216,32 +260,82 @@
                 </div>
             </div>
             <div class="modal-content" id="city_list">
-                <a class="city_selector">A</a>
-                <a class="city_selector">B</a>
-                <a class="city_selector">C</a>
-                <a class="city_selector">D</a>
-                <a class="city_selector">E</a>
-                <a class="city_selector">F</a>
-                <a class="city_selector">G</a>
-                <a class="city_selector">H</a>
-                <a class="city_selector">I</a>
-                <a class="city_selector">J</a>
-                <a class="city_selector">K</a>
-                <a class="city_selector">L</a>
-                <a class="city_selector">M</a>
-                <a class="city_selector">N</a>
-                <a class="city_selector">O</a>
-                <a class="city_selector">P</a>
-                <a class="city_selector">Q</a>
-                <a class="city_selector">R</a>
-                <a class="city_selector">S</a>
-                <a class="city_selector">T</a>
-                <a class="city_selector">U</a>
-                <a class="city_selector">V</a>
-                <a class="city_selector">W</a>
-                <a class="city_selector">X</a>
-                <a class="city_selector">Y</a>
-                <a class="city_selector">Z</a>
+                <li class="city_selector">A</li>
+                <li class="city_selector">B</li>
+                <li class="city_selector">C</li>
+                <li class="city_selector">D</li>
+                <li class="city_selector">E</li>
+                <li class="city_selector">F</li>
+                <li class="city_selector">G</li>
+                <li class="city_selector">H</li>
+                <li class="city_selector">I</li>
+                <li class="city_selector">J</li>
+                <li class="city_selector">K</li>
+                <li class="city_selector">L</li>
+                <li class="city_selector">M</li>
+                <li class="city_selector">N</li>
+                <li class="city_selector">O</li>
+                <li class="city_selector">P</li>
+                <li class="city_selector">Q</li>
+                <li class="city_selector">R</li>
+                <li class="city_selector">S</li>
+                <li class="city_selector">T</li>
+                <li class="city_selector">U</li>
+                <li class="city_selector">V</li>
+                <li class="city_selector">W</li>
+                <li class="city_selector">X</li>
+                <li class="city_selector">Y</li>
+                <li class="city_selector">Z</li>
+            </div>
+        </div>
+    </div>
+    <div id="number_popup" class='weui-popup__container popup-bottom'>
+        <div class="weui-popup__overlay"></div>
+        <div class="weui-popup__modal">
+            <div class="toolbar">
+                <div class="toolbar-inner">
+                    <a href="javascript:;" class="picker-button close-popup">关闭</a>
+                    <h1 class="title">标题</h1>
+                </div>
+            </div>
+            <div class="modal-content" id="number_list">
+                <li class="number_selector">0</li>
+                <li class="number_selector">1</li>
+                <li class="number_selector">2</li>
+                <li class="number_selector">3</li>
+                <li class="number_selector">4</li>
+                <li class="number_selector">5</li>
+                <li class="number_selector">6</li>
+                <li class="number_selector">7</li>
+                <li class="number_selector">8</li>
+                <li class="number_selector">9</li>
+                <li class="number_selector">A</li>
+                <li class="number_selector">B</li>
+                <li class="number_selector">C</li>
+                <li class="number_selector">D</li>
+                <li class="number_selector">E</li>
+                <li class="number_selector">F</li>
+                <li class="number_selector">G</li>
+                <li class="number_selector">H</li>
+                <li class="number_selector">I</li>
+                <li class="number_selector">J</li>
+                <li class="number_selector">K</li>
+                <li class="number_selector">L</li>
+                <li class="number_selector">M</li>
+                <li class="number_selector">N</li>
+                <li class="number_selector">O</li>
+                <li class="number_selector">P</li>
+                <li class="number_selector">Q</li>
+                <li class="number_selector">R</li>
+                <li class="number_selector">S</li>
+                <li class="number_selector">T</li>
+                <li class="number_selector">U</li>
+                <li class="number_selector">V</li>
+                <li class="number_selector">W</li>
+                <li class="number_selector">X</li>
+                <li class="number_selector">Y</li>
+                <li class="number_selector">Z</li>
+                <li class="deleteBtn">退格</li>
             </div>
         </div>
     </div>
@@ -254,15 +348,16 @@
     $(document).ready(function() {
         initFirstProvice();
         initFirstCity();
+        initFirstNumber();
     });
-    $(document).on("open", ".weui-popup-modal", function() {
+    $(document).on("open", ".weui-popup__modal", function() {
         console.log("open popup");
-    }).on("close", ".weui-popup-modal", function() {
+    }).on("close", ".weui-popup__modal", function() {
         console.log($selected_province_text);
     });
 
     function initFirstProvice() {
-        $('#province_list').find('a').each(function() {
+        $('#province_list').find('li').each(function() {
             if ($(this).text() == $('.province').text()) {
                 $last_selected_province = $(this);
                 $selected_province_text = $(this).text();
@@ -282,7 +377,7 @@
     }
 
     function initFirstCity() {
-        $('#city_list').find('a').each(function() {
+        $('#city_list').find('li').each(function() {
             if ($(this).text() == $('.city').text()) {
                 $last_selected_city = $(this);
                 $selected_city_text = $(this).text();
@@ -300,6 +395,50 @@
         });
     }
 
+    function initFirstNumber() {
+        $('#number_list').find('li').each(function() {
+            var $class = $(this).attr("class");
+            if ($class == "deleteBtn") {
+                $(this).click(function() {
+                    var _this = this;
+                    $(_this).addClass('active');
+                    setTimeout(function() {
+                        $(_this).removeClass('active');
+                    }, 150);
+                    var $numbers = $('#number_input').text();
+                    if ($numbers == "请输入车牌") {
+                        return;
+                    } else {
+                        if ($numbers.length == 1 || $numbers.length == 0) {
+                            $numbers = "";
+                            $('#number_input').html("请输入车牌");
+                        } else {
+                            $numbers = $numbers.substring(0, $numbers.length - 1);
+                            $('#number_input').html($numbers);
+                        }
+                    }
+                });
+            } else {
+                $(this).click(function() {
+                    var _this = this;
+                    $(_this).addClass('active');
+                    setTimeout(function() {
+                        $(_this).removeClass('active');
+                    }, 150);
+                    var $numbers = $('#number_input').text();
+                    if ($numbers == "请输入车牌") {
+                        $('#number_input').html("");
+                        $numbers = "";
+                    }
+                    if ($numbers.length <= 6) {
+                        $numbers = $numbers + $(this).text();
+                        $('#number_input').html($numbers);
+                    }
+                });
+            }
+        });
+    }
+
     function bizChange(obj) {
         $select_type = obj.options[obj.selectedIndex].value;
     }
@@ -309,7 +448,7 @@
         }
     });
     $("#btn_submit").click(function() {
-        var number_input = $('#number_input').val();
+        var number_input = $('#number_input').text();
         var car_number = $('#province_input').text() + $('#city_input').text() + number_input;
         var pattern = /^([冀豫云辽黑湘皖鲁苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼渝京津沪新京军空海北沈兰济南广成使领][a-zA-Z](([DF](?![a-zA-Z0-9]*[IO])[0-9]{4})|([0-9]{5}[DF])))|([冀豫云辽黑湘皖鲁苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼渝京津沪新京军空海北沈兰济南广成使领A-Z]{1}[a-zA-Z0-9]{5}[a-zA-Z0-9挂学警港澳]{1})$/;
         if (!pattern.test(car_number)) {
@@ -338,7 +477,7 @@
 
     function preData() {
         var data = {};
-        var number_input = $('#number_input').val();
+        var number_input = $('#number_input').text();
         var car_number = $('#province_input').text() + $('#city_input').text() + number_input;
         data['plateNumber'] = car_number;
         data['type'] = document.getElementById('type_input').options[document.getElementById('type_input').selectedIndex].value;

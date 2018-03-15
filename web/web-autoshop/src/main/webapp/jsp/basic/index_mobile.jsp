@@ -82,7 +82,7 @@
                 <h1>Mall</h1>
             </div>
             <div id="tab3" class="weui-tab__bd-item">
-                <iframe id="personal_frame" runat="server" frameborder="no" border="0" scrolling="auto" allowtransparency="yes" src="${path}/jsp/sys/user/user_center.html"></iframe>
+                <iframe id="personal_frame" runat="server" frameborder="no" border="0" scrolling="auto" allowtransparency="yes" src="/web-autoshop/garage/user/userCenter"></iframe>
             </div>
         </div>
         <div class="weui-tabbar footer-menu">
