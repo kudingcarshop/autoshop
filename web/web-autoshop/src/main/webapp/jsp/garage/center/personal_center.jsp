@@ -33,7 +33,7 @@
 			</div>
 		</a>
 		<!-- 车行信息 -->
-		<a href="#" class="backlog">
+		<a href="${path}/garage/myGarage" class="backlog">
 			<i class="fa fa-calendar fa-2x icon kd-left"></i>
 			<div class="content kd-left">
 				<p>车行信息</p>

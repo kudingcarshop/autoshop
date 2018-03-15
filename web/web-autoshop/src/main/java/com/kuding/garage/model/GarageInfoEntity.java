@@ -48,6 +48,9 @@ public class GarageInfoEntity {
 	@Column(name="desc")
 	private String desc;
 	
+	@Column(name="logo")
+	private String logo;
+	
 	@OneToMany(mappedBy = "garageInfoEntity")
 	private Set<VehicleBookInfoEntity> books;
 	
@@ -132,6 +135,14 @@ public class GarageInfoEntity {
 
 	public void setDesc(String desc) {
 		this.desc = desc;
+	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 
 	public Set<VehicleBookInfoEntity> getBooks() {

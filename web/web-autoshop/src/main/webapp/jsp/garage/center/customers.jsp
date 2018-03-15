@@ -139,7 +139,7 @@
 						var len = result.rows.length;
 						for(var i =0 ; i< len; i++){
 							seq++;
-							html ='<div class="kd-list-item">'
+							html ='<div class="kd-list-item" onclick="showDetail('+result.rows[i].ID+');">'
 							 	 +'<span class="kd-seq">'
 							 	 	+ seq
 							 	 +'</span>'

@@ -31,7 +31,7 @@ public class VehicleAction extends BasicAction{
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping("vehicle/showCars")
+	@RequestMapping("vehicle")
 	public ModelAndView showGarageCars(HttpSession session) {
 		
 		Integer garageId = getUserInfo(session)!= null? getUserInfo(session).getGarageId() : null;

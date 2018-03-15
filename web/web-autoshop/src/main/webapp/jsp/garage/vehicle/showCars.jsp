@@ -20,6 +20,7 @@ a{
 }
 
 .kd-container {
+	margin:0 auto;
 	padding:0.08rem;
 	width: 3.2rem;
 	font-size:0.14rem;
