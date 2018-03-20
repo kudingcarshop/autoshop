@@ -1,0 +1,75 @@
+@charset "utf-8";
+
+.kd-header-bg{
+	display: block;
+	height: 1.25rem;
+	background-color: #EDEDED;
+	border: 1px solid #BBBBBB;
+}
+
+.kd-header-img{
+	width:1.5rem;
+	height:1.2rem;
+	display: block;
+	position: relative;
+	top: -0.6rem;
+	margin: 0 auto;
+	border: 1px solid #BBBBBB;
+}
+
+.kd-header-img div{
+	height: 0.9rem;
+	width: 1.5rem;
+	background:#E5E5E5;
+}
+.kd-header-img a{
+	display: block;
+	width: 100%;
+	height: 0.3rem;
+	line-height:0.3rem;
+	text-align: center;
+	background: #6B6B6B;
+	color: #FFFFFF;
+}
+
+.kd-edit-container{
+	overflow: hidden;
+	border: 1px solid #BBBBBB;
+}
+
+.kd-edit-itme {
+	overflow: hidden;
+	height: 0.5rem;
+}
+
+.kd-edit-itme label,span,i{
+	height:0.26rem;
+	line-height:0.26rem;
+	display: block;
+	float: left;
+	margin: 0.07rem 0.2rem;
+	text-align: left;
+	font-size: 0.18rem;
+}
+
+.kd-edit-itme i{
+	float: right;
+	margin-top: 0.16rem;
+}
+
+.kd-btn-save{
+	display: block;
+	position: fixed;
+	height:0.47rem;
+	width:3.2rem;
+	line-height:0.47rem;
+	text-align:center;
+	font-size:0.2rem;
+	color:#FFFFFF;
+	bottom: 0;
+	background: #8BC34A;
+}
+
+body{
+	margin-bottom:0.48rem;
+}

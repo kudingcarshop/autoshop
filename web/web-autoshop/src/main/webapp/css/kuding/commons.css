@@ -31,3 +31,11 @@ a{
 	color:#101010;
 	line-height: 0.23rem;
 }
+
+.kd-working{
+	color: #E51C23;
+}
+
+.kd-finish{
+	color: #8BC34A;
+}
