@@ -1,0 +1,32 @@
+@charset "utf-8";
+
+.kd-title{
+	height: 0.6rem;
+	line-height: 0.6rem;
+	font-size:0.2rem;
+	background: #EDEDED;
+	text-indent: 0.1rem;
+}
+
+.kd-big-btn{
+	height: 2.08rem;
+	border:1px solid #BBBBBB;
+}
+
+.kd-big-btn>a{
+	display:block;
+	width:0.8rem;
+	margin: 0 auto;
+}
+
+.kd-big-btn>a i:before{
+	display:block;
+	width: 0.8rem;
+	margin-top: 0.565rem;
+}
+
+.kd-big-btn>a p{
+	height: 0.23rem;
+	line-height: 0.23rem;
+	text-align: center;
+}
