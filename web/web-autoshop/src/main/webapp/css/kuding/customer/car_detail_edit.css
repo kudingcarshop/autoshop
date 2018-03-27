@@ -105,3 +105,12 @@
 	color: #FFFFFF;
 	border:1px solid #BBBBBB;
 }
+
+/**jquery-weui calendar调整*/
+.toolbar-inner .icon{
+	margin-top: 0.145rem;
+}
+
+.current-year-value{
+	line-height: 0.44rem;
+}

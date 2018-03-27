@@ -3,6 +3,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<link rel="stylesheet" href="../../../vendor/font-awesome/4.7.0/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="../../../vendor/jquery-weui/1.2.0/lib/weui.min.css">
+	<link rel="stylesheet" href="../../../vendor/jquery-weui/1.2.0/css/kd-jquery-weui.css">
 	<link rel="stylesheet" href="../../../css/kuding/commons.css"/>
 	<link rel="stylesheet" href="../../../css/kuding/customer/car_detail_edit.css"/>
 </head>
@@ -31,10 +33,10 @@
 				<label>上次保养公里数：</label><input type="text" /><span>公里</span>
 			</div>
 			<div class="kd-bd-item">
-				<label>上次保养日期：</label><input type="text" />
+				<label>上次保养日期：</label><input type="text" id="maintainDate"/>
 			</div>
 			<div class="kd-bd-item">
-				<label>上次美容日期：</label><input type="text" />
+				<label>上次美容日期：</label><input type="text" id="beautyDate"/>
 			</div>
 			<div class="kd-bd-item">
 				<label>轮胎使用时长：</label><input type="text" /><span>年</span>
@@ -45,7 +47,27 @@
 		</div>
 		<a class="kd-ft-save">保存</a>
 	</div>
-	<script src="../../../vendor/jquery/jquery.min.js"></script>
+	<script src="../../../vendor/jquery-weui/1.2.0/lib/jquery-2.1.4.js"></script>
 	<script src="../../../vendor/kuding/setup_rem.js"></script>
+	<script src="../../../vendor/jquery-weui/1.2.0/lib/fastclick.js"></script>
+	<script src="../../../vendor/jquery-weui/1.2.0/js/jquery-weui.js"></script>
+	<script>
+	  var date = new Date();
+	  var currenDate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+	  console.log('currenDate=' + currenDate);
+	  $(function() {
+	    FastClick.attach(document.body);
+	  });
+	  
+	  $("#maintainDate").calendar({
+	        value: [currenDate],
+	        dateFormat: 'yyyy-mm-dd'  // 自定义格式的时候，不能通过 input 的value属性赋值 '2016年12月12日' 来定义初始值，这样会导致无法解析初始值而报错。只能通过js中设置 value 的形式来赋值，并且需要按标准形式赋值（yyyy-mm-dd 或者时间戳)
+	      });
+	      
+	   $('#beautyDate').calendar({
+		   value:[currenDate],
+		   dateFormat:'yyyy-mm-dd'
+	   });
+	</script>
 </body>
 </html>
