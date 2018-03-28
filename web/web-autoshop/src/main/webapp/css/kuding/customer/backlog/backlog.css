@@ -1,0 +1,51 @@
+@charset "utf-8";
+
+.kd-page{
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.backlog{
+	display:block;
+	height:0.6rem;
+	width:3.1rem;
+	margin:0.05rem auto 0.3 auto;
+	vertical-align: middle;
+	border:1px solid #bbbbbb;
+	border-radius: 0.04rem;
+}
+
+.backlog>i:first-of-type {
+	display: block;
+	margin-left:0.1rem;
+	margin-top: 0.16rem;
+}
+
+.backlog>div:first-of-type {
+	height: 0.52rem;
+	width:2.1rem;
+	line-height: 0.52rem;
+	margin-left:0.15rem;
+	margin-top: 0.04rem;
+	font-size: 0.2rem;
+}
+
+.badge{
+	display:block;
+	float: right;
+	width: 0.2rem;
+	height: 0.2rem;
+	line-height: 0.2rem;
+	text-align:center;
+	margin-top: 0.18rem;
+	background: #E51C23;
+	border-radius: 0.1rem;
+	color: #FFFFFF;
+	font-size: 0.14rem;
+}
+
+.backlog>i:last-of-type {
+	display: block;
+	margin-top: 0.16rem;
+	margin-right: 0.1rem;
+}
