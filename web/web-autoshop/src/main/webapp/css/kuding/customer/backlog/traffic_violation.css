@@ -1,0 +1,164 @@
+@charset "utf-8";
+
+input{
+    background-color: white;
+    border-radius: 0.05rem;
+    border:1px solid #BBBBBB;
+    width:0.2rem;
+    height:0.2rem;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 0.2rem;
+}
+
+.kd-violation{
+	border: 1px solid #BBBBBB;
+	overflow: hidden;
+	margin-bottom: 0.06rem;
+}
+
+.kd-violation-hd{
+	height: 0.5rem;
+	width:3.18rem;
+	line-height:0.5rem;
+	background: #EDEDED;
+	overflow: hidden;
+}
+
+.kd-violation-hd>input,.kd-violation-hd>span{
+	display: block;
+	float: left;
+}
+
+.kd-violation-hd>input{
+	margin-left: 0.1rem;
+	margin-top: 0.15rem;
+}
+
+.kd-violation-hd>span{
+	height: 0.3rem;
+	line-height: 0.3rem;
+	margin-top: 0.1rem;
+	margin-left:0.1rem;
+	font-size: 0.2rem;
+}
+
+.kd-violation-bd{
+	width:3.18rem;
+	border-top: 1px solid #BBBBBB;
+	overflow: hidden;
+}
+
+.kd-violation-bd>input,.kd-violation-bd>div,.kd-violation-bd>p{
+	display: block;
+	float: left;
+}
+
+.kd-violation-bd>input{
+	margin-left: 0.1rem;
+	margin-top: 0.75rem;
+}
+
+.kd-violation-bd>div{
+	width:2.5rem;
+	margin-left: 0.5rem;
+	overflow: hidden;
+}
+
+.kd-violation-bd>div:first-of-type{
+	margin-left: 0.2rem;
+}
+
+.kd-violation-bd>div:first-of-type p{
+	display: block;
+	height:0.2rem;
+	line-height: 0.2rem;
+	margin-top:0.04rem;
+	color: #8A8A8A;
+}
+
+.kd-violation-bd>div:first-of-type p:first-of-type{
+	height:0.32rem;
+	line-height:0.32rem;
+	font-size:0.2rem;
+	color:#101010;
+	margin-top: 0.11rem;
+}
+
+.kd-penalty{
+	width: 2.5rem;
+}
+
+.kd-score{
+	float:left;
+	overflow: hidden;
+}
+
+.kd-money{
+	float: right;
+	overflow: hidden;
+}
+
+.kd-score>label,.kd-money>label{
+	margin-top:0.05rem;
+	height: 0.23rem;
+	line-height: 0.23rem;
+}
+
+.kd-money>span,.kd-score>span{
+	height:0.33rem;
+	line-height:0.33rem;
+	font-size:0.20rem;
+	min-width: 0.5rem;
+	text-align: left; 
+	color: #E51C23;
+}
+
+.kd-money:last-of-type{
+	margin-bottom: 0.11rem;
+}
+
+.kd-violation-ft{
+	position:fixed;
+	bottom:0;
+	height: 0.5rem;
+	width:3.18rem;
+	background:#FFFFFF;
+	border: 1px solid #BBBBBB;
+}
+
+body{
+	margin-bottom: 0.5rem;
+}
+
+.kd-violation-ft>input,.kd-violation-ft>span,.kd-violation-ft>a{
+	display: block;
+	float: right;
+	height: 0.23rem;
+	line-height: 0.23rem;
+	font-size: 0.14rem;
+	margin-top: 0.15rem;
+}
+
+.kd-violation-ft>input{
+	float:left;
+	margin-left: 0.1rem;
+}
+.kd-violation-ft>span:nth-of-type(3){
+	float:left;
+	margin-left: 0.1rem;
+	color: #B0B0B0;
+}
+
+.kd-violation-ft>span:nth-of-type(1){
+	color: #E51C23;
+}
+
+.kd-violation-ft>a{
+	width:0.9rem;
+	margin-right: 0.1rem;
+	margin-left: 0.08rem;
+	border: 1px solid #BBBBBB;
+	border-radius:0.04rem;
+	text-align: center;
+}

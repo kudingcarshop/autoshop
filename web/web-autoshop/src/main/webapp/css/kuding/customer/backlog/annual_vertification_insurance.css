@@ -1,0 +1,152 @@
+@charset "utf-8";
+
+input{
+    background-color: white;
+    border-radius: 0.05rem;
+    border:1px solid #BBBBBB;
+    width:0.2rem;
+    height:0.2rem;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 0.2rem;
+}
+
+.kd-annual{
+	border: 1px solid #BBBBBB;
+	overflow: hidden;
+	margin-bottom: 0.06rem;
+}
+
+.kd-hd{
+	height: 0.5rem;
+	width:3.18rem;
+	line-height:0.5rem;
+	background: #EDEDED;
+	overflow: hidden;
+}
+
+.kd-hd>input,.kd-hd>span{
+	display: block;
+	float: left;
+}
+
+.kd-hd>input{
+	margin-left: 0.1rem;
+	margin-top: 0.15rem;
+}
+
+.kd-hd>span{
+	height: 0.3rem;
+	line-height: 0.3rem;
+	margin-top: 0.1rem;
+	margin-left:0.1rem;
+	font-size: 0.2rem;
+}
+
+.kd-bd{
+	width:3.18rem;
+	border-top: 1px solid #BBBBBB;
+	overflow: hidden;
+}
+
+.kd-bd>input,.kd-bd>div,.kd-bd>p{
+	display: block;
+	float: left;
+}
+
+.kd-bd-vertification{
+	margin-left: 0.1rem;
+	margin-top: 0.75rem;
+}
+
+.kd-bd-insurance{
+	margin-left: 0.1rem;
+	margin-top:0.5rem;
+}
+
+.kd-bd>div{
+	width:2.5rem;
+	margin-left: 0.45rem;
+	overflow: hidden;
+}
+
+.kd-bd>div:first-of-type{
+	margin-left: 0.2rem;
+}
+
+.kd-bd>div:first-of-type p{
+	display: block;
+	height:0.2rem;
+	line-height: 0.2rem;
+	margin-top:0.04rem;
+	color: #8A8A8A;
+}
+
+.kd-bd>div:first-of-type p:first-of-type{
+	height:0.32rem;
+	line-height:0.32rem;
+	font-size:0.2rem;
+	color:#101010;
+	margin-top: 0.11rem;
+}
+
+.kd-bd-fee>label{
+	height:0.23rem;
+	line-height: 0.23rem;
+	font-size: 0.14rem;
+	margin-top: 0.09rem;
+}
+
+.kd-bd-fee>span{
+	display:block;
+	height:0.41rem;
+	line-height:0.41rem;
+	font-size:0.28rem;
+	color: #E51C23;
+	
+}
+
+.kd-ft{
+	position:fixed;
+	bottom:0;
+	height: 0.5rem;
+	width:3.18rem;
+	background:#FFFFFF;
+	border: 1px solid #BBBBBB;
+	overflow: hidden;
+}
+
+body{
+	margin-bottom: 0.5rem;
+}
+.kd-ft>input,.kd-ft>span,.kd-ft>a{
+	display: block;
+	float: right;
+	height: 0.23rem;
+	line-height: 0.23rem;
+	font-size: 0.14rem;
+	margin-top: 0.15rem;
+}
+
+.kd-ft>input{
+	float:left;
+	margin-left: 0.1rem;
+}
+.kd-ft>span:nth-of-type(3){
+	float:left;
+	margin-left: 0.1rem;
+	color: #B0B0B0;
+}
+
+.kd-ft>span:nth-of-type(1){
+	color: #E51C23;
+}
+
+.kd-ft>a{
+	width:0.9rem;
+	margin-right: 0.1rem;
+	margin-left: 0.08rem;
+	border: 1px solid #BBBBBB;
+	border-radius:0.04rem;
+	text-align: center;
+}
