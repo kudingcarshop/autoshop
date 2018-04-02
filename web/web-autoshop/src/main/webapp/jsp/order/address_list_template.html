@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="weui-cells weui-cells_radio">
+        {{each list address_item i}}
+        <label class="weui-cell weui-check__label" for="{{address_item.address_id}}">
+            <div class="weui-cell-hd">
+                {{if address_item.address_is_default}}
+                <input type="radio" class="weui-check" name="radio1" id="{{address_item.address_id}}" checked="checked">
+                {{else}}
+                <input type="radio" class="weui-check" name="radio1" id="{{address_item.address_id}}">
+                {{/if}}
+                <span class="weui-icon-checked"></span>
+            </div>
+            <div class="weui-cell__bd" style="margin-left: 10px">
+                <div style="display: inline-block; font-size: 1rem;">{{address_item.address_recipient}}</div>
+                <div style="display: inline-block;">
+                    <p class="weui-media-box__desc" style="margin-left: 0.5rem;font-size: 0.8rem; overflow: unset; color: #000">{{address_item.address_tel}}</p>
+                </div>
+                <p class="weui-media-box__desc" style="font-size: 0.8rem;">{{address_item.address_location}} {{address_item.address_details}}</p>
+            </div>
+            <div class="weui-cell-ft">
+                <span class="fa fa-edit" style="color: #6E6E6E;"></span>
+            </div>
+        </label>
+        {{/each}}
+    </div>
+</div>
+<div class="bottom_tab">
+    <button class="new_address_btn">
+        <span class="fa fa-plus" style="color: white;display: inline-block;"></span>
+        <p style="display: inline-block;margin-left: 20px;font-size: 0.8rem;">新增地址</p>
+    </button>
+</div>

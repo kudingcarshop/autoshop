@@ -146,7 +146,6 @@
 
     .weui-popup__container {
         position: fixed;
-        bottom: 50px;
         left: 0;
         right: 0;
         height: 0;

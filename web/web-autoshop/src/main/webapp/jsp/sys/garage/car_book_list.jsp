@@ -27,6 +27,7 @@
         line-height: 1.5;
         color: #d6d6d6;
         background: #2e2e2e;
+        top: 0;
     }
 
     .toolbar .back-button {
@@ -41,7 +42,9 @@
     }
 
     .list-container {
-        padding-top: 3.5em;
+        padding-top: 2.5rem;
+        height: 100%;
+        width: 100%;
     }
 
     .list-item {
@@ -83,7 +86,7 @@
     }
 
     .list-item-footer-button {
-        position: fixed;
+        position: absolute;
         display: inline;
         right: 0;
         height: 2.2rem;

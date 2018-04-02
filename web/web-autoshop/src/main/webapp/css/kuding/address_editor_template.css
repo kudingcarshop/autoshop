@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+}
+
+.container {
+    top: 0;
+    width: 100%;
+    height: auto;
+    overflow: auto;
+    position: fixed;
+    z-index: 10;
+    bottom: 50px;
+}
+
+.bottom_tab {
+    height: 50px;
+    width: 100%;
+    position: fixed;
+    z-index: 200;
+    bottom: 0;
+    text-align: center;
+    background-color: white;
+}
+
+.submit_btn {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: red;
+    color: white;
+    border-width: 0;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    margin-top: 6px;
+}

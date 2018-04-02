@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="weui-cells weui-cells_form" style="margin-top: 5px;">
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">收货人：</label>
+            </div>
+            <div class="weui-cell__bd">
+                {{if address_is_edit}}
+                <input class="weui-input" type="text" value="{{address_recipient}}"> {{else}}
+                <input class="weui-input" type="text"> {{/if}}
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">联系方式：</label>
+            </div>
+            <div class="weui-cell__bd">
+                {{if address_is_edit}}
+                <input class="weui-input" type="tel" placeholder="请输入联系方式" value="{{address_tel}}"> {{else}}
+                <input class="weui-input" type="tel" placeholder="请输入联系方式"> {{/if}}
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label for="date" class="weui-label">所在地区：</label>
+            </div>
+            <div class="weui-cell__bd">
+                {{if address_is_edit}}
+                <input class="weui-input" id="address_location" type="text" value="{{address_location}}"> {{else}}
+                <input class="weui-input" id="address_location" type="text" placeholder="点击选择地区"> {{/if}}
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">详细地址：</label>
+            </div>
+            <div class="weui-cell__bd">
+                {{if address_is_edit}}
+                <input class="weui-input" type="text" placeholder="街道、楼牌号等" value="{{address_details}}"> {{else}}
+                <input class="weui-input" type="text" placeholder="街道、楼牌号等"> {{/if}}
+            </div>
+        </div>
+        <div class="weui-cell weui-cell_switch">
+            <div class="weui-cell__bd">
+                <div>设为默认地址</div>
+                <p class="weui-media-box__desc">注：每次下单时会使用该地址</p>
+            </div>
+            <div class="weui-cell__ft">
+                <label for="switchCP" class="weui-switch-cp">
+                    {{if address_is_edit}} {{if address_is_default}}
+                    <input id="switchCP" class="weui-switch-cp__input" type="checkbox" checked="checked"> {{else}}
+                    <input id="switchCP" class="weui-switch-cp__input" type="checkbox"> {{/if}} {{else}}
+                    <input id="switchCP" class="weui-switch-cp__input" type="checkbox"> {{/if}}
+                    <div class="weui-switch-cp__box"></div>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bottom_tab">
+    <button class="submit_btn">保存并使用</button>
+</div>

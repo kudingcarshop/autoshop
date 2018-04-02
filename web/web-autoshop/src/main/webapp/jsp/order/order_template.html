@@ -1,0 +1,106 @@
+{{if order_type == 'type_mall'}}
+<div class="address_container">
+    <a class="weui-cell weui-cell_access" href="javascript:;">
+        <div class="weui-cell__bd">
+            <div style="display: inline-block; font-size: 1rem;">大帅逼</div>
+            <div style="display: inline-block;">
+                <p class="weui-media-box__desc" style="margin-left: 0.5rem;font-size: 0.8rem; overflow: unset; color: #000">13888888888</p>
+            </div>
+            <p class="weui-media-box__desc" style="font-size: 0.8rem;">中华人民共和国北京故宫</p>
+        </div>
+        <div class="weui-cell__ft"></div>
+    </a>
+</div>
+{{/if}}
+<div id='container' class="container">
+    {{if order_type == 'type_mall'}}
+    <div class="weui-cells" style="margin-top: 5px;">
+        {{each list order_item i}}
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" style="width:80px;margin-right:5px;display:block"></div>
+            <div class="weui-cell__bd">
+                <div class="weui-media-box weui-media-box_text order_item_detail">
+                    <h4 class="weui-media-box__title">{{order_item.order_item_brand}}-{{order_item.order_item_name}}</h4>
+                    <p class="weui-media-box__desc">{{order_item.order_item_color}}-{{order_item.order_item_spec}}-{{order_item.order_item_for_vehicle}}</p>
+                    <div id='price_and_count'>
+                        <div style="display: inline-block;color: red;margin-top: 10px;">¥{{order_item.order_item_price}}</div>
+                        <div style="display: inline-block;position: absolute;right: 20px;margin-top: 14px;">
+                            <p class="weui-media-box__desc mall_item_count_desc">x{{order_item.order_item_count}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    {{/if}}
+    {{if order_type == 'type_vehicle'}} {{each list order_item i}} {{if order_item.order_item_type=='type_vehicle'}}
+    <div class="weui-cells" style="margin-top: 0px;box-shadow: 2px 0px 2px 1px #ccc;">
+        <div class="weui-cell order_item_header">{{order_item.order_item_vehicle_license}}</div>
+        <div class="weui-cell__bd">
+            <div class="weui-cell order_item_detail">
+                <div class="weui-cell__bd">
+                    <div class="weui-media-box weui-media-box_text order_item_detail">
+                        <h4 class="weui-media-box__title">{{order_item.order_item_title}}</h4>
+                        <p class="weui-media-box__desc">{{order_item.order_item_desc}}</p>
+                    </div>
+                </div>
+                <div class="weui-cell__ft order_item_price">{{order_item.order_item_price}}</div>
+            </div>
+        </div>
+        {{if order_item.order_item_wash_card_enabled}}
+        <div id="cell_wash_card_switch" class="weui-cell weui-cell_switch">
+            <div class="weui-cell__bd">
+                <div style="display: inline-block;">洗车卡抵扣</div>
+                <div style="display: inline-block;position: absolute;left: 105px;top: 16px;">
+                    <p id="{{order_item.order_item_id}}_wash_card_desc" class="weui-media-box__desc wash_card_count_desc">(当前可用{{wash_card_count}}次)</p>
+                </div>
+                <div style="display: inline-block;position: absolute;right: 78px;top: 16px;">
+                    <p id="{{order_item.order_item_id}}_wash_card_price" class="weui-media-box__desc" style="font-size: 0.5rem;color: red;">-30.00</p>
+                </div>
+            </div>
+            <div class="weui-cell__ft">
+                <label for="{{order_item.order_item_id}}_wash_card_switch" class="weui-switch-cp">
+                    <input id="{{order_item.order_item_id}}_wash_card_switch" class="weui-switch-cp__input" type="checkbox" checked="checked">
+                    <div class="weui-switch-cp__box"></div>
+                </label>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+    {{/if}} {{/each}} {{/if}}
+    <div class="weui-cells" style="box-shadow: 2px 0px 2px 1px #ccc;margin-top: 10px;">
+        <a class="weui-cell weui-cell_access" href="javascript:;">
+            <div class="weui-cell__bd">
+                <p>发票</p>
+            </div>
+            <div class="weui-cell__ft" style="font-size: 0.5rem">明细-车牌</div>
+        </a>
+        <a class="weui-cell weui-cell_access" href="javascript:;">
+            <div class="weui-cell__bd">
+                <p>优惠券</p>
+            </div>
+            <div class="weui-cell__ft" style="color: red;">-50.00</div>
+        </a>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <div style="display: inline-block;">积分卡抵扣</div>
+                <div style="display: inline-block;">
+                    <p id="user_current_credit" class="weui-media-box__desc" style="margin-left: 0.1rem;font-size: 0.5rem;">当前积分{{current_credit}}</p>
+                </div>
+                <p class="weui-media-box__desc">(每100积分抵10元，100元封顶)</p>
+            </div>
+            <div class="weui-cell__ft">
+                <div style="margin: 0 auto;text-align: center;">
+                    <input id='credit_input' class="weui-input credit_input" type="tel" placeholder="请输入积分" autocomplete="off">
+                    <hr align="center" width="70px" color="#eee" size="1">
+                    <p id='credit_discount_price' class="weui-media-box__desc" style="color: red;">-10.00</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bottom_tab" >
+    <div class="total_price">实付款：¥1000.00</div>
+    <button class="submit_btn">提交订单</button>
+</div>

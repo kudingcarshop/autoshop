@@ -1,0 +1,104 @@
+{{if is_for_order}}
+<div class="weui-cells weui-cells_checkbox" style="margin-top: 0px;">
+    {{each list coupon_item i}} {{if coupon_item.coupon_can_use}}
+    <label class="weui-cell weui-check__label" for="{{coupon_item.coupon_id}}_select">
+        <div class="weui-cell__hd" style="background-color: #F5DEB3; width: 80px;height: 80px;">
+            <div class="coupon_header" style="text-align: center;margin-top: 5px;">
+                <p style="display: inline-block;font-size: 0.5rem;color: white;">¥</p>
+                <p style="display: inline-block;font-size: 1.4rem;color: white;">{{coupon_item.coupon_price}}</p>
+                <p class="weui-media-box__desc" style="font-size: 0.5rem; color: white">满{{coupon_item.coupon_req}}可用</p>
+            </div>
+        </div>
+        <div class="weui-cell__bd" style="margin-left: 10px;">
+            <p>{{coupon_item.coupon_type_desc}}</p>
+            <p class="weui-media-box__desc" style="margin-top: 10px;">{{coupon_item.coupon_date_start}}-{{coupon_item.coupon_date_end}}</p>
+        </div>
+        <div class="weui-cell__hd">
+            {{if coupon_item.coupon_is_seleted}}
+            <input type="checkbox" class="weui-check" name="checkbox1" id="{{coupon_item.coupon_id}}_select" checked="checked">
+            {{else}}
+            <input type="checkbox" class="weui-check" name="checkbox1" id="{{coupon_item.coupon_id}}_select">
+            {{/if}}
+            <i class="weui-icon-checked"></i>
+        </div>
+    </label>
+    {{/if}} {{/each}}
+</div>
+<div class="weui-cells">
+    {{each list coupon_item i}} {{if coupon_item.coupon_can_use}} {{else}}
+    <div class="weui-cell">
+        <div class="weui-cell__hd" style="background-color: #DADADA; width: 80px;height: 80px;">
+            <div class="coupon_header" style="text-align: center;margin-top: 5px;">
+                <p style="display: inline-block;font-size: 0.5rem;color: white;">¥</p>
+                <p style="display: inline-block;font-size: 1.4rem;color: white;">{{coupon_item.coupon_price}}</p>
+                <p class="weui-media-box__desc" style="font-size: 0.5rem; color: white">满{{coupon_item.coupon_req}}可用</p>
+            </div>
+        </div>
+        <div class="weui-cell__bd" style="margin-left: 10px;">
+            <p>{{coupon_item.coupon_type_desc}}</p>
+            <p class="weui-media-box__desc" style="margin-top: 10px;">{{coupon_item.coupon_date_start}}-{{coupon_item.coupon_date_end}}</p>
+        </div>
+        <div class="weui-cell__ft" style="border: 1px solid #DADADA;border-radius: 5px;padding:4px;background-color: #DADADA">
+            <p class="weui-media-box__desc" style="color: white;">不可用</p>
+        </div>
+    </div>
+    {{/if}} {{/each}}
+</div>
+{{else}}
+<div class="weui-cells">
+    {{each list coupon_item i}} {{if coupon_item.coupon_used}}
+    <div class="weui-cell">
+        <div class="weui-cell__hd" style="background-color: #DADADA; width: 80px;height: 80px;">
+            <div class="coupon_header" style="text-align: center;margin-top: 5px;">
+                <p style="display: inline-block;font-size: 0.5rem;color: white;">¥</p>
+                <p style="display: inline-block;font-size: 1.4rem;color: white;">{{coupon_item.coupon_price}}</p>
+                <p class="weui-media-box__desc" style="font-size: 0.5rem; color: white">满{{coupon_item.coupon_req}}可用</p>
+            </div>
+        </div>
+        <div class="weui-cell__bd" style="margin-left: 10px;">
+            <p>{{coupon_item.coupon_type_desc}}</p>
+            <p class="weui-media-box__desc" style="margin-top: 10px;">{{coupon_item.coupon_date_start}}-{{coupon_item.coupon_date_end}}</p>
+        </div>
+        <div class="weui-cell__ft" style="border: 1px solid #DADADA;border-radius: 5px;padding:4px;background-color: #DADADA">
+            <p class="weui-media-box__desc" style="color: white;">已使用</p>
+        </div>
+    </div>
+    {{else}}
+    <div class="weui-cell weui-cell_swiped">
+        <div class="weui-cell__bd">
+            <div class="weui-cell">
+                {{if coupon_item.coupon_overdue}}
+                <div class="weui-cell__hd" style="background-color: #DADADA; width: 80px;height: 80px;">
+                    <div class="coupon_header" style="text-align: center;margin-top: 5px;">
+                        <p style="display: inline-block;font-size: 0.5rem;color: white;">¥</p>
+                        <p style="display: inline-block;font-size: 1.4rem;color: white;">{{coupon_item.coupon_price}}</p>
+                        <p class="weui-media-box__desc" style="font-size: 0.5rem; color: white">满{{coupon_item.coupon_req}}可用</p>
+                    </div>
+                </div>
+                {{else}}
+                <div class="weui-cell__hd" style="background-color: #F5DEB3; width: 80px;height: 80px;">
+                    <div class="coupon_header" style="text-align: center;margin-top: 5px;">
+                        <p style="display: inline-block;font-size: 0.5rem;color: white;">¥</p>
+                        <p style="display: inline-block;font-size: 1.4rem;color: white;">{{coupon_item.coupon_price}}</p>
+                        <p class="weui-media-box__desc" style="font-size: 0.5rem; color: white">满{{coupon_item.coupon_req}}可用</p>
+                    </div>
+                </div>
+                {{/if}}
+                <div class="weui-cell__bd" style="margin-left: 10px;">
+                    <p>{{coupon_item.coupon_type_desc}}</p>
+                    <p class="weui-media-box__desc" style="margin-top: 10px;">{{coupon_item.coupon_date_start}}-{{coupon_item.coupon_date_end}}</p>
+                </div>
+                {{if coupon_item.coupon_overdue}}
+                <div class="weui-cell__ft" style="border: 1px solid #DADADA;border-radius: 5px;padding:4px;background-color: #DADADA">
+                    <p class="weui-media-box__desc" style="color: white;">已过期</p>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+        <div class="weui-cell__ft">
+            <a class="weui-swiped-btn weui-swiped-btn_warn delete-swipeout" href="javascript:">删除</a>
+        </div>
+    </div>
+    {{/if}} {{/each}}
+</div>
+{{/if}}

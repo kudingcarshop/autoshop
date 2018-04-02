@@ -1,0 +1,121 @@
+@charset "utf-8";
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #eee;
+}
+
+.address_container {
+    width: 100%;
+    overflow: auto;
+    top: 0;
+    position: fixed;
+    z-index: 20;
+    height: 80px;
+    background-color: #F5F5DC;
+    padding-top: 10px;
+}
+
+.container {
+    width: 100%;
+    height: auto;
+    overflow: auto;
+    position: fixed;
+    z-index: 10;
+    bottom: 50px;
+}
+
+.order_item {
+    box-shadow: 1px 0 1px 1px #ccc;
+}
+
+.divider {
+    height: 5px;
+}
+
+.order_item_detail {
+    padding-right: .5rem;
+    padding-left: .5rem;
+    padding-top: .2rem;
+    padding-bottom: .2rem;
+}
+
+.order_item_header {
+    font-size: 1rem;
+    background-color: #ccc;
+    color: #000;
+    padding: 5px 15px;
+}
+
+.order_item_price {
+    font-size: 1rem;
+    color: red;
+}
+
+.order_wash_card_footer {
+    flex-direction: row;
+}
+
+.credit_input {
+    width: 70px;
+    font-size: 10px;
+    text-align: center;
+}
+
+.bottom_tab {
+    height: 50px;
+    width: 100%;
+    position: fixed;
+    z-index: 200;
+    bottom: 0;
+    text-align: center;
+    background-color: white;
+}
+
+.submit_btn {
+    position: absolute;
+    right: 0;
+    width: 100px;
+    height: 50px;
+    background-color: red;
+    color: white;
+    margin: 0 auto;
+    text-align: center;
+    border-width: 0;
+    font-size: 16px;
+}
+
+.total_price {
+    position: absolute;
+    left: 50px;
+    height: 42px;
+    width: auto;
+    color: red;
+    margin: 0 auto;
+    text-align: left;
+    font-size: 20px;
+    padding-top: 8px;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    font-size: 10px;
+}
+
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+    font-size: 10px;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+    font-size: 10px;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+    font-size: 10px;
+}

@@ -15,6 +15,13 @@
     <script src="${path}/vendor/jquery-weui/1.2.0/js/swiper.min.js"></script>
     <title>服务中心</title>
     <style>
+    body,
+    html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        -webkit-tap-highlight-color: transparent;
+    }
     .swiper-container {
         width: 100%;
         height: 10rem;
@@ -36,7 +43,7 @@
     .block-header {
         width: 100%;
         color: #3d4145;
-        height: 4rem;
+        height: 2rem;
         border-bottom: 1px solid #ddd;
     }
 
@@ -44,8 +51,8 @@
         display: inline;
         position: relative;
         left: 0;
-        height: 4rem;
-        line-height: 4rem;
+        height: 2rem;
+        line-height: 2rem;
         padding: 0 .5rem;
         margin-left: 1rem;
     }
@@ -54,8 +61,8 @@
         position: absolute;
         display: inline;
         right: 0;
-        height: 4rem;
-        line-height: 4rem;
+        height: 2rem;
+        line-height: 2rem;
         padding: 0 .5rem;
         color: #8e8e8e;
     }
@@ -120,7 +127,7 @@
                     车行信息
                 </p>
             </a>
-        </div>
+        </div>          
     </div>
     <script type="text/javascript">
     $(function() {

@@ -16,22 +16,28 @@
     body,
     html {
         height: 100%;
+        margin: 0;
+        padding: 0;
         -webkit-tap-highlight-color: transparent;
     }
 
     body {
-        overflow:hidden;
+        overflow: hidden;
     }
 
     iframe {
         height: 100%;
         width: 100%;
-        margin-bottom: 50px;
     }
 
-    .iframe_container {
-        margin-bottom: 60px;
-        margin-top: 0;
+    .container {
+        width: 100%;
+        height: auto;
+        overflow: auto;
+        top: 0rem;
+        position: fixed;
+        z-index: 10;
+        bottom: 50px;
     }
 
     .user_title_panle {
@@ -62,19 +68,21 @@
     .weui-grid-for-four {
         width: 25%;
     }
+
     .footer-menu {
-        position: fixed!important;
-        z-index: 9;
-        bottom: 0;
-        width: 100%;
         height: 50px;
+        width: 100%;
+        position: absolute;
+        z-index: 200;
+        bottom: 0;
+        text-align: center;
     }
     </style>
 </head>
 
 <body ontouchstart>
     <div class="weui-tab">
-        <div class="weui-tab__bd">
+        <div class="weui-tab__bd container">
             <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
                 <iframe id="service_frame" runat="server" frameborder="no" border="0" scrolling="auto" allowtransparency="yes" src="/web-autoshop/garage/vehicle/serviceCenter"></iframe>
             </div>
@@ -110,6 +118,10 @@
     $(function() {
         FastClick.attach(document.body);
     });
+
+    window.onload = function() {
+        $('#service_frame').height = $('#service_frame').heigh - 200;
+    };
     </script>
 </body>
 

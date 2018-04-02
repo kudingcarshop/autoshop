@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="../../vendor/jquery-weui/1.2.0/css/jquery-weui.css" rel="stylesheet" media="screen">
+    <link href="../../vendor/jquery-weui/1.2.0/lib/weui.min.css" rel="stylesheet" media="screen">
+    <link href="../../css/kuding/order_template.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="../../vendor/art-template/lib/template-web.js"></script>
+    <script type="text/javascript" src="../../vendor/jquery-weui/1.2.0/lib/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="../../vendor/jquery-weui/1.2.0/js/jquery-weui.js"></script>
+    <title>我的订单</title>
+</head>
+
+<body>
+    <div id="content"></div>
+    <script type="text/javascript">
+    // var skuData = {
+    //     order_id: '2018032720141880', //年月日时分秒毫秒
+    //     order_type: 'type_vehicle', //type_mall, type_vehicle
+    //     wash_card_count: 20,
+    //     coupon_price: '50.00',
+    //     current_credit: '1000',
+    //     list: [{
+    //         order_item_id: '2018032720141880_1',
+    //         order_item_type: 'type_vehicle',
+    //         order_item_vehicle_license: "粤L88888",
+    //         order_item_title: '保养',
+    //         order_item_desc: '打蜡，抛光',
+    //         order_item_price: '600.00',
+    //         order_item_wash_card_enabled: false
+    //     }, {
+    //         order_item_id: '2018032720141880_2',
+    //         order_item_type: 'type_vehicle',
+    //         order_item_vehicle_license: "粤L99999",
+    //         order_item_title: '洗车',
+    //         order_item_desc: '蜡水洗车',
+    //         order_item_price: '30.00',
+    //         order_item_wash_card_enabled: true
+    //     }, {
+    //         order_item_id: '2018032720141880_3',
+    //         order_item_type: 'type_vehicle',
+    //         order_item_vehicle_license: "粤L77777",
+    //         order_item_title: '洗车',
+    //         order_item_desc: '蜡水洗车',
+    //         order_item_price: '30.00',
+    //         order_item_wash_card_enabled: true
+    //     }]
+    // }
+    var skuData = {
+        order_id: '2018032720141880', //年月日时分秒毫秒
+        order_type: 'type_mall', //type_mall, type_vehicle
+        wash_card_count: 20,
+        coupon_price: '50.00',
+        current_credit: '1000',
+        list: [{
+            order_item_id: '2018032720141880_1',
+            order_item_type: 'type_mall',
+            order_item_brand: '飞歌',
+            order_item_name: '行车记录导航一体',
+            order_item_for_vehicle: '2013天籁2.5XL领先版',
+            order_item_spec: '10.2寸',
+            order_item_color: '黑色',
+            order_item_price: '600.00',
+            order_item_count: 1,
+            order_item_can_use_coupon: true
+        }]
+    }
+    // var render = template.compile(data);
+    //        var str = render(skuData);
+    //        document.getElementById("container").innerHTML = str;
+    var html = $.get('../../jsp/order/order_template.html',
+        function(data) {
+            var render = template.compile(data);
+            var str = render(skuData);
+            document.getElementById("content").innerHTML = str;
+            initViews();
+            initClick();
+            initCreditInput();
+
+        });
+    var wash_card_count = skuData['wash_card_count'];
+    var wash_card_count_temp = wash_card_count;
+
+    function initViews() {
+        if (skuData['order_type'] == 'type_vehicle') {
+            document.getElementById("container").style.top = '0px';
+            for (var i = 0; i < skuData['list'].length; i++) {
+                var id = skuData['list'][i]['order_item_id'];
+                var switchID = '#' + id + '_wash_card_switch';
+                if ($(switchID).is(':checked')) {
+                    wash_card_count_temp--;
+                }
+                var descID = '#' + id + '_wash_card_desc';
+                $(descID).text('(当前可用' + wash_card_count_temp + '次)');
+            }
+        } else if (skuData['order_type'] == 'type_mall') {
+            document.getElementById("container").style.top = '90px';
+        }
+        toggleCreditInput();
+        toggleTotalPrice();
+
+    }
+
+    function initClick() {
+        if (skuData['order_type'] == 'type_vehicle') {
+            initWashCardSwitchClick();
+        }
+    }
+
+    function initCreditInput() {
+        $('#credit_input').bind('input propertychange', function() {
+            toggleCreditInput();
+        });
+    }
+
+    function initWashCardSwitchClick() {
+        for (var i = 0; i < skuData['list'].length; i++) {
+            var id = skuData['list'][i]['order_item_id'];
+            var switchID = '#' + id + '_wash_card_switch';
+            $(switchID).click(function() {
+                var thisId;
+                wash_card_count_temp = wash_card_count;
+                for (var i = 0; i < skuData['list'].length; i++) {
+                    var id = skuData['list'][i]['order_item_id'];
+                    var switchID = '#' + id + '_wash_card_switch';
+                    var washCardPriceId = '#' + id + '_wash_card_price';
+                    if ($(switchID).is(':checked')) {
+                        wash_card_count_temp--;
+                        $(washCardPriceId).text('-30.00');
+                    } else {
+                        $(washCardPriceId).text('');
+                    }
+                    var descID = '#' + id + '_wash_card_desc';
+                    $(descID).text('(当前可用' + wash_card_count_temp + '次)');
+                }
+                toggleTotalPrice();
+            });
+        }
+    }
+
+    function toggleCreditInput() {
+        var credit = $('#credit_input').val();
+        var re = /^[0-9]+.?[0-9]*/; //判断字符串是否为数字//判断正整数/[1−9]+[0−9]∗]∗/ 
+        if (!re.test(credit)) {
+            $('#credit_discount_price').text('0.00');
+        } else {
+            var currentCredit = parseInt(skuData['current_credit']);
+            var inputCredit = parseInt(credit);
+            if (inputCredit > currentCredit) {
+                inputCredit = currentCredit;
+            }
+            var discount = inputCredit / 100;
+            if (discount > 1) {
+                discount = parseInt(discount);
+                discount = discount * 10;
+                $('#credit_discount_price').text('-' + discount.toFixed(2));
+            } else {
+                discount = 0;
+                $('#credit_discount_price').text('0.00');
+            }
+            toggleTotalPrice();
+
+        }
+    }
+
+    function toggleTotalPrice() {
+        var totalPrice = 0;
+        for (var i = 0; i < skuData['list'].length; i++) {
+            totalPrice = totalPrice + parseFloat(skuData['list'][i]['order_item_price']);
+        }
+        /***************************BEGIN 洗车卡优惠************************************/
+        var washDiscount = (wash_card_count - wash_card_count_temp) * 30;
+        totalPrice = totalPrice - washDiscount;
+        /***************************END 洗车卡优惠************************************/
+
+        /***************************BEGIN 积分优惠************************************/
+        var creditDiscount = parseFloat($('#credit_discount_price').text());
+        totalPrice = totalPrice + creditDiscount; //这里取到的是负数，所以用加号
+        /***************************END 积分优惠************************************/
+
+        /***************************BEGIN 优惠券优惠************************************/
+        totalPrice = totalPrice - parseFloat(skuData['coupon_price']);
+        /***************************END 优惠券优惠************************************/
+
+        $('.total_price').html('实付款：¥' + totalPrice.toFixed(2));
+    }
+    </script>
+</body>
+
+</html>

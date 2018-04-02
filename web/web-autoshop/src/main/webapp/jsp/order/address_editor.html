@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="../../vendor/jquery-weui/1.2.0/css/jquery-weui.css" rel="stylesheet" media="screen">
+    <link href="../../vendor/jquery-weui/1.2.0/lib/weui.min.css" rel="stylesheet" media="screen">
+    <link href="../../css/kuding/address_editor_template.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="../../vendor/art-template/lib/template-web.js"></script>
+    <script type="text/javascript" src="../../vendor/jquery-weui/1.2.0/lib/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="../../vendor/jquery-weui/1.2.0/js/jquery-weui.js"></script>
+    <script type="text/javascript" src="../../vendor/jquery-weui/1.2.0/js/city-picker.js"></script>
+    <title>收货地址</title>
+</head>
+
+<body>
+    <div id="content"></div>
+    <script type="text/javascript">
+    var skuData = {
+        address_id: '2018032720141880_1',
+        address_is_edit: true, //如果为false，则是新增地址，true为编辑地址
+        address_recipient: '大帅逼',
+        address_tel: '13888888888',
+        address_location: '广东省 惠州市 惠城区',
+        address_details: '我家大门常打开',
+        address_is_default: true
+    }
+    // var render = template.compile(data);
+    //        var str = render(skuData);
+    //        document.getElementById("container").innerHTML = str;
+    var html = $.get('../../jsp/order/address_editor_template.html',
+        function(data) {
+            var render = template.compile(data);
+            var str = render(skuData);
+            document.getElementById("content").innerHTML = str;
+            $("#address_location").cityPicker({
+                title: "选择地区"
+            });
+        });
+    </script>
+</body>
+
+</html>

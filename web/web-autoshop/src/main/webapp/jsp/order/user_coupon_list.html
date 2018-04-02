@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="../../vendor/jquery-weui/1.2.0/lib/weui.min.css" rel="stylesheet" media="screen">
+    <link href="../../vendor/jquery-weui/1.2.0/css/jquery-weui.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="../../vendor/art-template/lib/template-web.js"></script>
+    <title>优惠券</title>
+    <style type="text/css">
+    body,
+    html {
+        height: 100%;
+        -webkit-tap-highlight-color: transparent;
+        background-color: #FAFAFA;
+    }
+    </style>
+</head>
+
+<body ontouchstart>
+    <div class="weui-tab">
+        <div class="weui-navbar">
+            <a class="weui-navbar__item weui-bar__item--on" href="#tab1">未使用</a>
+            <a class="weui-navbar__item" href="#tab2">使用记录</a>
+            <a class="weui-navbar__item" href="#tab3">已过期</a>
+        </div>
+        <div class="weui-tab__bd">
+            <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+                <div id="unused_coupon"></div>
+            </div>
+            <div id="tab2" class="weui-tab__bd-item">
+                <div id="history_coupon"></div>
+            </div>
+            <div id="tab3" class="weui-tab__bd-item">
+                <div id="overdue_coupon"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../vendor/jquery-weui/1.2.0/lib/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="../../vendor/jquery-weui/1.2.0/lib/fastclick.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        FastClick.attach(document.body);
+    });
+    </script>
+    <script type="text/javascript" src="../../vendor/jquery-weui/1.2.0/js/jquery-weui.js"></script>
+    <script type="text/javascript">
+    var unused_list = {
+        user_id: '2018032720141880',
+        list: [{
+            coupon_id: '2018032720141880_1_1',
+            coupon_price: '500',
+            coupon_req: '5000',
+            coupon_type: '', //优惠券类型
+            coupon_type_desc: '行车记录仪专用', //优惠券类型的描述
+            coupon_date_start: '2018.03.01',
+            coupon_date_end: '2019.03.01',
+            coupon_used: false,
+            coupon_overdue: false,
+        }, {
+            coupon_id: '2018032720141880_1_2',
+            coupon_price: '80',
+            coupon_req: '2000',
+            coupon_type: '', //优惠券类型
+            coupon_type_desc: '钣金专用', //优惠券类型的描述
+            coupon_date_start: '2018.03.01',
+            coupon_date_end: '2019.03.01',
+            coupon_used: false,
+            coupon_overdue: false,
+        }]
+    };
+    var history_list = {
+        user_id: '2018032720141880',
+        list: [{
+            coupon_id: '2018032720141880_2_1',
+            coupon_price: '100',
+            coupon_req: '3000',
+            coupon_type: '', //优惠券类型
+            coupon_type_desc: '导航专用', //优惠券类型的描述
+            coupon_date_start: '2018.03.01',
+            coupon_date_end: '2018.09.01',
+            coupon_used: true,
+            coupon_overdue: false,
+        }, {
+            coupon_id: '2018032720141880_2_2',
+            coupon_price: '20',
+            coupon_req: '500',
+            coupon_type: '', //优惠券类型
+            coupon_type_desc: '打蜡专用', //优惠券类型的描述
+            coupon_date_start: '2018.03.01',
+            coupon_date_end: '2018.09.01',
+            coupon_used: true,
+            coupon_overdue: false,
+        }]
+    };
+    var overdue_list = {
+        user_id: '2018032720141880',
+        list: [{
+            coupon_id: '2018032720141880_3_1',
+            coupon_price: '10',
+            coupon_req: '100',
+            coupon_type: '', //优惠券类型
+            coupon_type_desc: '手工费专用', //优惠券类型的描述
+            coupon_date_start: '2018.03.01',
+            coupon_date_end: '2018.03.20',
+            coupon_used: false,
+            coupon_overdue: true,
+        }, {
+            coupon_id: '2018032720141880_3_2',
+            coupon_price: '50',
+            coupon_req: '2000',
+            coupon_type: '', //优惠券类型
+            coupon_type_desc: '镀晶专用', //优惠券类型的描述
+            coupon_date_start: '2018.03.01',
+            coupon_date_end: '2018.03.20',
+            coupon_used: false,
+            coupon_overdue: true,
+        }]
+    };
+
+    var html_unused = $.get('../../jsp/order/coupon_list_template.html',
+        function(data) {
+            var render = template.compile(data);
+            var str = render(unused_list);
+            document.getElementById("unused_coupon").innerHTML = str;
+            $('.weui-cell_swiped').swipeout();
+            initDelete();
+        });
+    var html_history = $.get('../../jsp/order/coupon_list_template.html',
+        function(data) {
+            var render = template.compile(data);
+            var str = render(history_list);
+            document.getElementById("history_coupon").innerHTML = str;
+        });
+    var html_overdue = $.get('../../jsp/order/coupon_list_template.html',
+        function(data) {
+            var render = template.compile(data);
+            var str = render(overdue_list);
+            document.getElementById("overdue_coupon").innerHTML = str;
+            $('.weui-cell_swiped').swipeout();
+            initDelete();
+        });
+
+    function initDelete() {
+        $('.delete-swipeout').click(function() {
+            $(this).parents('.weui-cell').remove()
+        })
+    }
+    </script>
+</body>
+
+</html>
