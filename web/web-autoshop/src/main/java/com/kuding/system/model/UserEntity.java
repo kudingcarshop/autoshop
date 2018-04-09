@@ -85,6 +85,9 @@ public class UserEntity {
 	
 	@OneToMany(mappedBy="user")
 	private Set<VehicleEntity> vehicles;
+	
+	@Column(name="head_thubnail")
+	private String headThubnail;
 
 	public Integer getId() {
 		return id;
@@ -212,6 +215,14 @@ public class UserEntity {
 
 	public void setVehicles(Set<VehicleEntity> vehicles) {
 		this.vehicles = vehicles;
+	}
+
+	public String getHeadThubnail() {
+		return headThubnail;
+	}
+
+	public void setHeadThubnail(String headThubnail) {
+		this.headThubnail = headThubnail;
 	}
 
 }

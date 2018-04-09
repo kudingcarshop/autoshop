@@ -17,11 +17,14 @@
 	border: 1px solid #BBBBBB;
 }
 
-.kd-header-img div{
+.kd-header-img div {
 	height: 0.9rem;
 	width: 1.5rem;
-	background:#E5E5E5;
+	background: #E5E5E5;
+	background-repeat: no-repeat;
+	background-position: center;
 }
+
 .kd-header-img a{
 	display: block;
 	width: 100%;
