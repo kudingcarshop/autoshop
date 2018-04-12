@@ -1,14 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="../../path.jsp"%>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-	<link rel="stylesheet" href="../../../vendor/font-awesome/4.7.0/css/font-awesome.min.css"/>
-	<link rel="stylesheet" href="../../../css/kuding/commons.css"/>
-	<link rel="stylesheet" href="../../../css/kuding/customer/customer_cars.css"/>
+	<link rel="stylesheet" href="${path}/vendor/font-awesome/4.7.0/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="${path}/css/kuding/commons.css"/>
+	<link rel="stylesheet" href="${path}/css/kuding/customer/customer_cars.css"/>
 </head>
 <body>
 	<div class="kd-page">
-		<div class="kd-item">
+		<div class="kd-item" onclick="javascript:window.location.href='${path}/customer/cars/detail';">
 			<div class="kd-hd-img"></div>
 			<table>
 				<tbody>
@@ -54,7 +56,7 @@
 			<i class="fa fa-angle-right fa-2x"></i>
 		</div>
 		
-		<div class="kd-item">
+			<div class="kd-item">
 			<div class="kd-hd-img"></div>
 			<table>
 				<tbody>
@@ -76,9 +78,9 @@
 			</table>
 			<i class="fa fa-angle-right fa-2x"></i>
 		</div>
-		<a class="kd-btn-add"><i class="fa fa-plus-circle fa-2x"></i></a>
+		<a class="kd-btn-add" href="${path}/customer/cars/add"><i class="fa fa-plus-circle fa-2x"></i></a>
 	</div>
-	<script src="../../../vendor/jquery/jquery.min.js"></script>
-	<script src="../../../vendor/kuding/setup_rem.js"></script>
+	<script src="${path}/vendor/jquery/jquery.min.js"></script>
+	<script src="${path}/vendor/kuding/setup_rem.js"></script>
 </body>
 </html>

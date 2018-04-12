@@ -88,6 +88,9 @@ public class UserEntity {
 	
 	@Column(name="head_thubnail")
 	private String headThubnail;
+	
+	@Column(name="customer_integral")
+	private Integer integral;
 
 	public Integer getId() {
 		return id;
@@ -223,6 +226,14 @@ public class UserEntity {
 
 	public void setHeadThubnail(String headThubnail) {
 		this.headThubnail = headThubnail;
+	}
+
+	public Integer getIntegral() {
+		return integral;
+	}
+
+	public void setIntegral(Integer integral) {
+		this.integral = integral;
 	}
 
 }

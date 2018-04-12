@@ -1,0 +1,48 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="../../path.jsp"%>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="${path}/vendor/font-awesome/4.7.0/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="${path}/css/kuding/commons.css"/>
+	<link rel="stylesheet" href="${path}/css/kuding/customer/customer_consumption_records.css"/>
+</head>
+<body>
+	<div class="kd-page">
+		<div class="kd-hd">
+			<div>
+				<p>2017年12月</p>
+				<p>支出 ¥1200.00</p>
+			</div>
+			<i class="fa fa-calendar fa-2x"></i>
+		</div>
+		<div class="kd-detail">
+			<p>美容</p>
+			<div>
+				<p>12月10日</p>
+				<p>-600.00</p>
+			</div>
+			<p>备注：抛光，打蜡</p>
+		</div>
+		<div class="kd-detail">
+			<p>常规保养</p>
+			<div>
+				<p>12月10日</p>
+				<p>-600.00</p>
+			</div>
+			<p>备注：换机油-美孚</p>
+		</div>
+		<div class="kd-detail">
+			<p>洗车</p>
+			<div>
+				<p>12月6日</p>
+				<p style="color: #000000;">0</p>
+			</div>
+			<p>备注：无</p>
+		</div>
+	</div>
+	<script src="${path}/vendor/jquery/jquery.min.js"></script>
+	<script src="${path}/vendor/kuding/setup_rem.js"></script>
+</body>
+</html>
