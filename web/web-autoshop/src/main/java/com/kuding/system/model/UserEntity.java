@@ -1,5 +1,6 @@
 package com.kuding.system.model;
 
+import java.sql.Blob;
 import java.sql.Timestamp;
 import java.util.Set;
 
@@ -87,7 +88,7 @@ public class UserEntity {
 	private Set<VehicleEntity> vehicles;
 	
 	@Column(name="head_thubnail")
-	private String headThubnail;
+	private Blob headThubnail;
 	
 	@Column(name="customer_integral")
 	private Integer integral;
@@ -220,11 +221,11 @@ public class UserEntity {
 		this.vehicles = vehicles;
 	}
 
-	public String getHeadThubnail() {
+	public Blob getHeadThubnail() {
 		return headThubnail;
 	}
 
-	public void setHeadThubnail(String headThubnail) {
+	public void setHeadThubnail(Blob headThubnail) {
 		this.headThubnail = headThubnail;
 	}
 

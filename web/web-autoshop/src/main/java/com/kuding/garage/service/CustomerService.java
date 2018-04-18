@@ -1,13 +1,17 @@
 package com.kuding.garage.service;
 
+import java.io.IOException;
 import java.math.BigInteger;
+import java.sql.Blob;
 import java.util.Map;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kuding.commons.BusinessException;
 import com.kuding.commons.ErrorCode;
@@ -110,6 +114,54 @@ public class CustomerService extends BasicService<UserEntity> {
 				query.setParameterList("type", (Integer[])params.get("type"));
 			}
 		}
+	}
+	
+	/**
+	 * 更新用户基本信息
+	 * @param user
+	 * @throws IOException 
+	 */
+	@Transactional(readOnly=false, rollbackFor = { Exception.class, RuntimeException.class })
+	public void updateUserInfo(UserEntity user,MultipartFile file) throws IOException {
+		if(user != null && user.getId() != null) {
+			UserEntity userEntity = findById(UserEntity.class, user.getId());
+			if(userEntity != null) {
+				if(!isUserNameDuplicated(user.getName(),user.getId())) {
+					userEntity.setName(user.getName());
+					userEntity.setPhoneNumber(user.getPhoneNumber());
+					if(file != null && file.getSize() > 0) {
+						Blob img = Hibernate.getLobCreator(getSession()).createBlob(file.getBytes());
+						if(img != null) {
+							userEntity.setHeadThubnail(img);
+						}
+					}
+					save(userEntity);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * 判断用户名称是否重复
+	 * @param userName
+	 * @param userId
+	 * @return
+	 */
+	@Transactional(readOnly = true)
+	public boolean isUserNameDuplicated(String userName,Integer userId) {
+		if(userName != null 
+				&& userName.trim().length()>0 
+				&& userId != null) {
+			StringBuffer hql = new StringBuffer()
+					.append("from UserEntity user ")
+					.append("where user.name = :userName ")
+					.append("and user.id != :userId ");
+			Query query = getSession().createQuery(hql.toString());
+			query.setString("userName", userName);
+			query.setInteger("userId", userId);
+			return query.list().size() > 0;
+		}
+		return true;
 	}
 
 }

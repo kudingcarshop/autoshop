@@ -1,5 +1,5 @@
 /**320x480 1rem=100px chrome 允许的最小字体大小未12px*/
-function autoAdjust(){
+function basicRem(){
 	var $doc=$(window);
 	var width = $doc.width();
 	if(width < 320){
@@ -7,9 +7,12 @@ function autoAdjust(){
 	}else if(width >750){
 		width = 750;
 	}
-	
 	var rem = width/3.2;
-	$('html').css('font-size',rem+'px');
+	return rem;
+}
+
+function autoAdjust(){
+	$('html').css('font-size',basicRem()+'px');
 }
 
 $(function(){

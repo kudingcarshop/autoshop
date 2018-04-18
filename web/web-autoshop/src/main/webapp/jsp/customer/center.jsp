@@ -12,16 +12,16 @@
 	<div class="kd-page">
 		<!-- head -->
 		<div class="kd-cust-head">
-			<img alt="" src="${path}/img/avatar3.jpg">
+			<img src="${path}/customer/headImg"></img>
 			<div>
-				<span>欧阳修</span> <span>13536347082</span> 
+				<span>${user.name }</span> <span>${user.phoneNumber}</span> 
 			</div>
 			<i class="fa fa-angle-right fa-2x"></i>
 		</div>
 		<!-- consumption -->
 		<div class="kd-section">
 			<div class="kd-items">
-				<i class="fa fa-vimeo fa-2x"></i> <i class="fa fa-angle-right fa-2x"></i> <span>会员积分</span> <span>1,000积分</span>
+				<i class="fa fa-vimeo fa-2x"></i> <i class="fa fa-angle-right fa-2x"></i> <span>会员积分</span> <span><fmt:formatNumber value="${user.integral}" pattern="###,###,###"></fmt:formatNumber>积分</span>
 			</div>
 			<div class="kd-items" onclick="javascript:window.location.href='${path}/customer/cards';">
 				<i class="fa fa-id-card fa-2x"></i> <i class="fa fa-angle-right fa-2x"></i> <span>我的卡包</span>

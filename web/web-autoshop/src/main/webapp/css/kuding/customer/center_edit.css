@@ -8,8 +8,8 @@
 }
 
 .kd-header-img{
-	width:1.5rem;
-	height:1.2rem;
+	width:1.2rem;
+	height:1.3rem;
 	display: block;
 	position: relative;
 	top: -0.6rem;
@@ -17,9 +17,9 @@
 	border: 1px solid #BBBBBB;
 }
 
-.kd-header-img div {
-	height: 0.9rem;
-	width: 1.5rem;
+.kd-header-img canvas {
+	width: 1.2rem;
+	height: 1rem;
 	background: #E5E5E5;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -45,19 +45,30 @@
 	height: 0.5rem;
 }
 
-.kd-edit-itme label,span,i{
+.kd-edit-itme label,input,i{
 	height:0.26rem;
 	line-height:0.26rem;
 	display: block;
 	float: left;
-	margin: 0.07rem 0.2rem;
+	margin-top:0.12rem;
 	text-align: left;
 	font-size: 0.18rem;
 }
 
+.kd-edit-itme label{
+	width: 0.54rem;
+	margin-left: 0.2rem;
+}
+
+.kd-edit-itme input{
+	width: 1.8rem;
+	margin-left: 0.1rem;
+}
+
 .kd-edit-itme i{
 	float: right;
-	margin-top: 0.16rem;
+	margin-top:0.18rem;
+	margin-right: 0.2rem;
 }
 
 .kd-btn-save{
@@ -75,4 +86,11 @@
 
 body{
 	margin-bottom:0.48rem;
+}
+
+.kd-input-head{
+	position: absolute;
+	top: -9999;
+	left:-9999;
+	display: none;
 }

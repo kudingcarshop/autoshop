@@ -7,28 +7,86 @@
 	<link rel="stylesheet" href="../../../css/kuding/customer/center_edit.css"/>
 </head>
 <body>
+<form id="myform" action="#" method="post" enctype="multipart/form-data">
 	<div class="kd-page">
 		<!-- 背景 -->
 		<div class="kd-header-bg"></div>
 		<!-- 头像 -->
 		<div class="kd-header-img">
-			<div style="background-image:  url('../../../img/default_head_thubnail.png');"></div>
-			<a>点击编辑头像</a>
+			<!-- <div id="preview" style="background-image:  url('../../../img/default_head_thubnail.png');"></div> -->
+			<canvas id="canvas" width="120" height="100"></canvas>
+				<input type="file" class="kd-input-head" id="files" accept=".png,.jpg,.jpeg,image/png,image/jpg,image/jpeg" />
+			<a>点击更换头像</a>
 		</div>
+		
 
 		<div class="kd-edit-container">
 		<!-- 用户名 -->
 		<div class="kd-edit-itme">
-		<label>用户名</label><input>xxxxxx</input><i class="fa fa-edit"></i>
+		<label>用户名</label><input value="xxxxxx" name="userName"/>
 		</div>
 		<!-- 手机 -->
 		<div class="kd-edit-itme">
-		<label>手机</label><input>13533333333</input><i class="fa fa-edit"></i>
+		<label>手机</label><input value="13533333333" name="phoneNumber" />
 		</div>
 		</div>
 		<a class="kd-btn-save">保存</a>
 	</div>
+	</form>
 	<script src="../../../vendor/jquery/jquery.min.js"></script>
 	<script src="../../../vendor/kuding/setup_rem.js"></script>
+	<script type="text/javascript">
+
+		function getObjectURL(file) {
+			var url = null;
+			if (window.createObjcectURL != undefined) {
+				url = window.createOjcectURL(file);//standar
+			} else if (window.URL != undefined) {//firefox
+				url = window.URL.createObjectURL(file);
+			} else if (window.webkitURL != undefined) {//webkit/chrome
+				url = window.webkitURL.createObjectURL(file);
+			}
+			return url;
+		}
+
+		function cropImg(canvasId, url) {
+			var canvas = document.getElementById(canvasId);
+			var basicSize = basicRem();
+			ctx = canvas.getContext('2d');
+			canvas.width = 1 * basicSize;//使用CSS设置canvas宽、高会自动拉伸，通过代码重新设置
+			canvas.height = 1.2 * basicSize;
+			var img = new Image();
+			img.src = url;
+			console.log("img.src = " + img.src);
+			img.onload = function() {
+				var w = img.width;
+				var h = img.height;
+				var cw = canvas.width;
+				var ch = canvas.height;
+				var dw = cw / w;
+				var dh = ch / h;
+				ctx.clearRect(0, 0, cw, ch);//清除画布
+				ctx.drawImage(img, 0, 0, w, h, 0, 0, cw, ch);
+			}
+		}
+
+		$(function() {
+			//加载头像图片
+			cropImg('canvas', '../../../img/default_head_thubnail.png');
+
+			$('.kd-header-img>a').on('click', function() {
+				$('#files').click();
+			});
+
+			$('#files').on('change', function() {
+				cropImg('canvas', getObjectURL(this.files[0]));
+			});
+			
+			
+			$('a.kd-btn-save').on('click',function(){
+				$('#myform').submit();
+			});
+		});
+	</script>
 </body>
 </html>

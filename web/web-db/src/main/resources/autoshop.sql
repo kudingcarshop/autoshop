@@ -304,7 +304,7 @@ CREATE TABLE `sys_user`
 	`gender` VARCHAR(1) COMMENT '性别 0-女 1-男',
 	`phone_number` VARCHAR(50),
 	`birthday` DATE,
-	`head_thubnail` VARCHAR(100) COMMENT '用户头像地址',
+	`head_thubnail` BLOB COMMENT '用户头像地址',
 	`customer_integral` INTEGER COMMENT '客户积分',
 	CONSTRAINT `PK_sys_user` PRIMARY KEY (`id`)
 )
