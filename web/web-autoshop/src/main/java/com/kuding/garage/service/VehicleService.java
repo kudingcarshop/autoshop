@@ -165,4 +165,25 @@ public class VehicleService extends BasicService<VehicleEntity> {
 		}
 		return null;
 	}
+	
+	/**
+	 * 统计用户名下车辆数目
+	 * @param userId
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public Integer queryVehiclesByUserId(Integer userId) {
+		if(userId != null) {
+			StringBuffer hql = new StringBuffer()
+					.append("select count (distinct veh.id) from VehicleEntity veh ")
+					.append("left join veh.user user ")
+					.append("where user.id = :userId ");
+			Query query = getSession().createQuery(hql.toString());
+			query.setInteger("userId", userId);
+			return ((Long)query.uniqueResult()).intValue();
+		}
+		
+		return 0;
+	}
+	
 }

@@ -3,6 +3,10 @@ package com.kuding.garage.service;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.sql.Blob;
+import java.sql.Date;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Hibernate;
@@ -18,6 +22,9 @@ import com.kuding.commons.ErrorCode;
 import com.kuding.commons.pagination.PaginationQuery;
 import com.kuding.commons.pagination.PaginationResult;
 import com.kuding.commons.service.BasicService;
+import com.kuding.customer.model.TrafficViolationEntity;
+import com.kuding.customer.model.VehicleMaintainInfo;
+import com.kuding.garage.model.VehicleEntity;
 import com.kuding.system.model.UserEntity;
 
 @Service
@@ -162,6 +169,153 @@ public class CustomerService extends BasicService<UserEntity> {
 			return query.list().size() > 0;
 		}
 		return true;
+	}
+	
+	/**
+	 * 查询用户未付款记录数
+	 * @param userId
+	 * @return
+	 */
+	@Transactional(readOnly = true)
+	public long queryUnPayCount(Integer userId) {
+		if(userId != null) {
+			StringBuffer hql = new StringBuffer()
+					.append("select count(distinct vehMain.id) from VehicleMaintainInfo vehMain ")
+					.append("left join vehMain.user user ")
+					.append("where user.id = :userId ")
+					.append("and vehMain.isPay = :isPay ");
+			Query query = getSession().createQuery(hql.toString());
+			query.setInteger("userId", userId);
+			query.setString("isPay", VehicleMaintainInfo.PAY_NO);
+			return (long) query.uniqueResult();
+		}
+		return 0;
+	}
+	
+	/**
+	 * 统计用户未处理违章记录
+	 * @param userId
+	 * @return
+	 */
+	@Transactional(readOnly = true)
+	public long queryTrafficViolationCount(Integer userId) {
+		if(userId != null) {
+			StringBuffer hql = new StringBuffer()
+					.append("select count(distinct vio.id) from TrafficViolationEntity vio ")
+					.append("left join vehMain.user user ")
+					.append("where user.id = :userId ")
+					.append("and vio.state = :state ");
+			Query query = getSession().createQuery(hql.toString());
+			query.setInteger("userId", userId);
+			query.setString("state", TrafficViolationEntity.STATE_UNHANDLE);
+			return (long) query.uniqueResult();
+		}
+		return 0;
+	}
+	
+	/**
+	 * 统计用户需要年审车辆记录
+	 * @param userId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public Map<String,Integer> queryAnnualVertificationCount(Integer userId) {
+		Map<String,Integer> result = new HashMap<>();
+		if(userId != null) {
+			StringBuffer hql = new StringBuffer()
+					.append("from VehicleEntity veh ")
+					.append("left join fetch vehMain.user user ")
+					.append("where user.id = :userId ");
+			Query query = getSession().createQuery(hql.toString());
+			query.setInteger("userId", userId);
+			List<VehicleEntity> vehList = query.list();
+			if(vehList != null && vehList.size() > 0) {
+				Integer annualCount = 0;
+				Integer insuranceCount = 0;
+				for(VehicleEntity veh : vehList) {
+					if(isNeedAnnualVertification(veh.getRegisterDate())) {
+						annualCount++;
+					}
+					
+					if(isNeedInsurance(veh.getRegisterDate())) {
+						insuranceCount++;
+					}
+				}
+				result.put("annual", annualCount);
+				result.put("insurance", insuranceCount);
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * 根据车辆注册日期推算年检日期
+	 * @param date 车辆注册日期 
+	 * @return
+	 */
+	private boolean isNeedAnnualVertification(Date date) {
+		if(date != null) {
+			Calendar regCal = Calendar.getInstance();
+			regCal.setTime(date);
+			
+			//年检截止日期
+			Calendar deadline = Calendar.getInstance();
+			deadline.set(Calendar.MONTH, regCal.get(Calendar.MONTH));
+			deadline.set(Calendar.DAY_OF_MONTH,regCal.get(Calendar.DAY_OF_MONTH));
+			
+			//车辆购买时常
+			long days = (deadline.getTime().getTime()-regCal.getTime().getTime())/1000/60/60/24;
+			//六年内新车
+			if(days/365<=6) {
+				//新车每隔两年需要年检
+				if(days/365%2==0) {
+					Calendar curCal = Calendar.getInstance();
+					//距离年检天数
+					long daybeforEnd = (deadline.getTime().getTime()-curCal.getTime().getTime())/1000/60/60/24 ;
+					//距离年检前30天提醒
+					if(daybeforEnd<=30 && daybeforEnd >=0 ) {
+						return true;
+					}
+				}
+			}else {
+				Calendar curCal = Calendar.getInstance();
+				//距离年检天数
+				long daybeforEnd = (deadline.getTime().getTime()-curCal.getTime().getTime())/1000/60/60/24 ;
+				//距离年检前30天提醒
+				if(daybeforEnd<=30 && daybeforEnd >=0 ) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * 根据车辆注册日期推算保险到期日
+	 * @param date
+	 * @return
+	 */
+	private boolean isNeedInsurance(Date date) {
+		if(date != null) {
+			Calendar regCal = Calendar.getInstance();
+			regCal.setTime(date);
+
+			//保险到期日
+			Calendar deadline = Calendar.getInstance();
+			deadline.set(Calendar.MONTH, regCal.get(Calendar.MONTH));
+			deadline.set(Calendar.DAY_OF_MONTH,regCal.get(Calendar.DAY_OF_MONTH));
+
+			Calendar curCal = Calendar.getInstance();
+			//距离保险到期日天数
+			long daybeforEnd = (deadline.getTime().getTime()-curCal.getTime().getTime())/1000/60/60/24 ;
+			//前45天提醒
+			if(daybeforEnd<=45 && daybeforEnd >=0 ) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

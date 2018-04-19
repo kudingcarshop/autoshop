@@ -23,6 +23,7 @@ import com.kuding.commons.ErrorCode;
 import com.kuding.commons.login.UserInfo;
 import com.kuding.garage.action.BasicAction;
 import com.kuding.garage.service.CustomerService;
+import com.kuding.garage.service.VehicleService;
 import com.kuding.system.model.UserEntity;
 
 @Controller
@@ -32,6 +33,14 @@ public class CustomerAction extends BasicAction {
 	@Autowired
 	private CustomerService service;
 	
+	@Autowired
+	private VehicleService vehService;
+	
+	/**
+	 * 用户个人中心入口
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("center")
 	public ModelAndView center(HttpServletRequest req) {
 		UserInfo user = getUserInfo(req.getSession());
@@ -40,15 +49,32 @@ public class CustomerAction extends BasicAction {
 		}
 		ModelAndView mv = new ModelAndView();
 		
+		//用户基本信息
 		UserEntity userInfo = service.findById(UserEntity.class, user.getUserId());
 		if(userInfo != null) {
 			mv.getModel().put("user", userInfo);
 		}
 		
+		//用户车辆数目
+		Integer vehNum = vehService.queryVehiclesByUserId(user.getUserId());
+		if(vehNum != null) {
+			mv.getModel().put("vehNum", vehNum);
+		}
+		
+		//待办事项
+		
+		//进度查询
+		
+		
 		mv.setViewName("customer/center");
 		return mv;
 	}
 	
+	/**
+	 * 用户基本信息编辑入口
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("edit")
 	public ModelAndView edit(HttpServletRequest req) {
 		UserInfo user = getUserInfo(req.getSession());
@@ -64,14 +90,21 @@ public class CustomerAction extends BasicAction {
 		return mv;
 	}
 	
-	
+	/**
+	 * 更新用户基本信息
+	 * @param req
+	 * @param file
+	 * @param userName
+	 * @param phoneNumber
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping("edit/save")
 	public ModelAndView saveEdit(HttpServletRequest req,MultipartFile file,String userName,String phoneNumber) throws IOException{
 		UserInfo user = getUserInfo(req.getSession());
 		if(user == null || user.getUserId() == null) {
 			throw new BusinessException(ErrorCode.SYS_ERROR);
 		}
-		//全部为空
 		if(StringUtils.isEmpty(userName) || StringUtils.isEmpty(phoneNumber)) {
 			ModelAndView mv = new ModelAndView();
 			mv.setViewName("redirect:/customer/edit");
@@ -94,6 +127,11 @@ public class CustomerAction extends BasicAction {
 		return mv;
 	}
 	
+	/**
+	 * 用户头像
+	 * @param req
+	 * @param resp
+	 */
 	@RequestMapping("headImg")
 	public void customerHeadImg(HttpServletRequest req,HttpServletResponse resp) {
 		UserInfo user = getUserInfo(req.getSession());
@@ -121,7 +159,7 @@ public class CustomerAction extends BasicAction {
 	}
 	
 	/**
-	 * 当用户没有设置头像时提供默认头像图片
+	 * 默认头像
 	 * @param req
 	 * @param resp
 	 */

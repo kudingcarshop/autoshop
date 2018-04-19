@@ -34,7 +34,7 @@
 		<div class="kd-section">
 			<div class="kd-items" onclick="javascript:window.location.href='${path}/customer/cars';">
 				<i class="fa fa-car fa-2x"></i> <i class="fa fa-angle-right fa-2x"></i>
-				<span>我的车辆</span> <span>4辆车</span>
+				<span>我的车辆</span> <span>${vehNum}辆车</span>
 			</div>
 			<div class="kd-items" onclick="javascript:window.location.href='${path}/customer/backlog';">
 				<i class="fa fa-briefcase fa-2x"></i> <i class="fa fa-angle-right fa-2x"></i>
