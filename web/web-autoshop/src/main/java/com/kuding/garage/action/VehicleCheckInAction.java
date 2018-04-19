@@ -1,9 +1,7 @@
 package com.kuding.garage.action;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kuding.commons.http.Result;
+import com.kuding.commons.login.UserInfo;
 import com.kuding.garage.model.VehicleBookInfoEntity;
 import com.kuding.garage.service.VehicleBookService;
 import com.kuding.system.model.SystemDicEntity;
 
 @Controller
 @RequestMapping("/garage")
-public class VehicleCheckInAction {
+public class VehicleCheckInAction extends BasicAction {
 	
 	@Autowired
 	private VehicleBookService vehicleBookService;
@@ -42,7 +40,8 @@ public class VehicleCheckInAction {
     @RequestMapping("checkin/suggest_plate_number")
     @ResponseBody
     public List<VehicleBookInfoEntity> suggestPlateNumber(HttpSession session) {
-    	List<VehicleBookInfoEntity> bookList = vehicleBookService.getSuggestBookList(1/*garageId*/);
+    	UserInfo userInfo = getUserInfo(session);
+    	List<VehicleBookInfoEntity> bookList = vehicleBookService.getSuggestBookList(userInfo.getGarageId());
     	List<VehicleBookInfoEntity> result = new ArrayList<>();
     	for (VehicleBookInfoEntity vEntity : bookList) {
     		VehicleBookInfoEntity entity = new VehicleBookInfoEntity();

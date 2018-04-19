@@ -17,57 +17,57 @@
 <body>
     <div id="content"></div>
     <script type="text/javascript">
-    // var skuData = {
-    //     order_id: '2018032720141880', //年月日时分秒毫秒
-    //     order_type: 'type_vehicle', //type_mall, type_vehicle
-    //     wash_card_count: 20,
-    //     coupon_price: '50.00',
-    //     current_credit: '1000',
-    //     list: [{
-    //         order_item_id: '2018032720141880_1',
-    //         order_item_type: 'type_vehicle',
-    //         order_item_vehicle_license: "粤L88888",
-    //         order_item_title: '保养',
-    //         order_item_desc: '打蜡，抛光',
-    //         order_item_price: '600.00',
-    //         order_item_wash_card_enabled: false
-    //     }, {
-    //         order_item_id: '2018032720141880_2',
-    //         order_item_type: 'type_vehicle',
-    //         order_item_vehicle_license: "粤L99999",
-    //         order_item_title: '洗车',
-    //         order_item_desc: '蜡水洗车',
-    //         order_item_price: '30.00',
-    //         order_item_wash_card_enabled: true
-    //     }, {
-    //         order_item_id: '2018032720141880_3',
-    //         order_item_type: 'type_vehicle',
-    //         order_item_vehicle_license: "粤L77777",
-    //         order_item_title: '洗车',
-    //         order_item_desc: '蜡水洗车',
-    //         order_item_price: '30.00',
-    //         order_item_wash_card_enabled: true
-    //     }]
-    // }
     var skuData = {
         order_id: '2018032720141880', //年月日时分秒毫秒
-        order_type: 'type_mall', //type_mall, type_vehicle
+        order_type: 'type_vehicle', //type_mall, type_vehicle
         wash_card_count: 20,
         coupon_price: '50.00',
         current_credit: '1000',
         list: [{
             order_item_id: '2018032720141880_1',
-            order_item_type: 'type_mall',
-            order_item_brand: '飞歌',
-            order_item_name: '行车记录导航一体',
-            order_item_for_vehicle: '2013天籁2.5XL领先版',
-            order_item_spec: '10.2寸',
-            order_item_color: '黑色',
+            order_item_type: 'type_vehicle',
+            order_item_vehicle_license: "粤L88888",
+            order_item_title: '保养',
+            order_item_desc: '打蜡，抛光',
             order_item_price: '600.00',
-            order_item_count: 1,
-            order_item_can_use_coupon: true
+            order_item_wash_card_enabled: false
+        }, {
+            order_item_id: '2018032720141880_2',
+            order_item_type: 'type_vehicle',
+            order_item_vehicle_license: "粤L99999",
+            order_item_title: '洗车',
+            order_item_desc: '蜡水洗车',
+            order_item_price: '30.00',
+            order_item_wash_card_enabled: true
+        }, {
+            order_item_id: '2018032720141880_3',
+            order_item_type: 'type_vehicle',
+            order_item_vehicle_license: "粤L77777",
+            order_item_title: '洗车',
+            order_item_desc: '蜡水洗车',
+            order_item_price: '30.00',
+            order_item_wash_card_enabled: true
         }]
     }
+    // var skuData = {
+    //     order_id: '2018032720141880', //年月日时分秒毫秒
+    //     order_type: 'type_mall', //type_mall, type_vehicle
+    //     wash_card_count: 20,
+    //     coupon_price: '50.00',
+    //     current_credit: '1200',
+    //     list: [{
+    //         order_item_id: '2018032720141880_1',
+    //         order_item_type: 'type_mall',
+    //         order_item_brand: '飞歌',
+    //         order_item_name: '行车记录导航一体',
+    //         order_item_for_vehicle: '2013天籁2.5XL领先版',
+    //         order_item_spec: '10.2寸',
+    //         order_item_color: '黑色',
+    //         order_item_price: '600.00',
+    //         order_item_count: 1,
+    //         order_item_can_use_coupon: true
+    //     }]
+    // }
     // var render = template.compile(data);
     //        var str = render(skuData);
     //        document.getElementById("container").innerHTML = str;

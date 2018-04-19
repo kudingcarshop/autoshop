@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="../../vendor/jquery-weui/1.2.0/lib/weui.min.css" rel="stylesheet" media="screen">
+    <link href="../../vendor/jquery-weui/1.2.0/css/jquery-weui.css" rel="stylesheet" media="screen">
+    <link href="../../vendor/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="../../vendor/art-template/lib/template-web.js"></script>
+    <title>选择优惠券</title>
+    <style type="text/css">
+    body,
+    html {
+        height: 100%;
+        -webkit-tap-highlight-color: transparent;
+        background-color: #FAFAFA;
+    }
+    </style>
+</head>
+
+<body ontouchstart>
+    <div id="content"></div>
+    <script type="text/javascript" src="../../vendor/jquery-weui/1.2.0/lib/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="../../vendor/jquery-weui/1.2.0/lib/fastclick.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        FastClick.attach(document.body);
+    });
+    </script>
+    <script type="text/javascript" src="../../vendor/jquery-weui/1.2.0/js/jquery-weui.js"></script>
+    <script type="text/javascript">
+    var unused_list = {
+        is_for_order: true,
+        user_id: '2018032720141880',
+        list: [{
+            coupon_id: '2018032720141880_1_1',
+            coupon_price: '500',
+            coupon_req: '5000',
+            coupon_type: '', //优惠券类型
+            coupon_type_desc: '行车记录仪专用', //优惠券类型的描述
+            coupon_date_start: '2018.03.01',
+            coupon_date_end: '2019.03.01',
+            coupon_used: false,
+            coupon_overdue: false,
+            coupon_can_use: true,
+            coupon_is_seleted: false,
+        }, {
+            coupon_id: '2018032720141880_1_2',
+            coupon_price: '8',
+            coupon_req: '100',
+            coupon_type: '', //优惠券类型
+            coupon_type_desc: '全场通用', //优惠券类型的描述
+            coupon_date_start: '2018.03.01',
+            coupon_date_end: '2019.03.01',
+            coupon_used: false,
+            coupon_overdue: false,
+            coupon_can_use: true,
+            coupon_is_seleted: true,
+        },{
+            coupon_id: '2018032720141880_1_3',
+            coupon_price: '8',
+            coupon_req: '300',
+            coupon_type: '', //优惠券类型
+            coupon_type_desc: '全场通用', //优惠券类型的描述
+            coupon_date_start: '2018.03.01',
+            coupon_date_end: '2018.04.01',
+            coupon_used: false,
+            coupon_overdue: false,
+            coupon_can_use: true,
+            coupon_is_seleted: false,
+        }, {
+            coupon_id: '2018032720141880_1_4',
+            coupon_price: '100',
+            coupon_req: '2000',
+            coupon_type: '', //优惠券类型
+            coupon_type_desc: '镀晶专用', //优惠券类型的描述
+            coupon_date_start: '2018.03.01',
+            coupon_date_end: '2019.03.01',
+            coupon_used: false,
+            coupon_overdue: false,
+            coupon_can_use: false,
+            coupon_is_seleted: false,
+        }]
+    };
+
+
+    var html_unused = $.get('../../jsp/order/coupon_list_template.html',
+        function(data) {
+            var render = template.compile(data);
+            var str = render(unused_list);
+            document.getElementById("content").innerHTML = str;
+            initCouponSelect();
+        });
+
+    function initCouponSelect() {
+        for (var i = 0; i < unused_list['list'].length; i++) {
+            var coupon_id = unused_list['list'][i]['coupon_id'];
+            var coupon_can_use = unused_list['list'][i]['coupon_can_use'];
+            if (coupon_can_use) {
+                var selectId = '#' + coupon_id + '_select';
+                $(selectId).click(function() {
+                    toggleSelect($(this).attr('id'));
+                });
+            }
+        }
+    }
+
+    function toggleSelect(currentId) {
+        for (var i = 0; i < unused_list['list'].length; i++) {
+            var coupon_id = unused_list['list'][i]['coupon_id'];
+            var coupon_can_use = unused_list['list'][i]['coupon_can_use'];
+            if (coupon_can_use) {
+                var id = coupon_id + '_select'; //id in loop
+                var selectId = '#' + id; //select in loop
+                var currentSeletctId = '#' + currentId;
+                if ($(currentSeletctId).is(":checked")) {
+                    if (id != currentId) {
+                        if ($(selectId).is(':checked')) {
+                            $(selectId).removeAttr('checked');
+                        }
+                    }
+                }
+            }
+        }
+    }
+    </script>
+</body>
+
+</html>

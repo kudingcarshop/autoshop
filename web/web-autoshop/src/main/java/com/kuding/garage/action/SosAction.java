@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/garage")
-public class SosAction extends BasicAction{
+public class SosAction extends BasicAction {
 
 	@RequestMapping("vehicle/showSos")
 	public ModelAndView showSos(HttpSession session) {
@@ -16,7 +16,7 @@ public class SosAction extends BasicAction{
 		mv.setViewName("sys/garage/sos");
 		return mv;
 	}
-	
+
 	@RequestMapping("vehicle/showAddressPikcker")
 	public ModelAndView showAddressPicker(HttpSession session) {
 		ModelAndView mv = new ModelAndView();

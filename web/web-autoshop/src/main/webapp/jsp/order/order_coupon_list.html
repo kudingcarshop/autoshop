@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link href="../../vendor/jquery-weui/1.2.0/lib/weui.min.css" rel="stylesheet" media="screen">
     <link href="../../vendor/jquery-weui/1.2.0/css/jquery-weui.css" rel="stylesheet" media="screen">
-    <link href="../../vendor/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" media="screen">
+    <link href="../../css/kuding/coupon_list.css" rel="stylesheet" media="screen">
+    <link href="../../css/kuding/coupon_nav.css" rel="stylesheet" media="screen">
+    <link href="../../css/kuding/order_coupon.css" rel="stylesheet" media="screen">
     <script type="text/javascript" src="../../vendor/art-template/lib/template-web.js"></script>
     <title>选择优惠券</title>
     <style type="text/css">
@@ -21,7 +23,54 @@
 </head>
 
 <body ontouchstart>
-    <div id="content"></div>
+    <div class="coupon_nav">
+        <a href="javascript:;" class="coupon_nav_item cur" id="can_use_tab"><span id="can_use_span" >可用优惠券</span></a>
+        <a href="javascript:;" class="coupon_nav_item" id="cannot_use_tab"><span id="cannot_use_span">不可用优惠券</span></a>
+    </div>
+    <div class="coupon_sec_body" id="coupon_sec_body">
+        <ul class="order_coupons_list type_radio" id="couponlistPage">
+            <li class="order_coupons_item">
+                <div class="coupon_voucher2 type_disabled">
+                    <a href="javascript:;" class="coupon_voucher2_main">
+                        <div class="coupon_voucher2_view">
+                            <p class="coupon_voucher2_view_price"><i>¥</i><strong>40</strong></p>
+                            <p class="coupon_voucher2_view_des"> 满99元可用 </p>
+                        </div>
+                        <div class="coupon_voucher2_info">
+                            <p class="coupon_voucher2_info_text"><i class="coupon_voucher2_info_type">抵扣券</i> 仅可购买清洁用品指定商品 </p>
+                            <p class="coupon_voucher2_info_date"> 2018-04-18 - 2018-04-18 </p>
+                        </div>
+                    </a>
+                    <div class="coupon_voucher2_foot" style="">
+                        <div class="coupon_voucher2_hr"></div>
+                        <a href="javascript:void(0);" class="coupon_voucher2_description">
+                            <p class="coupon_voucher2_description_title">不可与已勾选券叠加使用</p>
+                        </a>
+                    </div>
+                </div>
+            </li>
+            <li class="order_coupons_item selected">
+                <div class="coupon_voucher2">
+                    <a href="javascript:;" class="coupon_voucher2_main">
+                        <div class="coupon_voucher2_view">
+                            <p class="coupon_voucher2_view_price"><i>¥</i><strong>40</strong></p>
+                            <p class="coupon_voucher2_view_des"> 满99元可用 </p>
+                        </div>
+                        <div class="coupon_voucher2_info">
+                            <p class="coupon_voucher2_info_text"><i class="coupon_voucher2_info_type">抵扣券</i> 仅可购买清洁用品指定商品 </p>
+                            <p class="coupon_voucher2_info_date"> 2018-04-18 - 2018-04-18 </p>
+                        </div>
+                    </a>
+                    <div class="coupon_voucher2_foot" style="display: none;">
+                        <div class="coupon_voucher2_hr"></div>
+                        <a href="javascript:void(0);" class="coupon_voucher2_description">
+                            <p class="coupon_voucher2_description_title">不可与已勾选券叠加使用</p>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
     <script type="text/javascript" src="../../vendor/jquery-weui/1.2.0/lib/jquery-2.1.4.js"></script>
     <script type="text/javascript" src="../../vendor/jquery-weui/1.2.0/lib/fastclick.js"></script>
     <script type="text/javascript">
@@ -31,100 +80,41 @@
     </script>
     <script type="text/javascript" src="../../vendor/jquery-weui/1.2.0/js/jquery-weui.js"></script>
     <script type="text/javascript">
-    var unused_list = {
-        is_for_order: true,
-        user_id: '2018032720141880',
-        list: [{
-            coupon_id: '2018032720141880_1_1',
-            coupon_price: '500',
-            coupon_req: '5000',
-            coupon_type: '', //优惠券类型
-            coupon_type_desc: '行车记录仪专用', //优惠券类型的描述
-            coupon_date_start: '2018.03.01',
-            coupon_date_end: '2019.03.01',
-            coupon_used: false,
-            coupon_overdue: false,
-            coupon_can_use: true,
-            coupon_is_seleted: false,
-        }, {
-            coupon_id: '2018032720141880_1_2',
-            coupon_price: '8',
-            coupon_req: '100',
-            coupon_type: '', //优惠券类型
-            coupon_type_desc: '全场通用', //优惠券类型的描述
-            coupon_date_start: '2018.03.01',
-            coupon_date_end: '2019.03.01',
-            coupon_used: false,
-            coupon_overdue: false,
-            coupon_can_use: true,
-            coupon_is_seleted: true,
-        },{
-            coupon_id: '2018032720141880_1_3',
-            coupon_price: '8',
-            coupon_req: '300',
-            coupon_type: '', //优惠券类型
-            coupon_type_desc: '全场通用', //优惠券类型的描述
-            coupon_date_start: '2018.03.01',
-            coupon_date_end: '2018.04.01',
-            coupon_used: false,
-            coupon_overdue: false,
-            coupon_can_use: true,
-            coupon_is_seleted: false,
-        }, {
-            coupon_id: '2018032720141880_1_4',
-            coupon_price: '100',
-            coupon_req: '2000',
-            coupon_type: '', //优惠券类型
-            coupon_type_desc: '镀晶专用', //优惠券类型的描述
-            coupon_date_start: '2018.03.01',
-            coupon_date_end: '2019.03.01',
-            coupon_used: false,
-            coupon_overdue: false,
-            coupon_can_use: false,
-            coupon_is_seleted: false,
-        }]
-    };
-
-
-    var html_unused = $.get('../../jsp/order/coupon_list_template.html',
-        function(data) {
-            var render = template.compile(data);
-            var str = render(unused_list);
-            document.getElementById("content").innerHTML = str;
-            initCouponSelect();
-        });
-
-    function initCouponSelect() {
-        for (var i = 0; i < unused_list['list'].length; i++) {
-            var coupon_id = unused_list['list'][i]['coupon_id'];
-            var coupon_can_use = unused_list['list'][i]['coupon_can_use'];
-            if (coupon_can_use) {
-                var selectId = '#' + coupon_id + '_select';
-                $(selectId).click(function() {
-                    toggleSelect($(this).attr('id'));
+    $('.coupon_nav').find('a').each(function() {
+        $(this).click(function() {
+            if ($(this).hasClass('cur')) {
+                return;
+            } else {
+                $('.coupon_nav').find('a').each(function() {
+                    if ($(this).hasClass('cur')) {
+                        $(this).removeClass('cur')
+                    }
                 });
+                $(this).addClass('cur');
             }
-        }
-    }
-
-    function toggleSelect(currentId) {
-        for (var i = 0; i < unused_list['list'].length; i++) {
-            var coupon_id = unused_list['list'][i]['coupon_id'];
-            var coupon_can_use = unused_list['list'][i]['coupon_can_use'];
-            if (coupon_can_use) {
-                var id = coupon_id + '_select'; //id in loop
-                var selectId = '#' + id; //select in loop
-                var currentSeletctId = '#' + currentId;
-                if ($(currentSeletctId).is(":checked")) {
-                    if (id != currentId) {
-                        if ($(selectId).is(':checked')) {
-                            $(selectId).removeAttr('checked');
-                        }
+        });
+    });
+    $('.order_coupons_list').children().each(function() {
+        $(this).click(function() {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            } else {
+                var hasSelected = false;
+                $('.order_coupons_list').children().each(function() {
+                    if ($(this).hasClass('selected')) {
+                        $.toast('请先取消已勾选优惠券再进行选择', 'text');
+                        hasSelected = true;
+                    }
+                });
+                if (!hasSelected) {
+                    $(this).addClass('selected');
+                    if ($(this).children().get(0).hasClass('type_disabled')) {
+                        $(this).children().get(0).removeClass('type_disabled');
                     }
                 }
             }
-        }
-    }
+        });
+    });
     </script>
 </body>
 

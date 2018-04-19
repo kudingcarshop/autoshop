@@ -1,0 +1,84 @@
+{{each list coupon i}}
+{{if coupon.couponStatus == 1}}<!-- 1 is active-->
+         <div class="coupon_list_item" id="{{coupon.id}}" name="{{coupon.id}}">
+            <div class="coupon_voucher2 ">
+                <a href="javascript:;" class="coupon_voucher2_main">
+                    <div class="coupon_voucher2_view">
+                        {{if coupon.couponType == 1}}
+                        <p class="coupon_voucher2_view_price"><i>¥</i><strong>{{coupon.couponPrice}}</strong></p>
+                        {{else if coupon.couponType == 2}}
+                        <p class="coupon_voucher2_view_price"><i></i><strong>{{coupon.couponDiscount}}折</strong></p>
+                        {{/if}}
+                        {{if coupon.couponCondition > 0}}
+                        <p class="coupon_voucher2_view_des">满{{coupon.couponCondition}}元可用</p>
+                        {{else if coupon.couponConditionCount > 0}}
+                        <p class="coupon_voucher2_view_des">购满{{coupon.couponConditionCount}}件可用</p>
+                        {{else}}
+                        <p class="coupon_voucher2_view_des">无门槛</p>
+                        {{/if}}
+                    </div>
+                    <div class="coupon_voucher2_info">
+                        <p class="coupon_voucher2_info_text">{{coupon.couponName}}</p>
+                        <p class="coupon_voucher2_info_date">{{coupon.couponStartDate}}-{{coupon.couponEndDate}}</p>
+                    </div>
+                </a>
+                <div class="coupon_voucher2_foot"></div>
+            </div>
+        </div>
+{{else if coupon.couponStatus == 3}}<!-- 3 is used-->
+        <div class="coupon_list_item" id="{{coupon.id}}" name="{{coupon.id}}">
+            <div class="coupon_voucher2  type_disabled"><span class="coupon_voucher2_tag color_gray"><i>已使用</i></span>
+                <a href="javascript:;" class="coupon_voucher2_main">
+                    <div class="coupon_voucher2_view">
+                        {{if coupon.couponType == 1}}
+                        <p class="coupon_voucher2_view_price"><i>¥</i><strong>{{coupon.couponPrice}}</strong></p>
+                        {{else if coupon.couponType == 2}}
+                        <p class="coupon_voucher2_view_price"><i></i><strong>{{coupon.couponDiscount}}折</strong></p>
+                        {{/if}}
+                        {{if coupon.couponCondition > 0}}
+                        <p class="coupon_voucher2_view_des">满{{coupon.couponCondition}}元可用</p>
+                        {{else if coupon.couponConditionCount > 0}}
+                        <p class="coupon_voucher2_view_des">购满{{coupon.couponConditionCount}}件可用</p>
+                        {{else}}
+                        <p class="coupon_voucher2_view_des">无门槛</p>
+                        {{/if}}
+                    </div>
+                    <!---->
+                    <div class="coupon_voucher2_info">
+                        <p class="coupon_voucher2_info_text">{{coupon.couponName}}</p>
+                        <p class="coupon_voucher2_info_date">{{coupon.couponStartDate}}-{{coupon.couponEndDate}}</p>
+                    </div>
+                </a>
+                <div class="coupon_voucher2_foot"></div>
+            </div>
+        </div>
+{{else if coupon.couponStatus == 5}}<!-- 5 is overdue-->
+        <div class="coupon_list_item" id="{{coupon.id}}" name="{{coupon.id}}">
+            <div class="coupon_voucher2  type_disabled"><span class="coupon_voucher2_tag color_gray"><i>已过期</i></span>
+                <a href="javascript:;" class="coupon_voucher2_main">
+                    <div class="coupon_voucher2_view">
+                        {{if coupon.couponType == 1}}
+                        <p class="coupon_voucher2_view_price"><i>¥</i><strong>{{coupon.couponPrice}}</strong></p>
+                        {{else if coupon.couponType == 2}}
+                        <p class="coupon_voucher2_view_price"><i></i><strong>{{coupon.couponDiscount}}折</strong></p>
+                        {{/if}}
+                        {{if coupon.couponCondition > 0}}
+                        <p class="coupon_voucher2_view_des">满{{coupon.couponCondition}}元可用</p>
+                        {{else if coupon.couponConditionCount > 0}}
+                        <p class="coupon_voucher2_view_des">购满{{coupon.couponConditionCount}}件可用</p>
+                        {{else}}
+                        <p class="coupon_voucher2_view_des">无门槛</p>
+                        {{/if}}
+                    </div>
+                    <!---->
+                    <div class="coupon_voucher2_info">
+                        <p class="coupon_voucher2_info_text">{{coupon.couponName}}</p>
+                        <p class="coupon_voucher2_info_date">{{coupon.couponStartDate}}-{{coupon.couponEndDate}}</p>
+                    </div>
+                </a>
+                <div class="coupon_voucher2_foot"></div>
+            </div>
+        </div>
+{{/if}}
+
+{{/each}}
