@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.kuding.garage.model.GarageInfoEntity;
@@ -92,6 +93,9 @@ public class VehicleMaintainInfo {
 	
 	@Column(name="end_time")
 	private Timestamp endTime;
+	
+	@OneToOne(mappedBy="maintainInfo")
+	private ConsumeRecordEntity consumeRecord;
 
 	public Integer getId() {
 		return id;
@@ -219,5 +223,13 @@ public class VehicleMaintainInfo {
 
 	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
+	}
+
+	public ConsumeRecordEntity getConsumeRecord() {
+		return consumeRecord;
+	}
+
+	public void setConsumeRecord(ConsumeRecordEntity consumeRecord) {
+		this.consumeRecord = consumeRecord;
 	}
 }

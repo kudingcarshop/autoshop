@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.kuding.customer.model.ConsumeRecordEntity;
 import com.kuding.garage.model.GarageInfoEntity;
 import com.kuding.garage.model.VehicleBookInfoEntity;
 import com.kuding.garage.model.VehicleEntity;
@@ -92,6 +93,9 @@ public class UserEntity {
 	
 	@Column(name="customer_integral")
 	private Integer integral;
+	
+	@OneToMany(mappedBy="user")
+	private Set<ConsumeRecordEntity> consumeRecords;
 
 	public Integer getId() {
 		return id;
@@ -235,6 +239,14 @@ public class UserEntity {
 
 	public void setIntegral(Integer integral) {
 		this.integral = integral;
+	}
+
+	public Set<ConsumeRecordEntity> getConsumeRecords() {
+		return consumeRecords;
+	}
+
+	public void setConsumeRecords(Set<ConsumeRecordEntity> consumeRecords) {
+		this.consumeRecords = consumeRecords;
 	}
 
 }

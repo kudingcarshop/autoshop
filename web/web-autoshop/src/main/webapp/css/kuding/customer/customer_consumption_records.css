@@ -72,3 +72,14 @@
 .kd-detail:last-of-type {
 	border-bottom: 1px solid #BBBBBB;
 }
+
+.kd-no-data{
+	width: 3.2rem;
+	height: 0.28rem;
+	line-height: 0.28rem;
+	font-size: 0.28rem;
+	position: absolute;
+	top: 50%;
+	margin-top: -0.14rem;
+	text-align: center;
+}

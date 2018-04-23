@@ -186,4 +186,26 @@ public class VehicleService extends BasicService<VehicleEntity> {
 		return 0;
 	}
 	
+	/**
+	 * 查询用户名下所有车辆
+	 * @param userId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
+	public List<VehicleEntity> queryUserVehicles(Integer userId){
+		List<VehicleEntity> vehicles = null;
+		if(userId != null) {
+			StringBuffer hql = new StringBuffer()
+					.append("select veh from VehicleEntity veh ")
+					.append("left join veh.user user ")
+					.append("where user.id = :userId ");
+			Query query = getSession().createQuery(hql.toString());
+			query.setInteger("userId", userId);
+			vehicles = query.list();
+		}
+		
+		return vehicles;
+	}
+	
 }

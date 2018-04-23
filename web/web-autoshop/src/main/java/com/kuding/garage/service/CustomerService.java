@@ -3,7 +3,7 @@ package com.kuding.garage.service;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.sql.Blob;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -22,10 +22,12 @@ import com.kuding.commons.ErrorCode;
 import com.kuding.commons.pagination.PaginationQuery;
 import com.kuding.commons.pagination.PaginationResult;
 import com.kuding.commons.service.BasicService;
+import com.kuding.customer.model.ConsumeRecordEntity;
 import com.kuding.customer.model.TrafficViolationEntity;
 import com.kuding.customer.model.VehicleMaintainInfo;
 import com.kuding.garage.model.VehicleEntity;
 import com.kuding.system.model.UserEntity;
+import com.kuding.util.Utils;
 
 @Service
 public class CustomerService extends BasicService<UserEntity> {
@@ -183,10 +185,12 @@ public class CustomerService extends BasicService<UserEntity> {
 					.append("select count(distinct vehMain.id) from VehicleMaintainInfo vehMain ")
 					.append("left join vehMain.user user ")
 					.append("where user.id = :userId ")
-					.append("and vehMain.isPay = :isPay ");
+					.append("and vehMain.isPay = :isPay ")
+					.append("and vehMain.state in (:state) ");
 			Query query = getSession().createQuery(hql.toString());
 			query.setInteger("userId", userId);
 			query.setString("isPay", VehicleMaintainInfo.PAY_NO);
+			query.setParameterList("state", new String[] {VehicleMaintainInfo.STATE_SERVED,VehicleMaintainInfo.STATE_HANDOVER});
 			return (long) query.uniqueResult();
 		}
 		return 0;
@@ -202,7 +206,7 @@ public class CustomerService extends BasicService<UserEntity> {
 		if(userId != null) {
 			StringBuffer hql = new StringBuffer()
 					.append("select count(distinct vio.id) from TrafficViolationEntity vio ")
-					.append("left join vehMain.user user ")
+					.append("left join vio.user user ")
 					.append("where user.id = :userId ")
 					.append("and vio.state = :state ");
 			Query query = getSession().createQuery(hql.toString());
@@ -214,18 +218,18 @@ public class CustomerService extends BasicService<UserEntity> {
 	}
 	
 	/**
-	 * 统计用户需要年审车辆记录
+	 * 统计用户需要年审及保险数
 	 * @param userId
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
-	public Map<String,Integer> queryAnnualVertificationCount(Integer userId) {
+	public Map<String,Integer> queryAnnualVertificationAndInsuranceCount(Integer userId) {
 		Map<String,Integer> result = new HashMap<>();
 		if(userId != null) {
 			StringBuffer hql = new StringBuffer()
 					.append("from VehicleEntity veh ")
-					.append("left join fetch vehMain.user user ")
+					.append("left join fetch veh.user user ")
 					.append("where user.id = :userId ");
 			Query query = getSession().createQuery(hql.toString());
 			query.setInteger("userId", userId);
@@ -234,11 +238,11 @@ public class CustomerService extends BasicService<UserEntity> {
 				Integer annualCount = 0;
 				Integer insuranceCount = 0;
 				for(VehicleEntity veh : vehList) {
-					if(isNeedAnnualVertification(veh.getRegisterDate())) {
+					if(Utils.isNeedAnnualVertification(veh.getRegisterDate())) {
 						annualCount++;
 					}
 					
-					if(isNeedInsurance(veh.getRegisterDate())) {
+					if(Utils.isNeedInsurance(veh.getRegisterDate())) {
 						insuranceCount++;
 					}
 				}
@@ -250,72 +254,53 @@ public class CustomerService extends BasicService<UserEntity> {
 	}
 	
 	/**
-	 * 根据车辆注册日期推算年检日期
-	 * @param date 车辆注册日期 
+	 * 用户正在服务车辆统计
+	 * @param userId
 	 * @return
 	 */
-	private boolean isNeedAnnualVertification(Date date) {
-		if(date != null) {
-			Calendar regCal = Calendar.getInstance();
-			regCal.setTime(date);
-			
-			//年检截止日期
-			Calendar deadline = Calendar.getInstance();
-			deadline.set(Calendar.MONTH, regCal.get(Calendar.MONTH));
-			deadline.set(Calendar.DAY_OF_MONTH,regCal.get(Calendar.DAY_OF_MONTH));
-			
-			//车辆购买时常
-			long days = (deadline.getTime().getTime()-regCal.getTime().getTime())/1000/60/60/24;
-			//六年内新车
-			if(days/365<=6) {
-				//新车每隔两年需要年检
-				if(days/365%2==0) {
-					Calendar curCal = Calendar.getInstance();
-					//距离年检天数
-					long daybeforEnd = (deadline.getTime().getTime()-curCal.getTime().getTime())/1000/60/60/24 ;
-					//距离年检前30天提醒
-					if(daybeforEnd<=30 && daybeforEnd >=0 ) {
-						return true;
-					}
-				}
-			}else {
-				Calendar curCal = Calendar.getInstance();
-				//距离年检天数
-				long daybeforEnd = (deadline.getTime().getTime()-curCal.getTime().getTime())/1000/60/60/24 ;
-				//距离年检前30天提醒
-				if(daybeforEnd<=30 && daybeforEnd >=0 ) {
-					return true;
-				}
-			}
+	@Transactional(readOnly = true)
+	public long queryUserServingCount(Integer userId) {
+		if(userId != null) {
+			StringBuffer hql = new StringBuffer()
+					.append("select count(distinct vehMain.id) from VehicleMaintainInfo vehMain ")
+					.append("left join vehMain.user user ")
+					.append("where user.id = :userId ")
+					.append("and vehMain.state in (:state) ");
+			Query query = getSession().createQuery(hql.toString());
+			query.setInteger("userId", userId);
+			query.setParameterList("state", new String[] {VehicleMaintainInfo.STATE_QUEUE,VehicleMaintainInfo.STATE_SERVING});
+			return (long) query.uniqueResult();
 		}
-		
-		return false;
+		return 0;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<ConsumeRecordEntity> queryUserMonthlyConsumptions(Integer userId){
+		List<ConsumeRecordEntity> res = null;
+		if(userId != null) {
+			StringBuffer hql = new StringBuffer()
+					.append("select records from ConsumeRecordEntity records ")
+					.append("left join records.user user ")
+					.append("left join records.maintainInfo maintain ")
+					.append("where user.id = :userId ")
+					.append("and records.recordTime >= :firstDay ")
+					.append("order by records.recordTime desc ");
+			Query query = getSession().createQuery(hql.toString());
+			query.setInteger("userId", userId);
+			query.setTimestamp("firstDay", firtDayOfMonth());
+			res = query.list();
+		}
+		return res;
 	}
 	
 	/**
-	 * 根据车辆注册日期推算保险到期日
-	 * @param date
+	 * 获取当前月份的第一天
 	 * @return
 	 */
-	private boolean isNeedInsurance(Date date) {
-		if(date != null) {
-			Calendar regCal = Calendar.getInstance();
-			regCal.setTime(date);
-
-			//保险到期日
-			Calendar deadline = Calendar.getInstance();
-			deadline.set(Calendar.MONTH, regCal.get(Calendar.MONTH));
-			deadline.set(Calendar.DAY_OF_MONTH,regCal.get(Calendar.DAY_OF_MONTH));
-
-			Calendar curCal = Calendar.getInstance();
-			//距离保险到期日天数
-			long daybeforEnd = (deadline.getTime().getTime()-curCal.getTime().getTime())/1000/60/60/24 ;
-			//前45天提醒
-			if(daybeforEnd<=45 && daybeforEnd >=0 ) {
-				return true;
-			}
-		}
-		return false;
+	private Timestamp firtDayOfMonth() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), 1, 0, 0, 0);
+		return new Timestamp(calendar.getTimeInMillis());
 	}
-
 }

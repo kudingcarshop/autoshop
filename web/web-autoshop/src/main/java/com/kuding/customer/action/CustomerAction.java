@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +24,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kuding.commons.BusinessException;
 import com.kuding.commons.ErrorCode;
 import com.kuding.commons.login.UserInfo;
+import com.kuding.customer.model.ConsumeRecordEntity;
 import com.kuding.garage.action.BasicAction;
+import com.kuding.garage.model.VehicleEntity;
 import com.kuding.garage.service.CustomerService;
 import com.kuding.garage.service.VehicleService;
 import com.kuding.system.model.UserEntity;
@@ -37,7 +42,7 @@ public class CustomerAction extends BasicAction {
 	private VehicleService vehService;
 	
 	/**
-	 * 用户个人中心入口
+	 * 鐢ㄦ埛涓汉涓績鍏ュ彛
 	 * @param req
 	 * @return
 	 */
@@ -49,29 +54,43 @@ public class CustomerAction extends BasicAction {
 		}
 		ModelAndView mv = new ModelAndView();
 		
-		//用户基本信息
+		//鐢ㄦ埛鍩烘湰淇℃伅
 		UserEntity userInfo = service.findById(UserEntity.class, user.getUserId());
 		if(userInfo != null) {
 			mv.getModel().put("user", userInfo);
 		}
 		
-		//用户车辆数目
+		//鐢ㄦ埛杞﹁締鏁扮洰
 		Integer vehNum = vehService.queryVehiclesByUserId(user.getUserId());
 		if(vehNum != null) {
 			mv.getModel().put("vehNum", vehNum);
 		}
 		
-		//待办事项
+		//寰呭姙浜嬮」
+		long backlogCount = 0;
+		backlogCount += service.queryTrafficViolationCount(user.getUserId());
+		backlogCount += service.queryUnPayCount(user.getUserId());
+		Map<String,Integer> annualInsuranceMap = service.queryAnnualVertificationAndInsuranceCount(user.getUserId());
+		if(annualInsuranceMap != null) {
+			if(annualInsuranceMap.get("annual") != null) {
+				backlogCount += annualInsuranceMap.get("annual");
+			}
+			if(annualInsuranceMap.get("insurance") != null) {
+				backlogCount += annualInsuranceMap.get("insurance");
+			}
+		}
+		mv.getModel().put("backlogCount", backlogCount);
 		
-		//进度查询
-		
+		//杩涘害鏌ヨ
+		long servingCount = service.queryUserServingCount(user.getUserId());
+		mv.getModel().put("servingCount", servingCount);
 		
 		mv.setViewName("customer/center");
 		return mv;
 	}
 	
 	/**
-	 * 用户基本信息编辑入口
+	 * 鐢ㄦ埛鍩烘湰淇℃伅缂栬緫鍏ュ彛
 	 * @param req
 	 * @return
 	 */
@@ -91,7 +110,7 @@ public class CustomerAction extends BasicAction {
 	}
 	
 	/**
-	 * 更新用户基本信息
+	 * 鏇存柊鐢ㄦ埛鍩烘湰淇℃伅
 	 * @param req
 	 * @param file
 	 * @param userName
@@ -128,7 +147,7 @@ public class CustomerAction extends BasicAction {
 	}
 	
 	/**
-	 * 用户头像
+	 * 鐢ㄦ埛澶村儚
 	 * @param req
 	 * @param resp
 	 */
@@ -159,7 +178,7 @@ public class CustomerAction extends BasicAction {
 	}
 	
 	/**
-	 * 默认头像
+	 * 榛樿澶村儚
 	 * @param req
 	 * @param resp
 	 */
@@ -207,6 +226,11 @@ public class CustomerAction extends BasicAction {
 		return mv;
 	}
 	
+	/**
+	 * 娑堣垂璁板綍鏌ヨ
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("consumptions")
 	public ModelAndView consumptions(HttpServletRequest req) {
 		UserInfo user = getUserInfo(req.getSession());
@@ -214,10 +238,22 @@ public class CustomerAction extends BasicAction {
 			throw new BusinessException(ErrorCode.SYS_ERROR);
 		}
 		ModelAndView mv = new ModelAndView();
+		List<ConsumeRecordEntity> records = service.queryUserMonthlyConsumptions(user.getUserId());
+		if(records != null && records.size() > 0) {
+			mv.getModel().put("records", records);
+			for(ConsumeRecordEntity record : records) {
+				getLogger().info("maintain = "+ record.getMaintainInfo() );
+			}
+		}
 		mv.setViewName("customer/customer_consumption_records");
 		return mv;
 	}
 	
+	/**
+	 * 鐢ㄦ埛杞﹁締鏌ヨ
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("cars")
 	public ModelAndView cars(HttpServletRequest req) {
 		UserInfo user = getUserInfo(req.getSession());
@@ -225,6 +261,14 @@ public class CustomerAction extends BasicAction {
 			throw new BusinessException(ErrorCode.SYS_ERROR);
 		}
 		ModelAndView mv = new ModelAndView();
+		List<VehicleEntity> vehicles = vehService.queryUserVehicles(user.getUserId());
+		if(vehicles != null && vehicles.size() > 0) {
+			List<Map<String,Object>> vehList = new ArrayList<>();
+			for(VehicleEntity vehicle :vehicles) {
+				
+			}
+			mv.getModel().put("vehicles", vehicles);
+		}
 		mv.setViewName("customer/customer_cars");
 		return mv;
 	}
