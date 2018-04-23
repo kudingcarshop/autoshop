@@ -88,6 +88,7 @@ public class CustomerCouponAction extends BasicAction {
 			int status = customerCouponEntity.getCouponStatus();
 			CustomerCouponEntity add = new CustomerCouponEntity();
 			CouponFactoryEntity factoryEntity = customerCouponEntity.getCouponFactoryEntity();
+			add.setId(customerCouponEntity.getId());
 			add.setCouponName(factoryEntity.getCouponName());
 			add.setCouponType(factoryEntity.getCouponType());
 			add.setCouponPrice(factoryEntity.getCouponPrice());
@@ -123,6 +124,68 @@ public class CustomerCouponAction extends BasicAction {
 		mv.addObject("usedList", JSON.toJSONString(usedList));
 		mv.addObject("overdueList", JSON.toJSONString(overdueList));
 		mv.setViewName("order/user_coupon_list");
+		return mv;
+	}
+	
+	@RequestMapping("order_coupn")
+	public ModelAndView getOrderCouponList(HttpSession session) {
+		UserInfo userInfo = getUserInfo(session);
+		ModelAndView mv = new ModelAndView();
+		List<CustomerCouponEntity> allCouponList = mCouponService.getAllCustomerCoupon(userInfo.getUserId());
+		List<CustomerCouponEntity> canUseList = new ArrayList<>();
+		List<CustomerCouponEntity> cannotUseList = new ArrayList<>();
+		int i = 0;
+		for (CustomerCouponEntity customerCouponEntity : allCouponList) {
+			int status = customerCouponEntity.getCouponStatus();
+			if (status != Constant.CustomerCouponConstant.CUSTOMER_COUPON_STATUS_ACTIVE) {
+				continue;
+			}
+			CustomerCouponEntity add = new CustomerCouponEntity();
+			CouponFactoryEntity factoryEntity = customerCouponEntity.getCouponFactoryEntity();
+			add.setId(customerCouponEntity.getId());
+			add.setCouponName(factoryEntity.getCouponName());
+			add.setCouponType(factoryEntity.getCouponType());
+			add.setCouponPrice(factoryEntity.getCouponPrice());
+			float discount = factoryEntity.getCouponDiscount();
+			discount = discount * 100;
+			if (discount % 10 == 0) {
+				discount = discount / 10;
+			}
+			add.setCouponDiscount(discount);
+			add.setCouponCondition(factoryEntity.getCouponCondition());
+			add.setCouponConditionCount(factoryEntity.getCouponConditionCount());
+			add.setCouponStartDate(factoryEntity.getCouponStartDate());
+			add.setCouponEndDate(factoryEntity.getCouponEndDate());
+			Date endDate = add.getCouponEndDate();
+			Date current = new Date(System.currentTimeMillis());
+			if (current.after(endDate)
+					&& status != Constant.CustomerCouponConstant.CUSTOMER_COUPON_STATUS_OVERDUE) {
+				customerCouponEntity.setCouponStatus(Constant.CustomerCouponConstant.CUSTOMER_COUPON_STATUS_OVERDUE);
+				mCouponService.updateCustomerCoupon(customerCouponEntity);
+				status = Constant.CustomerCouponConstant.CUSTOMER_COUPON_STATUS_OVERDUE;
+			}
+			add.setCouponStatus(status);
+			if (i % 2 == 0) { //TODO, junye.li, 需要根据实际限制类型做判断
+				add.setCanUseThisOrder(true); 
+			} else {
+				add.setCanUseThisOrder(false); 
+			}
+			if (i == 0) { //TODO, junye.li, 需要根据实际优惠券策略给出默认的最佳选择
+				add.setDefaultSelected(true);
+			} else {
+				add.setDefaultSelected(false);
+			}
+			i++;
+			if (add.isCanUseThisOrder()) {
+				canUseList.add(add);
+			} else {
+				cannotUseList.add(add);
+			}
+		}
+
+		mv.addObject("canUseList", JSON.toJSONString(canUseList));
+		mv.addObject("cannotUseList", JSON.toJSONString(cannotUseList));
+		mv.setViewName("order/order_coupon_list");
 		return mv;
 	}
 

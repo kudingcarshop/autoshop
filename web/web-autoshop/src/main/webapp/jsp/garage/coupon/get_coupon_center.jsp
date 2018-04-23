@@ -69,8 +69,8 @@
             var item = parseList[i];
             var nodeId = '#' + item.id;
             $(nodeId).click(function() {
-                var $id = $(this).attr("id");
-                var coupon = parseList[parseInt($id) - 1];
+                var $index = $(this).attr('index');
+                var coupon = parseList[parseInt($index)];
                 if (coupon.userGetStatus == 0 && coupon.couponAmount > 0) {
                     getCouponAction(coupon);
                 } else if (coupon.userGetStatus == 1) {

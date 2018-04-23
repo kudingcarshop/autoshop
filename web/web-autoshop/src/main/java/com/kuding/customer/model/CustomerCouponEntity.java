@@ -65,6 +65,18 @@ public class CustomerCouponEntity {
 	
 	@Transient
 	private Date couponEndDate;
+	
+	/**
+	 * 订单选择优惠券时，判断该优惠券是否可用于该订单
+	 */
+	@Transient
+	private boolean canUseThisOrder;
+	
+	/**
+	 * 订单中选择优惠券时，默认勾选项
+	 */
+	@Transient
+	private boolean isDefaultSelected;
 
 	public Integer getId() {
 		return id;
@@ -177,7 +189,20 @@ public class CustomerCouponEntity {
 	public void setCouponEndDate(Date couponEndDate) {
 		this.couponEndDate = couponEndDate;
 	}
-	
-	
 
+	public boolean isCanUseThisOrder() {
+		return canUseThisOrder;
+	}
+
+	public void setCanUseThisOrder(boolean canUseThisOrder) {
+		this.canUseThisOrder = canUseThisOrder;
+	}
+
+	public boolean isDefaultSelected() {
+		return isDefaultSelected;
+	}
+
+	public void setDefaultSelected(boolean isDefaultSelected) {
+		this.isDefaultSelected = isDefaultSelected;
+	}
 }
