@@ -1,6 +1,7 @@
 package com.kuding.garage.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -12,6 +13,7 @@ import com.kuding.commons.BusinessException;
 import com.kuding.commons.ErrorCode;
 import com.kuding.commons.service.BasicService;
 import com.kuding.customer.model.TrafficViolationEntity;
+import com.kuding.customer.model.VehicleMaintainInfo;
 import com.kuding.garage.model.VehicleEntity;
 import com.kuding.system.model.UserEntity;
 
@@ -193,14 +195,20 @@ public class VehicleService extends BasicService<VehicleEntity> {
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly=true)
-	public List<VehicleEntity> queryUserVehicles(Integer userId){
-		List<VehicleEntity> vehicles = null;
+	public List<Map<String,Object>> queryUserVehicles(Integer userId){
+		List<Map<String,Object>> vehicles = null;
 		if(userId != null) {
 			StringBuffer hql = new StringBuffer()
-					.append("select veh from VehicleEntity veh ")
+					.append("select new map(")
+					.append("veh as veh,")
+					.append("(select count(distinct vio.id) from TrafficViolationEntity vio left join vio.user user2 where user2.id = user.id) as vioCount, ")
+					.append("(select count(distinct main.id) from VehicleMaintainInfo main left join main.user user3 where user3.id = user.id and main.state in (:state) ) as servCount ")
+					.append(") ")
+					.append("from VehicleEntity veh ")
 					.append("left join veh.user user ")
 					.append("where user.id = :userId ");
 			Query query = getSession().createQuery(hql.toString());
+			query.setParameterList("state", new String[] {VehicleMaintainInfo.STATE_QUEUE,VehicleMaintainInfo.STATE_SERVING});
 			query.setInteger("userId", userId);
 			vehicles = query.list();
 		}

@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +29,7 @@ import com.kuding.garage.model.VehicleEntity;
 import com.kuding.garage.service.CustomerService;
 import com.kuding.garage.service.VehicleService;
 import com.kuding.system.model.UserEntity;
+import com.kuding.util.Utils;
 
 @Controller
 @RequestMapping("/customer")
@@ -261,15 +261,31 @@ public class CustomerAction extends BasicAction {
 			throw new BusinessException(ErrorCode.SYS_ERROR);
 		}
 		ModelAndView mv = new ModelAndView();
-		List<VehicleEntity> vehicles = vehService.queryUserVehicles(user.getUserId());
+		List<Map<String,Object>> vehicles = vehService.queryUserVehicles(user.getUserId());
 		if(vehicles != null && vehicles.size() > 0) {
-			List<Map<String,Object>> vehList = new ArrayList<>();
-			for(VehicleEntity vehicle :vehicles) {
-				
+			for(Map<String,Object> vehMap :vehicles) {
+				if(vehMap.containsKey("veh")) {
+					VehicleEntity vehicle = (VehicleEntity) vehMap.get("veh");
+					Integer sugCount = 0;
+					if(Utils.isNeedAnnualVertification(vehicle.getRegisterDate())) {
+						sugCount++;
+					}
+					
+					if(Utils.isNeedInsurance(vehicle.getRegisterDate())) {
+						sugCount++;
+					}
+					
+					if(Utils.isNeedMaintaine(vehicle.getLastMaintainDate())) {
+						sugCount++;
+					}
+					vehMap.put("sugCount", sugCount);
+				}
 			}
 			mv.getModel().put("vehicles", vehicles);
+			mv.setViewName("customer/customer_cars");
+		}else {
+			mv.setViewName("redirect:/customer/cars/add");
 		}
-		mv.setViewName("customer/customer_cars");
 		return mv;
 	}
 	

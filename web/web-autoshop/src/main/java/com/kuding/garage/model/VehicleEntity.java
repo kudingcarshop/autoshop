@@ -22,6 +22,12 @@ import com.kuding.system.model.UserEntity;
 @Table(name="vehicle_info")
 public class VehicleEntity {
 	
+	/**认证标志:已认证*/
+	public static final Integer CER_FLAG_YES = 1;
+	
+	/**认证标志:未认证*/
+	public static final Integer CER_FLAG_NO = 0;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
@@ -122,6 +128,9 @@ public class VehicleEntity {
 	
 	@OneToMany(mappedBy="vehicle",fetch=FetchType.LAZY)
 	private Set<VehicleMaintainInfo> maintains;
+	
+	@Column(name="cert_flag")
+	private Integer certFlag = CER_FLAG_NO;
 
 	public Integer getId() {
 		return id;
@@ -377,6 +386,22 @@ public class VehicleEntity {
 
 	public void setInspectionRecord(String inspectionRecord) {
 		this.inspectionRecord = inspectionRecord;
+	}
+
+	public Set<VehicleMaintainInfo> getMaintains() {
+		return maintains;
+	}
+
+	public void setMaintains(Set<VehicleMaintainInfo> maintains) {
+		this.maintains = maintains;
+	}
+
+	public Integer getCertFlag() {
+		return certFlag;
+	}
+
+	public void setCertFlag(Integer certFlag) {
+		this.certFlag = certFlag;
 	}
 	
 
