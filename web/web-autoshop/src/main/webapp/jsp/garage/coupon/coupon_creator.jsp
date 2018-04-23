@@ -265,7 +265,7 @@
                 $.toptip('请输入折扣');
                 return;
             }
-            if (!numberTest.test(discount) || discount > 100 || discount <= 0) {
+            if (!priceTest.test(discount) || discount > 1 || discount <= 0) {
                 $.toptip('请输入正确折扣');
                 return;
             }

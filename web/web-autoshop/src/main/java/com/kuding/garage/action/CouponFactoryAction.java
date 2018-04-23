@@ -1,6 +1,6 @@
 package com.kuding.garage.action;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.servlet.http.HttpSession;
 
@@ -35,7 +35,7 @@ public class CouponFactoryAction extends BasicAction {
 	public Result createCoupon(HttpSession session, CouponFactoryEntity couponFactoryEntity) {
 		UserInfo userInfo = getUserInfo(session);
 		Result result = new Result();
-		couponFactoryEntity.setCouponCreateDatetime(new Date(System.currentTimeMillis()));
+		couponFactoryEntity.setCouponCreateDatetime(new Timestamp(System.currentTimeMillis()));
 		couponFactoryEntity.setCouponFactoryStatus(Constant.CouponFactoryConstant.COUPON_STATUS_ACTIVE);
 		couponFactoryEntity.setCouponUniqueCode(""+System.currentTimeMillis());
 		mService.createCoupon(couponFactoryEntity, userInfo.getUserId());

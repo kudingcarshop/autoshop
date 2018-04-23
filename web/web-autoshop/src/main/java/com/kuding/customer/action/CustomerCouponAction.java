@@ -1,6 +1,7 @@
 package com.kuding.customer.action;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -194,7 +195,7 @@ public class CustomerCouponAction extends BasicAction {
 	public Result getCouponAction(HttpSession session, CustomerCouponEntity customerCouponEntity) {
 		UserInfo userInfo = getUserInfo(session);
 		Result result = new Result();
-		customerCouponEntity.setCouponGetTime(new Date(System.currentTimeMillis()));
+		customerCouponEntity.setCouponGetTime(new Timestamp(System.currentTimeMillis()));
 		customerCouponEntity.setCouponStatus(Constant.CustomerCouponConstant.CUSTOMER_COUPON_STATUS_ACTIVE);
 		boolean success = mCouponService.customerGetCoupon(customerCouponEntity, userInfo.getUserId());
 		if (success) {

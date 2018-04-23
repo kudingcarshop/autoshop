@@ -1,6 +1,7 @@
 package com.kuding.garage.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -62,7 +63,7 @@ public class CouponFactoryEntity {
 	private int couponAmount;
 
 	@Column(name = "coupon_create_datetime")
-	private Date couponCreateDatetime;
+	private Timestamp couponCreateDatetime;
 
 	@Column(name = "coupon_factory_status")
 	private int couponFactoryStatus;
@@ -180,11 +181,11 @@ public class CouponFactoryEntity {
 		this.couponAmount = couponAmount;
 	}
 
-	public Date getCouponCreateDatetime() {
+	public Timestamp getCouponCreateDatetime() {
 		return couponCreateDatetime;
 	}
 
-	public void setCouponCreateDatetime(Date couponCreateDatetime) {
+	public void setCouponCreateDatetime(Timestamp couponCreateDatetime) {
 		this.couponCreateDatetime = couponCreateDatetime;
 	}
 

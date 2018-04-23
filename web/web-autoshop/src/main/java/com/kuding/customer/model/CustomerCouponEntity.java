@@ -1,6 +1,7 @@
 package com.kuding.customer.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -37,7 +38,7 @@ public class CustomerCouponEntity {
 	private int couponStatus;
 
 	@Column(name = "coupon_get_time")
-	private Date couponGetTime;
+	private Timestamp couponGetTime;
 
 	@Transient
 	private int couponId;
@@ -110,11 +111,11 @@ public class CustomerCouponEntity {
 		this.couponStatus = couponStatus;
 	}
 
-	public Date getCouponGetTime() {
+	public Timestamp getCouponGetTime() {
 		return couponGetTime;
 	}
 
-	public void setCouponGetTime(Date couponGetTime) {
+	public void setCouponGetTime(Timestamp couponGetTime) {
 		this.couponGetTime = couponGetTime;
 	}
 
