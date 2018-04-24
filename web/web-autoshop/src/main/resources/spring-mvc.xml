@@ -11,7 +11,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<mvc:annotation-driven>
+	<mvc:annotation-driven validator="validator">
 		<mvc:message-converters>
 			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
 			<bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter"/>
@@ -62,7 +62,11 @@
             <value>UTF-8</value>
         </property>
     </bean>
-	
+    <!-- 校验器 -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean>
 		
 	<!-- 国际化资源文件 -->
 	<bean id="messageSource"

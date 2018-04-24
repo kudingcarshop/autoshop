@@ -50,3 +50,23 @@ a{
 	margin-top: -0.14rem;
 	text-align: center;
 }
+
+.kd-danger{
+	width:3.2rem;
+	height:0.23rem;
+	line-height:0.23rem;
+	padding:0.05rem;
+	background: rgb(242, 222, 222);
+	color:rgb(169, 68, 66);
+	text-overflow: ellipsis;
+}
+
+.kd-success{
+	width:3.2rem;
+	height:0.23rem;
+	line-height:0.23rem;
+	padding:0.05rem;
+	background: rgb(223, 240, 216);
+	color:rgb(60, 118, 61);
+	text-overflow: ellipsis;
+}

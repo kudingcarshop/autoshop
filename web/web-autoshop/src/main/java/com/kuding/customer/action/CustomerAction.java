@@ -13,17 +13,20 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kuding.commons.BusinessException;
 import com.kuding.commons.ErrorCode;
 import com.kuding.commons.login.UserInfo;
 import com.kuding.customer.model.ConsumeRecordEntity;
+import com.kuding.customer.view.CustomerEditView;
 import com.kuding.garage.action.BasicAction;
 import com.kuding.garage.model.VehicleEntity;
 import com.kuding.garage.service.CustomerService;
@@ -119,29 +122,31 @@ public class CustomerAction extends BasicAction {
 	 * @throws IOException
 	 */
 	@RequestMapping("edit/save")
-	public ModelAndView saveEdit(HttpServletRequest req,MultipartFile file,String userName,String phoneNumber) throws IOException{
+	public ModelAndView saveEdit(HttpServletRequest req,@ModelAttribute("user") @Validated CustomerEditView customer, BindingResult bindingResult) throws IOException{
 		UserInfo user = getUserInfo(req.getSession());
 		if(user == null || user.getUserId() == null) {
 			throw new BusinessException(ErrorCode.SYS_ERROR);
 		}
-		if(StringUtils.isEmpty(userName) || StringUtils.isEmpty(phoneNumber)) {
+		
+		if(bindingResult.hasErrors()) {
+			List<ObjectError> errors = bindingResult.getAllErrors();
+			StringBuffer sb = new StringBuffer();
+			for(ObjectError err : errors) {
+				sb.append(err.getDefaultMessage());
+			}
 			ModelAndView mv = new ModelAndView();
-			mv.setViewName("redirect:/customer/edit");
+			mv.setViewName("customer/customer_edit");
+			mv.getModel().put("msg", sb.toString());
 			return mv;
 		}
+		
 		UserEntity userEntity = new UserEntity();
 		userEntity.setId(user.getUserId());
+		userEntity.setName(customer.getName());
+		userEntity.setPhoneNumber(customer.getPhoneNumber());
 		
-		if(!StringUtils.isEmpty(userName)) {
-			userEntity.setName(userName);
-		}
-		
-		if(!StringUtils.isEmpty(phoneNumber)) {
-			userEntity.setPhoneNumber(phoneNumber);
-		}
-		service.updateUserInfo(userEntity,file);
+		service.updateUserInfo(userEntity,customer.getFile());
 		ModelAndView mv = new ModelAndView();
-		mv.getModel().put("flag", "1");//
 		mv.setViewName("redirect:/customer/center");
 		return mv;
 	}

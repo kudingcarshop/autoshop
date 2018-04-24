@@ -25,7 +25,7 @@
 		<div class="kd-edit-container">
 		<!-- 用户名 -->
 		<div class="kd-edit-itme">
-		<label>用户名</label><input value="${user.name }" name="userName"/>
+		<label>用户名</label><input value="${user.name }" name="name"/>
 		</div>
 		<!-- 手机 -->
 		<div class="kd-edit-itme">
@@ -41,7 +41,6 @@
 	<script type="text/javascript">
 		$(function() {
 			var basicSize = basicRem();
-			console.log("rem="+ basicSize);
 			//加载头像图片
 			cropImg('canvas', '${path}/customer/headImg',1.2*basicSize,basicSize);
 
@@ -58,6 +57,10 @@
 			$('a.kd-btn-save').on('click',function(){
 				$('#myform').submit();
 			});
+			
+			//服务端异常信息显示
+			var msg = '${msg}';
+			showMessage('.kd-page', msg, '0');
 		});
 	</script>
 </body>
