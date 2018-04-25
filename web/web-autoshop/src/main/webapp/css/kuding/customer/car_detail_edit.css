@@ -114,3 +114,12 @@
 .current-year-value{
 	line-height: 0.44rem;
 }
+
+label.error{
+	margin-top:0.05rem;
+	margin-left:0.25rem;
+	height: 0.15rem;
+	line-height: 0.15rem;
+	font-size: 0.12rem;
+	color: red;
+}

@@ -57,10 +57,10 @@ public class VehicleEntity {
 	private Integer lastMaintainMileage;
 	
 	@Column(name = "tire_service_year")
-	private Integer tireServiceYear;
+	private Date tireServiceYear;
 	
 	@Column(name = "battery_service_year")
-	private Integer batteryServiceYear;
+	private Date batteryServiceYear;
 	
 	@Column(name = "last_beauty_date")
 	private Date lastBeautyDate;
@@ -204,19 +204,19 @@ public class VehicleEntity {
 		this.lastMaintainDate = lastMaintainDate;
 	}
 
-	public Integer getTireServiceYear() {
+	public Date getTireServiceYear() {
 		return tireServiceYear;
 	}
 
-	public void setTireServiceYear(Integer tireServiceYear) {
+	public void setTireServiceYear(Date tireServiceYear) {
 		this.tireServiceYear = tireServiceYear;
 	}
 
-	public Integer getBatteryServiceYear() {
+	public Date getBatteryServiceYear() {
 		return batteryServiceYear;
 	}
 
-	public void setBatteryServiceYear(Integer batteryServiceYear) {
+	public void setBatteryServiceYear(Date batteryServiceYear) {
 		this.batteryServiceYear = batteryServiceYear;
 	}
 

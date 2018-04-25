@@ -361,8 +361,8 @@ CREATE TABLE `vehicle_info`
 	`insurance_date` DATE COMMENT '保险到期日',
 	`last_maintain_date` DATE COMMENT '上次保养日期',
 	`last_maintain_mileage` INTEGER COMMENT '上次保养登记里程',
-	`tire_service_year` FLOAT(0) COMMENT '轮胎使用时长',
-	`battery_service_year` FLOAT(0) COMMENT '电池使用时长',
+	`tire_service_year` DATE COMMENT '轮胎开始使用日期',
+	`battery_service_year` DATE COMMENT '电池开始使用日期',
 	`last_beauty_date` DATE COMMENT '上次美容日期',
 	`user_id` INTEGER COMMENT '车主用户ID',
 	`plate_number` VARCHAR(50) COMMENT '车牌号码',
@@ -480,9 +480,9 @@ insert into `garage_staff_position` values ('4','3','001000004');
 insert into `garage_staff_position` values ('5','4','001000005');
 
 
-INSERT INTO `VEHICLE_INFO` VALUES ('1','2017-12-25','0','25000','0','25000','2017-11-18','2017-12-25','12000','2.5','2.5','2018-1-10','3','粤L88888','轿车','李土豪','广东省惠州市回城区金山湖','家庭自用汽车','2016款 AMG S 63 L 4MATIC+','VIN0234233333','EN238740830344','2017-1-1','2017-1-1',null,'5',null,null,null,null,null,null,null,'0');
-INSERT INTO `VEHICLE_INFO` VALUES ('2','2017-12-25','0','25000','0','25000','2017-11-18','2017-12-25','12000','2.5','2.5','2018-1-10','4','粤L66666','轿车','王大炮','广东省惠州市回城区长湖苑','家庭自用汽车','2016款 AMG S 63 L 4MATIC+','VIN0234255555','EN238740830123','2017-1-1','2017-1-1',null,'5',null,null,null,null,null,null,null,'0');
-INSERT INTO `VEHICLE_INFO` VALUES ('3','2018-03-01','0','25000','0','25000','2017-11-18','2018-03-01','12000','2.5','2.5','2018-1-10','3','粤L55555','轿车','李土豪','广东省惠州市回城区金山湖','家庭自用汽车','2016款 AMG S 63 L 4MATIC+','VIN0234255544','EN238740830155','2017-1-1','2017-1-1',null,'5',null,null,null,null,null,null,null,'0');
+INSERT INTO `VEHICLE_INFO` VALUES ('1','2017-12-25','0','25000','0','25000','2017-11-18','2017-12-25','12000','2017-12-25','2017-12-25','2018-1-10','3','粤L88888','轿车','李土豪','广东省惠州市回城区金山湖','家庭自用汽车','2016款 AMG S 63 L 4MATIC+','VIN0234233333','EN238740830344','2017-1-1','2017-1-1',null,'5',null,null,null,null,null,null,null,'0');
+INSERT INTO `VEHICLE_INFO` VALUES ('2','2017-12-25','0','25000','0','25000','2017-11-18','2017-12-25','12000','2017-12-25','2017-12-25','2018-1-10','4','粤L66666','轿车','王大炮','广东省惠州市回城区长湖苑','家庭自用汽车','2016款 AMG S 63 L 4MATIC+','VIN0234255555','EN238740830123','2017-1-1','2017-1-1',null,'5',null,null,null,null,null,null,null,'0');
+INSERT INTO `VEHICLE_INFO` VALUES ('3','2018-03-01','0','25000','0','25000','2017-11-18','2018-03-01','12000','2017-12-25','2017-12-25','2018-1-10','3','粤L55555','轿车','李土豪','广东省惠州市回城区金山湖','家庭自用汽车','2016款 AMG S 63 L 4MATIC+','VIN0234255544','EN238740830155','2017-1-1','2017-1-1',null,'5',null,null,null,null,null,null,null,'0');
 
 INSERT INTO `sys_dict` VALUES ('1', 'biz', '10001', '美容', '汽车美容');
 INSERT INTO `sys_dict` VALUES ('2', 'biz', '10002', '保养', '汽车保养');

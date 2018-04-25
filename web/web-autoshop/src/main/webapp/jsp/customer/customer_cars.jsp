@@ -13,7 +13,7 @@
 	<div class="kd-page">
 	<c:forEach var="item" items="${vehicles}">
 			<div class="kd-item"
-				onclick="javascript:window.location.href='${path}/customer/cars/detail';">
+				onclick="javascript:window.location.href='${path}/customer/cars/detail/${item.veh.id}';">
 				<table>
 					<tbody>
 						<tr>

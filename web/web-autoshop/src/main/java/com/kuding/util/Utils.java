@@ -132,28 +132,12 @@ public class Utils {
 	 */
 	public static boolean isNeedMaintaine(Date date) {
 		if(date != null) {
-			Calendar regCal = Calendar.getInstance();
-			regCal.setTime(date);
-
-			//到期日
-			Calendar deadline = Calendar.getInstance();
-			deadline.set(Calendar.MONTH, regCal.get(Calendar.MONTH));
-			deadline.set(Calendar.DAY_OF_MONTH,regCal.get(Calendar.DAY_OF_MONTH));
-			
-			Calendar curCal = Calendar.getInstance();
-			//距离保养到期日天数
-			long daybeforEnd = (deadline.getTime().getTime()-curCal.getTime().getTime())/1000/60/60/24 ;
-			//前10天提醒
-			if(daybeforEnd<=10 && daybeforEnd >=0 ) {
-				return true;
-			}
-			
-			//年内第二次保养
-			deadline.add(Calendar.MONTH, 6);
-			daybeforEnd = (deadline.getTime().getTime()-curCal.getTime().getTime())/1000/60/60/24 ;
-			//前10天提醒
-			if(daybeforEnd<=10 && daybeforEnd >=0 ) {
-				return true;
+			Date assumeMaintainDate = assumeMaintaineDate(date);
+			if(assumeMaintainDate != null) {
+				long diffDays = (Calendar.getInstance().getTimeInMillis() - assumeMaintainDate.getTime())/1000/60/60/24;
+				if(diffDays>=0 && diffDays <= 30) {
+					return true;
+				}
 			}
 			
 		}
