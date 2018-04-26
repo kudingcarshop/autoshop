@@ -1,8 +1,13 @@
 package com.kuding.garage.action;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kuding.commons.Constants;
 import com.kuding.commons.login.UserInfo;
@@ -24,4 +29,22 @@ public class BasicAction {
 		return logger;
 	}
 
+	/**
+	 * 汇集错误信息
+	 * @param bindingResult
+	 * @return
+	 */
+	public String combineErrors(BindingResult bindingResult) {
+		if(bindingResult != null && bindingResult.hasErrors()) {
+			List<ObjectError> errors = bindingResult.getAllErrors();
+			StringBuffer sb = new StringBuffer();
+			for(ObjectError err : errors) {
+				sb.append(err.getDefaultMessage());
+				sb.append("\\n\\r");
+			}
+			return sb.toString();
+		}
+		
+		return null;
+	}
 }

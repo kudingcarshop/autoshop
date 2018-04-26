@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kuding.commons.BusinessException;
 import com.kuding.commons.ErrorCode;
 import com.kuding.commons.login.UserInfo;
+import com.kuding.customer.view.CarEditView;
 import com.kuding.garage.action.BasicAction;
 import com.kuding.garage.model.VehicleEntity;
 import com.kuding.garage.service.CustomerService;
@@ -140,6 +144,32 @@ public class CustomerCarAction extends BasicAction {
 		}
 		
 		mv.setViewName("customer/cars/car_detail_edit");
+		return mv;
+	}
+	
+	@RequestMapping("cars/edit/save")
+	public ModelAndView updateCar(HttpServletRequest req,@ModelAttribute(name="veh") @Validated CarEditView carEdit,BindingResult bindingResult) {
+		UserInfo user = getUserInfo(req.getSession());
+		if(user == null || user.getUserId() == null || carEdit.getVehicleId() == null) {
+			throw new BusinessException(ErrorCode.SYS_ERROR);
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("customer/cars/car_detail_edit");
+		//常规数据校验
+		String errors = combineErrors(bindingResult);
+		if(errors != null) {
+			mv.getModel().put("msg", errors);
+			return mv;
+		}
+		//业务逻辑校验
+		VehicleEntity veh = vehService.findById(VehicleEntity.class, carEdit.getVehicleId());
+		if(veh == null ) {
+			
+			return mv;
+		}
+		
+		
+		
 		return mv;
 	}
 	
