@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.kuding.commons.Constants;
 import com.kuding.commons.login.UserInfo;
@@ -39,8 +38,7 @@ public class BasicAction {
 			List<ObjectError> errors = bindingResult.getAllErrors();
 			StringBuffer sb = new StringBuffer();
 			for(ObjectError err : errors) {
-				sb.append(err.getDefaultMessage());
-				sb.append("\\n\\r");
+				sb.append(" "+err.getDefaultMessage());
 			}
 			return sb.toString();
 		}

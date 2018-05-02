@@ -216,4 +216,24 @@ public class VehicleService extends BasicService<VehicleEntity> {
 		return vehicles;
 	}
 	
+	/**
+	 * 更新用户车辆信息
+	 * @param vehicle
+	 */
+	@Transactional(readOnly=false, rollbackFor = { Exception.class, RuntimeException.class })
+	public void updateVehicleInfo(VehicleEntity vehicle) {
+		if(vehicle != null && vehicle.getId() != null) {
+			VehicleEntity veh = findById(VehicleEntity.class, vehicle.getId());
+			if(veh != null) {
+				veh.setLastMaintainDate(vehicle.getLastMaintainDate());
+				veh.setLastBeautyDate(vehicle.getLastBeautyDate());
+				veh.setBatteryServiceYear(vehicle.getBatteryServiceYear());
+				veh.setTireServiceYear(vehicle.getTireServiceYear());
+				veh.setLastMileage(vehicle.getLastMileage());
+				getSession().saveOrUpdate(veh);
+			}
+		}
+		
+	}
+	
 }

@@ -15,7 +15,7 @@
 		<!-- 车主 -->
 		<div class="kd-hd">
 			<div class="kd-hd-item">
-				<label>所有者：</label><span>${veh.user.name }</span>
+				<label>所有者：</label><span>${veh.name}</span>
 			</div>
 			<div class="kd-hd-item">
 				<label>登记日期：</label><span><fmt:formatDate value="${veh.registerDate}" pattern="yyyy-MM-dd"/></span>
@@ -28,14 +28,16 @@
 		</div>
 		<!-- 车辆信息编辑 -->
 		<form action="${path}/customer/cars/edit/save" id="myform" method="post">
+		<input type="hidden" name="name" value="${veh.name}">
+		<input type="hidden" name="registerDate" value="${veh.registerDate}">
 		<div class="kd-bd">
-			<!-- <div class="kd-bd-item">
-				<label>当前公里数：</label><input type="text" /><span>公里</span>
-			</div> -->
-			<input type="hidden" name="vehicleId" value="${veh.id}">
-			<div class="kd-bd-item">
-				<label>上次保养公里数：</label><input type="text" name="lastMileage" value="${veh.lastMileage}"/><span>公里</span>
-			</div>
+			 <div class="kd-bd-item">
+				<label>当前公里数：</label><input type="text" name="lastMileage" value="${veh.lastMileage}"/><span>公里</span>
+			</div> 
+			<input type="hidden" name="vehicleId" value="${veh.vehicleId}">
+			<%-- <div class="kd-bd-item">
+				<label>上次保养公里数：</label><input type="text" /><span>公里</span>
+			</div> --%>
 			<div class="kd-bd-item">
 				<label>上次保养日期：</label><input type="text" id="maintainDate" name="lastMaintainDate" value='<fmt:formatDate value="${veh.lastMaintainDate}" pattern="yyyy-MM-dd"/>'/>
 			</div>
@@ -43,10 +45,10 @@
 				<label>上次美容日期：</label><input type="text" id="beautyDate" name="lastBeautyDate" value='<fmt:formatDate value="${veh.lastBeautyDate}" pattern="yyyy-MM-dd"/>'/>
 			</div>
 			<div class="kd-bd-item">
-				<label>轮胎使用时长：</label><input type="text" name="tireYears" value='<fmt:formatNumber value="${tireYears}" pattern="#0.00"/>'/><span>年</span>
+				<label>轮胎使用时长：</label><input type="text" name="tireYears" value='<fmt:formatNumber value="${veh.tireYears}" pattern="#0.00"/>'/><span>年</span>
 			</div>
 			<div class="kd-bd-item">
-				<label>电池使用时长：</label><input type="text" name="batteryYears" value='<fmt:formatNumber value="${batteryYears}" pattern="#0.00"/>'/><span>年</span>
+				<label>电池使用时长：</label><input type="text" name="batteryYears" value='<fmt:formatNumber value="${veh.batteryYears}" pattern="#0.00"/>'/><span>年</span>
 			</div>
 		</div>
 			<input class="kd-ft-save" type="submit" value="保存"/>
@@ -79,29 +81,29 @@
 	    		tireYears:{
 	    			required:true,
 	    			isFloat:true,
-	    			min:<fmt:formatNumber value='${tireYears}' pattern='#0.00'/>
+	    			min:<fmt:formatNumber value='${veh.tireYears}' pattern='#0.00'/>
 	    		},
 	    		batteryYears:{
 	    			required:true,
 	    			isFloat:true,
-	    			min:<fmt:formatNumber value='${batteryYears}' pattern='#0.00'/>
+	    			min:<fmt:formatNumber value='${veh.batteryYears}' pattern='#0.00'/>
 	    		}
 	    	},
 	    	messages:{
 	    		lastMileage:{
 	    			required:"请输入上次保养公里数",
-	    			digits:"上次保养公里数只能输入数字",
-	    			min:$.validator.format( "上次保养公里数不小于 {0}" )
+	    			digits:"当前公里数只能输入数字",
+	    			min:$.validator.format( "当前公里数不小于 {0}" )
 	    		},
 	    		tireYears:{
 	    			required:"请输入轮胎使用时长",
 	    			isFloat:"轮胎使用时长必须为数字",
-	    			min:$.validator.format( "轮胎使用时长不能小于<fmt:formatNumber value='${tireYears}' pattern='#0.00'/>" )
+	    			min:$.validator.format( "轮胎使用时长不能小于<fmt:formatNumber value='${veh.tireYears}' pattern='#0.00'/>" )
 	    		},
 	    		batteryYears:{
 	    			required:"请输入电池使用时长",
 	    			isFloat:"电池使用时长必须为数字",
-	    			min:$.validator.format( "电池使用时长不能小于<fmt:formatNumber value='${batteryYears}' pattern='#0.00'/>" )
+	    			min:$.validator.format( "电池使用时长不能小于<fmt:formatNumber value='${veh.batteryYears}' pattern='#0.00'/>" )
 	    		}
 	    	},
 			errorPlacement: function( error, element ) {

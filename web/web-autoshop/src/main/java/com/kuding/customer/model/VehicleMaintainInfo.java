@@ -60,10 +60,10 @@ public class VehicleMaintainInfo {
 	private VehicleEntity vehicle;
 	
 	@Column(name="mileage")
-	private int mileage;
+	private Integer mileage;
 	
 	@Column(name="battery_service_year")
-	private int batteryServiceYear;
+	private Integer batteryServiceYear;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
@@ -137,19 +137,19 @@ public class VehicleMaintainInfo {
 		this.vehicle = vehicle;
 	}
 
-	public int getMileage() {
+	public Integer getMileage() {
 		return mileage;
 	}
 
-	public void setMileage(int mileage) {
+	public void setMileage(Integer mileage) {
 		this.mileage = mileage;
 	}
 
-	public int getBatteryServiceYear() {
+	public Integer getBatteryServiceYear() {
 		return batteryServiceYear;
 	}
 
-	public void setBatteryServiceYear(int batteryServiceYear) {
+	public void setBatteryServiceYear(Integer batteryServiceYear) {
 		this.batteryServiceYear = batteryServiceYear;
 	}
 

@@ -7,14 +7,19 @@ import java.util.Calendar;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kuding.binder.SqlDateFormat;
 import com.kuding.commons.BusinessException;
 import com.kuding.commons.ErrorCode;
 import com.kuding.commons.login.UserInfo;
@@ -34,6 +39,15 @@ public class CustomerCarAction extends BasicAction {
 	
 	@Autowired
 	private VehicleService vehService;
+	
+	@Autowired
+	private ResourceBundleMessageSource messageSource;
+	
+	//添加java.sql.Date类型转换
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {  
+		binder.registerCustomEditor(java.sql.Date.class, new CustomDateEditor(new SqlDateFormat("yyyy-MM-dd"), true));
+	}
 	
 	@RequestMapping("cars/add")
 	public ModelAndView add(HttpServletRequest req) {
@@ -121,7 +135,7 @@ public class CustomerCarAction extends BasicAction {
 	 * @return
 	 */
 	@RequestMapping("cars/edit/{vehicleId}")
-	public ModelAndView carEdit(HttpServletRequest req,@PathVariable Integer vehicleId) {
+	public ModelAndView carEdit(HttpServletRequest req,@PathVariable Integer vehicleId,@ModelAttribute(name="veh") CarEditView carEdit) {
 		UserInfo user = getUserInfo(req.getSession());
 		if(user == null || user.getUserId() == null || vehicleId == null) {
 			throw new BusinessException(ErrorCode.SYS_ERROR);
@@ -130,17 +144,16 @@ public class CustomerCarAction extends BasicAction {
 		
 		VehicleEntity veh = vehService.findById(VehicleEntity.class, vehicleId);
 		if(veh != null) { 
-			mv.getModel().put("veh", veh);
-			
-			//计算轮胎使用年限
-			if(veh.getTireServiceYear() != null) {
-				mv.getModel().put("tireYears", (Calendar.getInstance().getTimeInMillis()-veh.getTireServiceYear().getTime())/1000/60/60/24/365.00);
-			}
-			
+			carEdit.setVehicleId(veh.getId());
+			carEdit.setName(veh.getUser() != null ? veh.getUser().getName() : "");
+			carEdit.setRegisterDate(veh.getRegisterDate());
 			//计算电池使用年限
-			if(veh.getBatteryServiceYear() != null) {
-				mv.getModel().put("batteryYears", (Calendar.getInstance().getTimeInMillis()-veh.getBatteryServiceYear().getTime())/1000/60/60/24/365.00);
-			}
+			carEdit.setBatteryYears((Calendar.getInstance().getTimeInMillis()-veh.getBatteryServiceYear().getTime())/1000/60/60/24/365.00);
+			//计算轮胎使用年限
+			carEdit.setTireYears( (Calendar.getInstance().getTimeInMillis()-veh.getTireServiceYear().getTime())/1000/60/60/24/365.00);
+			carEdit.setLastMileage(veh.getLastMileage());
+			carEdit.setLastMaintainDate(veh.getLastMaintainDate());
+			carEdit.setLastBeautyDate(veh.getLastBeautyDate());
 		}
 		
 		mv.setViewName("customer/cars/car_detail_edit");
@@ -164,13 +177,49 @@ public class CustomerCarAction extends BasicAction {
 		//业务逻辑校验
 		VehicleEntity veh = vehService.findById(VehicleEntity.class, carEdit.getVehicleId());
 		if(veh == null ) {
-			
+			mv.getModel().put("msg", messageSource.getMessage("customer.cars.edit.save.vehicle_notexist", null, null));
 			return mv;
 		}
 		
+		//客户不能够修改他人的车辆信息
+		if(veh.getUser() != null && !veh.getUser().getId().equals(user.getUserId())) {
+			mv.getModel().put("msg", messageSource.getMessage("customer.cars.edit.save.not_owner", null, null));
+			return mv;
+		}
+		//新日期要大于旧日期:上次保养日期
+		if(veh.getLastMaintainDate() != null 
+				&& veh.getLastMaintainDate().after(carEdit.getLastMaintainDate())) {
+			mv.getModel().put("msg", messageSource.getMessage("customer.cars.edit.save.lastMaintainDate_before", null, null));
+			return mv;
+		}
+		//新日期要大于旧日期 :上次美容日期
+		if(veh.getLastBeautyDate() != null 
+				&& veh.getLastBeautyDate().after(carEdit.getLastBeautyDate())) {
+			mv.getModel().put("msg", messageSource.getMessage("customer.cars.edit.save.lastBeautyDate_before", null, null));
+			return mv;
+		}
+
+		VehicleEntity vehicle = new VehicleEntity();
+		vehicle.setId(carEdit.getVehicleId());
+		vehicle.setLastMaintainDate(carEdit.getLastMaintainDate());
+		vehicle.setLastBeautyDate(carEdit.getLastBeautyDate());
+		vehicle.setBatteryServiceYear(getPassDate(carEdit.getBatteryYears()));
+		vehicle.setTireServiceYear(getPassDate(carEdit.getTireYears()));
+		vehicle.setLastMileage(carEdit.getLastMileage());
+		vehService.updateVehicleInfo(vehicle);
 		
+		mv.setViewName("redirect:/customer/cars/edit/"+carEdit.getVehicleId());
 		
 		return mv;
+	}
+	
+	public static Date getPassDate(Double year) {
+		if(year != null && year > 0) {
+			Calendar cur = Calendar.getInstance();
+			Double milseconds = year*365*24*60*60*1000;
+			return new Date((long)(cur.getTimeInMillis()-milseconds));
+		}
+		return null;
 	}
 	
 	/**

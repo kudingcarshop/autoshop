@@ -51,12 +51,15 @@
 	<script src="../../../vendor/kuding/setup_rem.js"></script>
 	<script src="../../../vendor/jquery-weui/1.2.0/lib/fastclick.js"></script>
 	<script src="../../../vendor/jquery-weui/1.2.0/js/jquery-weui.js"></script>
+	<script src="../../../vendor/kuding/common.js"></script>
 	<script>
 	  var date = new Date();
 	  var currenDate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
 	  console.log('currenDate=' + currenDate);
 	  $(function() {
 	    FastClick.attach(document.body);
+            var msg = '上次美容日期日期不能为空 上次保养日期不能为空';
+		showMessage('.kd-page', msg, '0');
 	  });
 	  
 	  $("#maintainDate").calendar({

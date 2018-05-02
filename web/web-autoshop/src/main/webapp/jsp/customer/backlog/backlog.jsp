@@ -15,7 +15,9 @@
 			<i class="fa fa-credit-card fa-2x pull-left"></i>
 			<div class="pull-left">
 				<span>需付款</span>
-				<span class="badge">3</span>
+				<c:if test="${unpayCount!=null && unpayCount>0 }">
+					<span class="badge">${unpayCount}</span>
+				</c:if>
 			</div>
 			<i class="fa fa-angle-right fa-2x pull-right"></i>
 		</a>
@@ -23,7 +25,9 @@
 			<i class="fa fa-exclamation-triangle fa-2x pull-left"></i>
 			<div class="pull-left">
 				<span>待办违章</span>
-				<span class="badge">2</span>
+				<c:if test="${vioCount!=null && vioCount>0 }">
+					<span class="badge">${vioCount}</span>
+				</c:if>
 			</div>
 			<i class="fa fa-angle-right fa-2x pull-right"></i>
 		</a>
@@ -31,6 +35,9 @@
 			<i class="fa fa-calendar-minus-o fa-2x pull-left"></i>
 			<div class="pull-left">
 				<span>年审与保险</span>
+				<c:if test="${annualAndInsurance!=null && annualAndInsurance>0 }">
+					<span class="badge">${annualAndInsurance}</span>
+				</c:if>
 			</div>
 			<i class="fa fa-angle-right fa-2x pull-right"></i>
 		</a>

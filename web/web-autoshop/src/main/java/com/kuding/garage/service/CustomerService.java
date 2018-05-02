@@ -303,4 +303,30 @@ public class CustomerService extends BasicService<UserEntity> {
 		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), 1, 0, 0, 0);
 		return new Timestamp(calendar.getTimeInMillis());
 	}
+	
+	/**
+	 * 查询用户未待付款列表
+	 * @param userId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=false, rollbackFor = { Exception.class, RuntimeException.class })
+	public List<VehicleMaintainInfo> queryUnPayList(Integer userId) {
+		if(userId != null) {
+			StringBuffer hql = new StringBuffer()
+					.append("select distinct vehMain from VehicleMaintainInfo vehMain ")
+					.append("left join fetch vehMain.user user ")
+					.append("left join fetch vehMain.vehicle veh ")
+					.append("where user.id = :userId ")
+					.append("and vehMain.isPay = :isPay ")
+					.append("and vehMain.state in (:state) ")
+					.append("order by veh.plateNumber asc ");
+			Query query = getSession().createQuery(hql.toString());
+			query.setInteger("userId", userId);
+			query.setString("isPay", VehicleMaintainInfo.PAY_NO);
+			query.setParameterList("state", new String[] {VehicleMaintainInfo.STATE_SERVED,VehicleMaintainInfo.STATE_HANDOVER});
+			return query.list();
+		}
+		return null;
+	}
 }

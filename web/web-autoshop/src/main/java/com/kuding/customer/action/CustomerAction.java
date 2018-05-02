@@ -294,6 +294,11 @@ public class CustomerAction extends BasicAction {
 		return mv;
 	}
 	
+	/**
+	 * 待办事项入口
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("backlog")
 	public ModelAndView backlog(HttpServletRequest req) {
 		UserInfo user = getUserInfo(req.getSession());
@@ -302,6 +307,22 @@ public class CustomerAction extends BasicAction {
 		}
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("customer/backlog/backlog");
+		//待付款
+		mv.getModel().put("unpayCount", service.queryUnPayCount(user.getUserId()));
+		//违章
+		mv.getModel().put("vioCount", service.queryTrafficViolationCount(user.getUserId()));
+		//年审及保险
+		Map<String,Integer> annualInsuranceMap = service.queryAnnualVertificationAndInsuranceCount(user.getUserId());
+		if(annualInsuranceMap != null) {
+			Integer annualAndInsurance = 0;
+			if(annualInsuranceMap.get("annual") != null) {
+				annualAndInsurance += annualInsuranceMap.get("annual");
+			}
+			if(annualInsuranceMap.get("insurance") != null) {
+				annualAndInsurance += annualInsuranceMap.get("insurance");
+			}
+			mv.getModel().put("annualAndInsurance", annualAndInsurance);
+		}
 		return mv;
 	}
 	
