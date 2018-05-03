@@ -25,6 +25,7 @@ import com.kuding.commons.service.BasicService;
 import com.kuding.customer.model.ConsumeRecordEntity;
 import com.kuding.customer.model.TrafficViolationEntity;
 import com.kuding.customer.model.VehicleMaintainInfo;
+import com.kuding.garage.model.GarageCardInfo;
 import com.kuding.garage.model.VehicleEntity;
 import com.kuding.system.model.UserEntity;
 import com.kuding.util.Utils;
@@ -329,4 +330,28 @@ public class CustomerService extends BasicService<UserEntity> {
 		}
 		return null;
 	}
+	
+	/**
+	 * 查询用户洗车卡列表
+	 * @param userId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<GarageCardInfo> queryUserCards(Integer userId){
+		List<GarageCardInfo> res = null;
+		if(userId != null) {
+			StringBuffer hql = new StringBuffer()
+					.append("select distinct cards from GarageCardInfo cards ")
+					.append("left join cards.user user ")
+					.append("where user.id = :userId ")
+					.append("and cards.type = :type ");
+			Query query = getSession().createQuery(hql.toString());
+			query.setInteger("userId", userId);
+			query.setString("type", GarageCardInfo.CARD_TYPE_WASH);
+			res = query.list();
+		}
+		return res;
+	}
+	
 }

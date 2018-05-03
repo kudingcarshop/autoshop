@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kuding.commons.BusinessException;
 import com.kuding.commons.ErrorCode;
 import com.kuding.commons.login.UserInfo;
+import com.kuding.commons.pagination.PaginationQuery;
 import com.kuding.customer.model.ConsumeRecordEntity;
 import com.kuding.customer.view.CustomerEditView;
 import com.kuding.garage.action.BasicAction;
@@ -219,7 +220,11 @@ public class CustomerAction extends BasicAction {
 		
 	}
 	
-	
+	/**
+	 * 我的卡包入口
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("cards")
 	public ModelAndView cards(HttpServletRequest req) {
 		UserInfo user = getUserInfo(req.getSession());
@@ -228,6 +233,38 @@ public class CustomerAction extends BasicAction {
 		}
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("customer/customer_cards");
+		mv.getModel().put("cards", service.queryUserCards(user.getUserId()));
+		return mv;
+	}
+	
+	@RequestMapping("coupons")
+	public ModelAndView coupons(HttpServletRequest req,Integer page, Integer rows) {
+		UserInfo user = getUserInfo(req.getSession());
+		if(user == null || user.getUserId() == null) {
+			throw new BusinessException(ErrorCode.SYS_ERROR);
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("customer/customer_coupons");
+		
+		PaginationQuery query = new PaginationQuery();
+		if(page != null && page > 0) {
+			query.page =page;
+		}
+		
+		if(rows != null && rows > 0) {
+			query.rows = rows;
+		}
+		
+		//查询参数
+		query.mapParams.put("userId", user.getUserId());
+		
+		StringBuffer hql = new StringBuffer()
+				.append("select distinct coupons from CustomerCouponEntity coupons ")
+				.append("left join coupons.userEntity user ")
+				.append("where user.id = :userId ")
+				.append("group by coupons.couponGetTime  ")
+				.append("order by coupons.couponGetTime desc ");
+		mv.getModel().put("result", service.queryByPagination(query, hql.toString()));
 		return mv;
 	}
 	

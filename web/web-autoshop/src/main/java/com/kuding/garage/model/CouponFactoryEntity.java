@@ -71,6 +71,9 @@ public class CouponFactoryEntity {
 	@Column(name = "coupon_unique_code")
 	private String couponUniqueCode;
 	
+	@Column(name="coupon_desc")
+	private String couponDesc;
+	
 	@Transient
 	private int userGetStatus;
 	
@@ -203,6 +206,14 @@ public class CouponFactoryEntity {
 
 	public void setCouponUniqueCode(String couponUniqueCode) {
 		this.couponUniqueCode = couponUniqueCode;
+	}
+
+	public String getCouponDesc() {
+		return couponDesc;
+	}
+
+	public void setCouponDesc(String couponDesc) {
+		this.couponDesc = couponDesc;
 	}
 
 	public int getUserGetStatus() {

@@ -60,10 +60,10 @@ public class BasicService<T>{
 		return (T) getSession().get(clasz, id);
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Transactional(readOnly=true)
-	public PaginationResult<T> queryByPagination(PaginationQuery pageQuery,String hql){
-		PaginationResult<T> result = new PaginationResult<T>();
+	public PaginationResult<?> queryByPagination(PaginationQuery pageQuery,String hql){
+		PaginationResult<?> result = new PaginationResult();
 		
 		int index = hql.indexOf("from");
 		if(index > -1){
@@ -76,7 +76,10 @@ public class BasicService<T>{
 			if(pageQuery.mapParams != null && pageQuery.mapParams.size() > 0) {
 				pushParams(countQuery,pageQuery.mapParams);
 			}
-			result.setTotal(((Long)countQuery.uniqueResult()).intValue());
+			Long rowCount = (Long) countQuery.uniqueResult();
+			if(rowCount != null) {
+				result.setTotal(rowCount.intValue());
+			}
 		}
 		
 		Query query = getSession().createQuery(hql);

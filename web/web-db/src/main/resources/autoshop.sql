@@ -97,6 +97,7 @@ CREATE TABLE `coupon_factory`
 	`coupon_create_datetime` TIMESTAMP NOT NULL COMMENT '优惠券创建时间',
 	`coupon_factory_status` INTEGER NOT NULL COMMENT '优惠券状态',
 	`coupon_unique_code` TEXT NOT NULL COMMENT '优惠券唯一码',
+	`coupon_desc` TEXT COMMENT '优惠券描述',
 	CONSTRAINT `PK_garage_coupon_factory` PRIMARY KEY (`id`)
 )
 ;
@@ -176,14 +177,16 @@ CREATE TABLE `garage_biz_book`
 CREATE TABLE `garage_card_info`
 (
 	`id` INTEGER NOT NULL AUTO_INCREMENT ,
-	`type` CHAR(2),
-	`value` FLOAT(0),
+	`type` CHAR(2) COMMENT '卡类型 01-洗车卡',
+	`type_name` VARCHAR(100) COMMENT '类型名称,,与type对应',
+	`value` FLOAT(0) COMMENT '面值',
+	`balance` FLOAT(0) COMMENT '余值',
 	`create_time` DATETIME COMMENT '开卡日期',
 	`expired_date` VARCHAR(50) COMMENT '到期日',
 	`user_id` INTEGER COMMENT '所属客户',
 	`garage_id` INTEGER COMMENT '开卡车行',
 	`create_user` INTEGER COMMENT '开卡员工',
-	`desc` VARCHAR(50),
+	`desc` VARCHAR(50) COMMENT '描述',
 	CONSTRAINT `PK_garage_card_info` PRIMARY KEY (`id`)
 )
 ;

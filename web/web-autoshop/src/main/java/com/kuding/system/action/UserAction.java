@@ -21,13 +21,14 @@ public class UserAction {
 	@Autowired
 	private UserService userService;
 
-    @RequestMapping("user/query")
+    @SuppressWarnings("unchecked")
+	@RequestMapping("user/query")
     @ResponseBody
     public PaginationResult<UserEntity> queryUsers(){
     	PaginationQuery pageQuery = new PaginationQuery();
     	StringBuffer hql = new StringBuffer();
     	hql.append("from UserEntity u");
-    	PaginationResult<UserEntity> result = userService.queryByPagination(pageQuery, hql.toString());
+    	PaginationResult<UserEntity> result = (PaginationResult<UserEntity>) userService.queryByPagination(pageQuery, hql.toString());
         return result;
     }
     
