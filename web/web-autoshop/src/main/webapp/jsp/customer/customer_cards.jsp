@@ -13,8 +13,7 @@
 	<div class="kd-page">
 		<div class="kd-item">
 			<div class="kd-item-hd">
-				<i class="fa fa-credit-card fa-2x"></i><span>卡</span>
-				<i class="fa fa-angle-right fa-2x"></i>
+				<i class="fa fa-credit-card fa-2x"></i><span>我的卡包</span>
 				<span>全部(${fn:length(cards)})</span>
 			</div>
 			

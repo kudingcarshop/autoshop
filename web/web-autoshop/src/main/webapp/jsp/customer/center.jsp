@@ -24,7 +24,10 @@
 				<i class="fa fa-vimeo fa-2x"></i>  <span>会员积分</span> <span><fmt:formatNumber value="${user.integral}" pattern="###,###,###"></fmt:formatNumber>积分</span>
 			</div>
 			<div class="kd-items" onclick="javascript:window.location.href='${path}/customer/cards';">
-				<i class="fa fa-id-card fa-2x"></i> <i class="fa fa-angle-right fa-2x"></i> <span>我的卡包</span>
+				<i class="fa fa-credit-card fa-2x"></i> <i class="fa fa-angle-right fa-2x"></i> <span>我的卡包</span>
+			</div>
+			<div class="kd-items" onclick="javascript:window.location.href='${path}/customer/coupons';">
+				<i class="fa fa-money fa-2x"></i> <i class="fa fa-angle-right fa-2x"></i> <span>我的优惠券</span>
 			</div>
 			<div class="kd-items" onclick="javascript:window.location.href='${path}/customer/consumptions';">
 				<i class="fa fa-bar-chart fa-2x"></i> <i class="fa fa-angle-right fa-2x"></i> <span>消费记录</span>

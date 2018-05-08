@@ -237,6 +237,13 @@ public class CustomerAction extends BasicAction {
 		return mv;
 	}
 	
+	/**
+	 * 我的优惠券入口
+	 * @param req
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
 	@RequestMapping("coupons")
 	public ModelAndView coupons(HttpServletRequest req,Integer page, Integer rows) {
 		UserInfo user = getUserInfo(req.getSession());
