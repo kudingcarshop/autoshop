@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.kuding.garage.model.CouponFactoryEntity;
 import com.kuding.system.model.UserEntity;
 
@@ -26,10 +27,12 @@ public class CustomerCouponEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", updatable = false, insertable = true)
 	private UserEntity userEntity;
 
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "coupon_id", updatable = false, insertable = true)
 	private CouponFactoryEntity couponFactoryEntity;

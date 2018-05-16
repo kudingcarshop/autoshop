@@ -20,12 +20,15 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kuding.commons.BusinessException;
 import com.kuding.commons.ErrorCode;
+import com.kuding.commons.http.Result;
 import com.kuding.commons.login.UserInfo;
 import com.kuding.commons.pagination.PaginationQuery;
+import com.kuding.commons.pagination.PaginationResult;
 import com.kuding.customer.model.ConsumeRecordEntity;
 import com.kuding.customer.view.CustomerEditView;
 import com.kuding.garage.action.BasicAction;
@@ -245,7 +248,7 @@ public class CustomerAction extends BasicAction {
 	 * @return
 	 */
 	@RequestMapping("coupons")
-	public ModelAndView coupons(HttpServletRequest req,Integer page, Integer rows) {
+	public ModelAndView coupons(HttpServletRequest req) {
 		UserInfo user = getUserInfo(req.getSession());
 		if(user == null || user.getUserId() == null) {
 			throw new BusinessException(ErrorCode.SYS_ERROR);
@@ -254,13 +257,9 @@ public class CustomerAction extends BasicAction {
 		mv.setViewName("customer/customer_coupons");
 		
 		PaginationQuery query = new PaginationQuery();
-		if(page != null && page > 0) {
-			query.page =page;
-		}
 		
-		if(rows != null && rows > 0) {
-			query.rows = rows;
-		}
+		mv.getModel().put("page", query.page);
+		mv.getModel().put("rows", query.rows);
 		
 		//查询参数
 		query.mapParams.put("userId", user.getUserId());
@@ -273,6 +272,51 @@ public class CustomerAction extends BasicAction {
 				.append("order by coupons.couponGetTime desc ");
 		mv.getModel().put("result", service.queryByPagination(query, hql.toString()));
 		return mv;
+	}
+	
+	/**
+	 * 
+	 * @param req
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	@RequestMapping("coupons/list")
+	@ResponseBody
+	public Result couponsQuery(HttpServletRequest req, Integer page, Integer rows) {
+		Result result = new Result();
+		UserInfo user = getUserInfo(req.getSession());
+		if(user == null || user.getUserId() == null) {
+			return result;
+		}
+		
+		PaginationQuery query = new PaginationQuery();
+		/*if(page != null && page > 0) {
+			query.page =page;
+		}
+		
+		if(rows != null && rows > 0) {
+			query.rows = rows;
+		}*/
+		result.getExtraData().put("page", query.page);
+		result.getExtraData().put("rows", query.rows);
+		
+		//查询参数
+		query.mapParams.put("userId", user.getUserId());
+		
+		StringBuffer hql = new StringBuffer()
+				.append("select distinct coupons from CustomerCouponEntity coupons ")
+				.append("left join coupons.userEntity user ")
+				.append("where user.id = :userId ")
+				.append("group by coupons.couponGetTime  ")
+				.append("order by coupons.couponGetTime desc ");
+		PaginationResult<?> pgResult = service.queryByPagination(query, hql.toString());
+		if(pgResult != null) {
+			result.setRows(pgResult.getRows());
+			result.getExtraData().put("total", pgResult.getTotal());
+		}
+		result.setFlag(Result.FLAG_SUCCESS);
+		return result;
 	}
 	
 	/**
