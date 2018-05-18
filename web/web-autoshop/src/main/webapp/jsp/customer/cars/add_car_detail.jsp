@@ -5,6 +5,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<link rel="stylesheet" href="${path}/vendor/font-awesome/4.7.0/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="${path}/vendor/jquery-weui/1.2.0/lib/weui.min.css">
+	<link rel="stylesheet" href="${path}/vendor/jquery-weui/1.2.0/css/kd-jquery-weui.css">
 	<link rel="stylesheet" href="${path}/css/kuding/commons.css"/>
 	<link rel="stylesheet" href="${path}/css/kuding/customer/add_car_detail.css"/>
 </head>
@@ -38,9 +40,6 @@
 				<label>当前公里数：</label><input type="text" /><span>公里</span>
 			</div>
 			<div class="kd-bd-item">
-				<label>上次保养公里数：</label><input type="text" /><span>公里</span>
-			</div>
-			<div class="kd-bd-item">
 				<label>上次保养日期：</label><input type="text" id="maintainDate"/>
 			</div>
 			<div class="kd-bd-item">
@@ -57,5 +56,19 @@
 	</div>
 	<script src="${path}/vendor/jquery/jquery.min.js"></script>
 	<script src="${path}/vendor/kuding/setup_rem.js"></script>
+	<script src="${path}/vendor/jquery-weui/1.2.0/lib/fastclick.js"></script>
+	<script src="${path}/vendor/jquery-weui/1.2.0/js/jquery-weui.js"></script>
+	<script src="${path}/vendor/jquery-validation/jquery.validate.min.js"></script>
+	<script src="${path}/vendor/kuding/validate.js"></script>
+	<script type="text/javascript">
+	 $(function() {
+		    FastClick.attach(document.body);
+		    
+		    //服务端检验信息显示
+		    var msg = '${msg}';
+			showMessage('.kd-page', msg, '0');
+		  
+		  });
+	</script>
 </body>
 </html>

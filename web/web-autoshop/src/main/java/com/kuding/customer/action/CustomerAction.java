@@ -265,10 +265,13 @@ public class CustomerAction extends BasicAction {
 		query.mapParams.put("userId", user.getUserId());
 		
 		StringBuffer hql = new StringBuffer()
-				.append("select distinct coupons from CustomerCouponEntity coupons ")
-				.append("left join coupons.userEntity user ")
+				.append("select distinct new map(coupons.id as id, coupons.couponStatus as couponStatus,coupons.couponGetTime as couponGetTime, ")
+				.append("fact.couponName as couponName,fact.couponDesc as couponDesc,")
+				.append("fact.couponStartDate as couponStartDate,fact.couponEndDate as couponEndDate ) ")
+				.append("from CustomerCouponEntity coupons ")
+				.append("inner join coupons.userEntity user ")
+				.append("inner join coupons.couponFactoryEntity fact ")
 				.append("where user.id = :userId ")
-				.append("group by coupons.couponGetTime  ")
 				.append("order by coupons.couponGetTime desc ");
 		mv.getModel().put("result", service.queryByPagination(query, hql.toString()));
 		return mv;
@@ -291,13 +294,13 @@ public class CustomerAction extends BasicAction {
 		}
 		
 		PaginationQuery query = new PaginationQuery();
-		/*if(page != null && page > 0) {
+		if(page != null && page > 0) {
 			query.page =page;
 		}
 		
 		if(rows != null && rows > 0) {
 			query.rows = rows;
-		}*/
+		}
 		result.getExtraData().put("page", query.page);
 		result.getExtraData().put("rows", query.rows);
 		
@@ -305,10 +308,13 @@ public class CustomerAction extends BasicAction {
 		query.mapParams.put("userId", user.getUserId());
 		
 		StringBuffer hql = new StringBuffer()
-				.append("select distinct coupons from CustomerCouponEntity coupons ")
-				.append("left join coupons.userEntity user ")
+				.append("select distinct new map(coupons.id as id, coupons.couponStatus as couponStatus,coupons.couponGetTime as couponGetTime, ")
+				.append("fact.couponName as couponName,fact.couponDesc as couponDesc,")
+				.append("fact.couponStartDate as couponStartDate,fact.couponEndDate as couponEndDate ) ")
+				.append("from CustomerCouponEntity coupons ")
+				.append("inner join coupons.userEntity user ")
+				.append("inner join coupons.couponFactoryEntity fact ")
 				.append("where user.id = :userId ")
-				.append("group by coupons.couponGetTime  ")
 				.append("order by coupons.couponGetTime desc ");
 		PaginationResult<?> pgResult = service.queryByPagination(query, hql.toString());
 		if(pgResult != null) {

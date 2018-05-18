@@ -68,6 +68,10 @@ public class BasicService<T>{
 		int index = hql.indexOf("from");
 		if(index > -1){
 			String countHql = "select count(*) " + hql.substring(index);
+			int orderIndex = countHql.indexOf("order");
+			if(orderIndex > -1) {
+				countHql = countHql.substring(0, orderIndex);
+			}
 			Query countQuery = getSession().createQuery(countHql);
 			if(pageQuery.params != null && pageQuery.params.size() > 0) {
 				pushParams(countQuery,pageQuery.params);

@@ -87,3 +87,13 @@
 body{
 	margin-bottom: 0.3rem;
 }
+
+
+/**jquery-weui calendar调整*/
+.toolbar-inner .icon{
+	margin-top: 0.145rem;
+}
+
+.current-year-value{
+	line-height: 0.44rem;
+}

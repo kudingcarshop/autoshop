@@ -19,9 +19,9 @@
 					<c:forEach items="${result.rows }" var="item">
 						<div class="kd-item-bd">
 							<div>
-								<span>${item.couponFactoryEntity.couponName }</span> <span> ${item.couponFactoryEntity.couponDesc}</span>
+								<span>${item.couponName }</span> <span> ${item.couponDesc}</span>
 							</div>
-							<span class="kd-desc">可用时间：<fmt:formatDate value="${item.couponFactoryEntity.couponStartDate }" pattern="yyyy-MM-dd"/> - <fmt:formatDate value="${item.couponFactoryEntity.couponEndDate }" pattern="yyyy-MM-dd"/></span>
+							<span class="kd-desc">可用时间：<fmt:formatDate value="${item.couponStartDate }" pattern="yyyy-MM-dd"/> - <fmt:formatDate value="${item.couponEndDate }" pattern="yyyy-MM-dd"/></span>
 						</div>
 					</c:forEach>
 				</div>
@@ -48,51 +48,6 @@
 		$('#wrapper').height(height);
 	}
 	
-	//加载更多数据
-	function loadMore(){
-		var mydata = {rows:10};
-		if($('#wrapper').attr('page') != undefined){
-			mydata.page=parseInt($('#wrapper').attr('page'))+1;
-		}
-		//状态设置为加载中
-		$('#wrapper').attr('state','3');
-		console.log('state=' +$('#wrapper').attr('state') );
-		$('#footer').html('<i class="fa fa-spinner"></i>加载中');
-		//请求数据
-		$.ajax({
-			url:'${path}/customer/coupons/list',
-			method:'post',
-			data:mydata,
-			success:function(result){
-				if(result && result.flag=='1'){
-					if(result.extraData != undefined && result.extraData.total != undefined){
-						$('#total').text('全部('+result.extraData.total+')');
-					}
-					if(result.rows && result.rows.length > 0){
-						var len = result.rows.length;
-						var html = '';
-						for(var i =0 ; i< len; i++){
-								html = '<div class="kd-item-bd">'
-										    +'<div>'
-										    		+'<span>'+result.rows[i].couponFactoryEntity.couponName+'</span><span>'+result.rows[i].couponFactoryEntity.couponDesc+'</span>'
-										    +'</div>'
-										    +'<span class="kd-desc">可用时间：'+result.rows[i].couponFactoryEntity.couponStartDate+'-'+result.rows[i].couponFactoryEntity.couponEndDate+'</span>';
-									   +'</div>';
-								$('#scroller').append(html);
-						}
-					}
-				}
-				
-				//重置状态
-				$('#header').remove();
-				$('#footer').remove();
-				$('#wrapper').attr('state','0');
-				myscroll.refresh();
-			}
-		});
-		
-	}
-	
 	$(function(){
 		
 		//刷新状态 0-初始化 1-加载更多 2-刷新 3-加载中
@@ -109,39 +64,140 @@
 			mouseWheel:true,
 			click:true,
 			snap:'div',
+			 scrollbars: true,
 			mouseWheel: true		
 		});
 		//保证记录较少时依然能够滚动
 		myscroll.hasVerticalScroll = true;
 		
-		var lastY = 0;
+
+		//加载更多数据
+		function loadMore(){
+			var mydata = {page:1,rows:10};
+			if($('#wrapper').attr('page') != undefined){
+				mydata.page=parseInt($('#wrapper').attr('page'))+1;
+			}
+			if($('#wrapper').attr('rows') != undefined){
+				mydata.rows=parseInt($('#wrapper').attr('rows'));
+			}
+			//状态设置为加载中
+			$('#wrapper').attr('state','3');
+			console.log('state=' +$('#wrapper').attr('state') );
+			$('#footer').html('<i class="fa fa-spinner"></i>加载中');
+			//请求数据
+			$.ajax({
+				url:'${path}/customer/coupons/list',
+				method:'post',
+				data:mydata,
+				success:function(result){
+					if(result && result.flag=='1'){
+						if(result.extraData != undefined && result.extraData.total != undefined){
+							$('#total').text('全部('+result.extraData.total+')');
+						}
+						if(result.rows && result.rows.length > 0){
+							var len = result.rows.length;
+							var html = '';
+							for(var i =0 ; i< len; i++){
+									html = '<div class="kd-item-bd">'
+											    +'<div>'
+											    		+'<span>'+result.rows[i].couponName+'</span><span>'+result.rows[i].couponDesc+'</span>'
+											    +'</div>'
+											    +'<span class="kd-desc">可用时间：'+result.rows[i].couponStartDate+'-'+result.rows[i].couponEndDate+'</span>';
+										   +'</div>';
+									$('#scroller').append(html);
+							}
+							$('#wrapper').attr('page',mydata.page);
+							if(result.extraData.total != undefined){
+								$('#total').text('全部('+result.extraData.total+')');
+							}
+						}
+					}
+					
+					//重置状态
+					$('#header').remove();
+					$('#footer').remove();
+					$('#wrapper').attr('state','0');
+					var lastMaxScrollY = myscroll.maxScrollY;
+					myscroll.refresh();
+					myscroll.scrollTo(0, lastMaxScrollY, 500);
+				}
+			});
+			
+		}
 		
+		//刷新数据
+		function refresh(){
+			var mydata = {rows:10,page:1};
+			if($('#wrapper').attr('rows') != undefined){
+				mydata.rows=parseInt($('#wrapper').attr('rows'));
+			}
+			//状态设置为加载中
+			$('#wrapper').attr('state','3');
+			$('#header').html('<i class="fa fa-spinner"></i>加载中');
+			//请求数据
+			$.ajax({
+				url:'${path}/customer/coupons/list',
+				method:'post',
+				data:mydata,
+				success:function(result){
+					if(result && result.flag=='1'){
+						if(result.extraData != undefined && result.extraData.total != undefined){
+							$('#total').text('全部('+result.extraData.total+')');
+						}
+						$('.kd-item-bd').remove();
+						if(result.rows && result.rows.length > 0){
+							var len = result.rows.length;
+							var html = '';
+							for(var i =0 ; i< len; i++){
+									html = '<div class="kd-item-bd">'
+											    +'<div>'
+											    		+'<span>'+result.rows[i].couponName+'</span><span>'+result.rows[i].couponDesc+'</span>'
+											    +'</div>'
+											    +'<span class="kd-desc">可用时间：'+result.rows[i].couponStartDate+'-'+result.rows[i].couponEndDate+'</span>';
+										   +'</div>';
+									$('#scroller').append(html);
+							}
+							
+							if(result.extraData.total != undefined){
+								$('#total').text('全部('+result.extraData.total+')');
+							}
+						}
+					}
+					
+					//重置状态
+					$('#header').remove();
+					$('#footer').remove();
+					$('#wrapper').attr('state','0');
+					myscroll.refresh();
+				}
+			});
+			
+		}
+		
+		var lastY = 0;
 		myscroll.on('scroll',function(){
 			//加载中
 			if($('#wrapper').attr('state') == '3'){
 				return;
 			}
-			
 			//向上
-			if((this.y - lastY) < 0){
+			if(this.y <=0 && (this.y - lastY) < 0){
 				$('#header').remove();
 				//滚动到底部,添加提示
-				if(this.y > (this.maxScrollY-(0.1*basicSize))){
+				if(this.y <= (this.maxScrollY-0.16*basicSize) && this.y > (this.maxScrollY-0.25*basicSize)){
 					if($('#footer').length <= 0){
 						if(this.maxScrollY != 0){
 							$('#wrapper').after('<div id="footer" class="load-indicator" style="margin-bottom:16px;">上拉加载更多</div>');
 							resetWrapperHeight(0.16*basicSize);
-							myscroll.refresh();
 						}else{
 							$('#scroller').append('<div id="footer" class="load-indicator">上拉加载更多</div>');
 						}
 					}
-				}else if(this.y <= (this.maxScrollY-(0.2*basicSize)) ){
+				}else if(this.y <= (this.maxScrollY-0.25*basicSize) ){
 					if($('#footer').length <= 0){
 						if(this.maxScrollY != 0){
 							$('#wrapper').after('<div id="footer" class="load-indicator" >上拉加载更多</div>');
 							resetWrapperHeight(0.16*basicSize);
-							myscroll.refresh();
 						}else{
 							$('#scroller').append('<div id="footer" class="load-indicator">上拉加载更多</div>');
 						}
@@ -183,14 +239,8 @@
 			
 			//刷新
 			if($('#wrapper').attr('state') == '2'){
-				
+				refresh();
 			}
-			/*var indicator = $('#header').length > 0 ?  $('#header').html('<i class="fa fa-spinner"></i>加载中') : $('#footer').html('<i class="fa fa-spinner"></i>加载中');
-			setTimeout(function(){
-				$('#header').remove();
-				$('#footer').remove();
-				$('#wrapper').attr('state','0');
-			},2000);*/
 		});
 		
 		myscroll.on('refresh',function(){

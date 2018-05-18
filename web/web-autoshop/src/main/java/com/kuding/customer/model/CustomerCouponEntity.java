@@ -27,12 +27,10 @@ public class CustomerCouponEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", updatable = false, insertable = true)
 	private UserEntity userEntity;
 
-	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "coupon_id", updatable = false, insertable = true)
 	private CouponFactoryEntity couponFactoryEntity;

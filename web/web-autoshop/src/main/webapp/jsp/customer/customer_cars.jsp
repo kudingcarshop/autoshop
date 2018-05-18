@@ -45,7 +45,7 @@
 		<c:if test="${fn:length(vehicles)==0 }">
 			<p class="kd-no-data">未添加车辆</p>
 		</c:if>
-		<a class="kd-btn-add" href="${path}/customer/cars/add"><i class="fa fa-plus-circle fa-2x"></i></a>
+		<a class="kd-btn-add" href="${path}/customer/cars/addDetail"><i class="fa fa-plus-circle fa-2x"></i></a>
 	</div>
 	<script src="${path}/vendor/jquery/jquery.min.js"></script>
 	<script src="${path}/vendor/kuding/setup_rem.js"></script>
