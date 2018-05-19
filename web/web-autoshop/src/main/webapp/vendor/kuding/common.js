@@ -60,7 +60,7 @@ function showMessage(containerSelector, message, flag) {
 			} else {
 				$msg.addClass('kd-success');
 			}
-			$msg.text(message);
+			$msg.html(message);
 			$(containerSelector).prepend($msg);//显示提示信息
 			dissMessage();//自动隐藏
 		}

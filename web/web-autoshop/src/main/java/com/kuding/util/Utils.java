@@ -5,6 +5,10 @@ import java.util.Calendar;
 
 public class Utils {
 	
+	public static void main(String[] args) {
+		Utils.isNeedAnnualVertification(new Date(System.currentTimeMillis()));
+	}
+	
 	/**
 	 * 根据车辆注册日期判断是否需要提醒年检
 	 * @param date 车辆注册日期 
@@ -22,6 +26,12 @@ public class Utils {
 			
 			//车辆购买时常
 			long days = (deadline.getTime().getTime()-regCal.getTime().getTime())/1000/60/60/24;
+			
+			//注册日期为当天
+			if(days == 0) {
+				return false;
+			}
+			
 			//六年内新车
 			if(days/365<=6) {
 				//新车每隔两年需要年检
@@ -49,7 +59,7 @@ public class Utils {
 	}
 	
 	/**
-	 * 推算车辆年间日期
+	 * 推算车辆年检日期
 	 * @param date
 	 * @return
 	 */
@@ -65,8 +75,14 @@ public class Utils {
 			
 			//车辆购买时常
 			long days = (deadline.getTime().getTime()-regCal.getTime().getTime())/1000/60/60/24;
+			
+			//注册日期为当天,下一年开始年检
+			if(days==0) {
+				deadline.add(Calendar.YEAR, 1);
+			}
+			
 			//六年内新车
-			if(days/365<=6) {
+			if(days > 0 && days/365<=6) {
 				//不到两年间隔，则下一年年检
 				if(days/365%2>0) {
 					deadline.add(Calendar.YEAR, 1);
@@ -93,6 +109,12 @@ public class Utils {
 			Calendar deadline = Calendar.getInstance();
 			deadline.set(Calendar.MONTH, regCal.get(Calendar.MONTH));
 			deadline.set(Calendar.DAY_OF_MONTH,regCal.get(Calendar.DAY_OF_MONTH));
+			
+			//注册日期为当天
+			long days = (deadline.getTime().getTime()-regCal.getTime().getTime())/1000/60/60/24;
+			if(days==0) {
+				return false;
+			}
 
 			Calendar curCal = Calendar.getInstance();
 			//距离保险到期日天数
@@ -119,6 +141,12 @@ public class Utils {
 			Calendar deadline = Calendar.getInstance();
 			deadline.set(Calendar.MONTH, regCal.get(Calendar.MONTH));
 			deadline.set(Calendar.DAY_OF_MONTH,regCal.get(Calendar.DAY_OF_MONTH));
+			
+			//日期是当天
+			long days = (deadline.getTime().getTime()-regCal.getTime().getTime())/1000/60/60/24;
+			if(days==0) {
+				deadline.add(Calendar.YEAR, 1);
+			}
 			return new Date(deadline.getTimeInMillis());
 		}
 		return null;
@@ -161,6 +189,12 @@ public class Utils {
 			Calendar deadline = Calendar.getInstance();
 			deadline.set(Calendar.MONTH, regCal.get(Calendar.MONTH));
 			deadline.set(Calendar.DAY_OF_MONTH,regCal.get(Calendar.DAY_OF_MONTH));
+			//日期为当天
+			long days = (deadline.getTime().getTime()-regCal.getTime().getTime())/1000/60/60/24;
+			if(days==0) {
+				deadline.add(Calendar.MONTH, 6);
+			}
+			
 			
 			//到期日之前
 			Calendar preCal = Calendar.getInstance();

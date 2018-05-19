@@ -53,7 +53,6 @@ a{
 
 .kd-danger{
 	width:3.2rem;
-	height:0.23rem;
 	line-height:0.23rem;
 	padding:0.05rem;
 	background: rgb(242, 222, 222);
@@ -63,7 +62,6 @@ a{
 
 .kd-success{
 	width:3.2rem;
-	height:0.23rem;
 	line-height:0.23rem;
 	padding:0.05rem;
 	background: rgb(223, 240, 216);

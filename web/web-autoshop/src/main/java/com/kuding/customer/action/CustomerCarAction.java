@@ -24,6 +24,7 @@ import com.kuding.commons.BusinessException;
 import com.kuding.commons.ErrorCode;
 import com.kuding.commons.login.UserInfo;
 import com.kuding.customer.view.CarEditView;
+import com.kuding.customer.view.CarSaveView;
 import com.kuding.garage.action.BasicAction;
 import com.kuding.garage.model.VehicleEntity;
 import com.kuding.garage.service.CustomerService;
@@ -49,25 +50,86 @@ public class CustomerCarAction extends BasicAction {
 		binder.registerCustomEditor(java.sql.Date.class, new CustomDateEditor(new SqlDateFormat("yyyy-MM-dd"), true));
 	}
 	
+	/**
+	 * 手动添加车辆入口
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("cars/add")
-	public ModelAndView add(HttpServletRequest req) {
-		UserInfo user = getUserInfo(req.getSession());
-		if(user == null || user.getUserId() == null) {
-			throw new BusinessException(ErrorCode.SYS_ERROR);
-		}
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("customer/cars/add_car");
-		return mv;
-	}
-	
-	@RequestMapping("cars/addDetail")
 	public ModelAndView addDetail(HttpServletRequest req) {
 		UserInfo user = getUserInfo(req.getSession());
 		if(user == null || user.getUserId() == null) {
 			throw new BusinessException(ErrorCode.SYS_ERROR);
 		}
 		ModelAndView mv = new ModelAndView();
+		CarSaveView carView = new CarSaveView();
+		carView.setName(user.getUserName());
+		mv.getModel().put("carView",carView);
 		mv.setViewName("customer/cars/add_car_detail");
+		return mv;
+	}
+	
+	/***
+	 * 手动添加车辆
+	 * @param req
+	 * @param saveView
+	 * @param bindingResult
+	 * @return
+	 */
+	@RequestMapping("cars/add/save")
+	public ModelAndView saveCar(HttpServletRequest req,@ModelAttribute(name="carView") @Validated CarSaveView saveView,BindingResult bindingResult) {
+		UserInfo user = getUserInfo(req.getSession());
+		if(user == null || user.getUserId() == null) {
+			throw new BusinessException(ErrorCode.SYS_ERROR);
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("customer/cars/add_car_detail");
+		StringBuffer errors = new StringBuffer();
+		
+		//常规数据校验
+		String basicError = combineErrors(bindingResult);
+		if(basicError != null) {
+			errors.append(basicError);
+		}
+		
+		//车牌号码相同
+		if(vehService.isPlateNumberExist(saveView.getPlateNumber())) {
+			if(errors.length() > 0) {
+				errors.append("<br>");
+			}
+			errors.append(getMessage(req,"customer.cars.add.save.palteNumber_exist"));
+		}
+		//车架号
+		if(vehService.isVINExist(saveView.getVin())) {
+			if(errors.length() > 0) {
+				errors.append("<br>");
+			}
+			errors.append(getMessage(req,"customer.cars.add.save.vin_exist"));
+		}
+		//发动机号
+		if(vehService.isEngineNumberExist(saveView.getEngineNumber())) {
+			if(errors.length() > 0) {
+				errors.append("<br>");
+			}
+			errors.append(getMessage(req,"customer.cars.add.save.engineNumber_exist"));
+		}
+		if(errors.length() > 0) {
+			mv.getModel().put("msg", errors.toString());
+			return mv;
+		}
+		
+		VehicleEntity veh = new VehicleEntity();
+		veh.setPlateNumber(saveView.getPlateNumber());
+		veh.setRegisterDate(saveView.getRegisterDate());
+		veh.setVin(saveView.getVin());
+		veh.setEngineNumber(saveView.getEngineNumber());
+		veh.setLastMileage(saveView.getLastMileage());
+		veh.setLastMaintainDate(saveView.getLastMaintainDate());
+		veh.setLastBeautyDate(saveView.getLastBeautyDate());	
+		veh.setTireServiceYear(getPassDate(saveView.getTireYears()));
+		veh.setBatteryServiceYear(getPassDate(saveView.getBatteryYears()));
+		mv.setViewName("redirect:/customer/cars/");
+		vehService.saveVehicleInfo(veh, user.getUserId());
 		return mv;
 	}
 	
@@ -148,9 +210,13 @@ public class CustomerCarAction extends BasicAction {
 			carEdit.setName(veh.getUser() != null ? veh.getUser().getName() : "");
 			carEdit.setRegisterDate(veh.getRegisterDate());
 			//计算电池使用年限
-			carEdit.setBatteryYears((Calendar.getInstance().getTimeInMillis()-veh.getBatteryServiceYear().getTime())/1000/60/60/24/365.00);
+			if(veh.getBatteryServiceYear() != null) {
+				carEdit.setBatteryYears((Calendar.getInstance().getTimeInMillis()-veh.getBatteryServiceYear().getTime())/1000/60/60/24/365.00);
+			}
 			//计算轮胎使用年限
-			carEdit.setTireYears( (Calendar.getInstance().getTimeInMillis()-veh.getTireServiceYear().getTime())/1000/60/60/24/365.00);
+			if(veh.getTireServiceYear() != null) {
+				carEdit.setTireYears( (Calendar.getInstance().getTimeInMillis()-veh.getTireServiceYear().getTime())/1000/60/60/24/365.00);
+			}
 			carEdit.setLastMileage(veh.getLastMileage());
 			carEdit.setLastMaintainDate(veh.getLastMaintainDate());
 			carEdit.setLastBeautyDate(veh.getLastBeautyDate());
@@ -214,7 +280,7 @@ public class CustomerCarAction extends BasicAction {
 	}
 	
 	public static Date getPassDate(Double year) {
-		if(year != null && year > 0) {
+		if(year != null && year >= 0) {
 			Calendar cur = Calendar.getInstance();
 			Double milseconds = year*365*24*60*60*1000;
 			return new Date((long)(cur.getTimeInMillis()-milseconds));

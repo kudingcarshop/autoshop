@@ -236,4 +236,55 @@ public class VehicleService extends BasicService<VehicleEntity> {
 		
 	}
 	
+	/**
+	 * 判断车架号是否存在
+	 * @param plateNumber
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public boolean isVINExist(String vin) {
+		if(StringUtils.isAllEmpty(vin)) {
+			throw new BusinessException("vin number is null ", ErrorCode.BIZ_VEH_PLATENO_NULL);
+		}
+		StringBuffer hql = new StringBuffer("from VehicleEntity vehicle where vehicle.vin=:vin ");
+		Query query = getSession().createQuery(hql.toString());
+		query.setString("vin", vin);
+		List<?> list = query.list();
+		return list != null && list.size() > 0 ;
+	}
+	
+	/**
+	 * 判断发动机号是否存在
+	 * @param plateNumber
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public boolean isEngineNumberExist(String engineNumber) {
+		if(StringUtils.isAllEmpty(engineNumber)) {
+			throw new BusinessException("engine number is null ", ErrorCode.BIZ_VEH_PLATENO_NULL);
+		}
+		StringBuffer hql = new StringBuffer("from VehicleEntity vehicle where vehicle.engineNumber=:engineNumber ");
+		Query query = getSession().createQuery(hql.toString());
+		query.setString("engineNumber", engineNumber);
+		List<?> list = query.list();
+		return list != null && list.size() > 0 ;
+	}
+	
+	/**
+	 * 客户添加车辆
+	 * @param veh
+	 * @param userId
+	 */
+	@Transactional(readOnly=false, rollbackFor = { Exception.class, RuntimeException.class })
+	public void saveVehicleInfo(VehicleEntity veh, Integer userId) {
+		if(userId != null && veh != null) {
+			UserEntity user = (UserEntity) getSession().get(UserEntity.class, userId);
+			if(user == null) {
+				throw new BusinessException("The current user is not exist");
+			}
+			veh.setUser(user);
+			getSession().save(veh);
+		}
+	}
+	
 }
